@@ -15,6 +15,6 @@ public class IndexController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showIndex() {
-		return "redirect:/index.html";
+		return "redirect:/src/index.html";
 	}
 }

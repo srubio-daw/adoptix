@@ -1,4 +1,4 @@
-package tk.isthar.adoptix.initializer;
+package tk.srubio.adoptix.initializer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
