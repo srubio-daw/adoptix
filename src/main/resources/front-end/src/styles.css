@@ -1,0 +1,58 @@
+html, body, h1.title {
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+	background-color: #C1BDB9;
+}
+
+/* HEADER */
+header {
+	background: #FA8C19; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(left top, #FA8C19, #FFC61F); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, #FA8C19, #FFC61F); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, #FA8C19, #FFC61F); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(to bottom right, #FA8C19, #FFC61F); /* Standard syntax */
+	color: white;
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	padding: 5px 20px;
+	margin: 2% 5% 0 5%;
+	height: 10%;
+}
+
+menu {
+	background-color: #FA8C19;
+	padding: 5px 20px;
+	margin: 0 5% 0 5%;
+	height: 5%;
+}
+
+img.logo {
+	/* TODO: ajustar a tamaño de pantallas pequeñas*/
+	max-height: 100px;
+}
+
+/* CONTENT */
+section {
+	border: solid 10px #FA8C19;
+	background-color: white;
+	color: white;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	padding: 5px 20px;
+	margin: 0 5% 2% 5%;
+	min-height: 55%;
+}
+
+/* FOOTER */
+footer {
+	border-radius: 15px;
+	background-color: #8AE65E;
+	color: white;
+	text-align: center;
+	padding: 5px 20px;
+	margin: 2% 5% 0 5%;
+}
