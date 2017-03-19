@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "prod": "ng build --target=production"
+    "prod": "npm install && ng build --target=production"
   },
   "private": true,
   "dependencies": {
