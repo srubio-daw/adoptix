@@ -3,3 +3,6 @@ target/
 .project
 .settings/
 **/.DS_Store
+/lib/
+/bin/
+/node/
