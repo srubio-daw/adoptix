@@ -6,4 +6,5 @@ target/
 /lib/
 /bin/
 /node/
-src/main/webapp/**/*
+src/main/webapp/*
+!src/main/webapp/.keep
