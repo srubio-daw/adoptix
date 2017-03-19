@@ -6,3 +6,4 @@ target/
 /lib/
 /bin/
 /node/
+src/main/webapp/**/*
