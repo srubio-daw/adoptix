@@ -1,12 +1,16 @@
-DROP TABLE IF EXISTS "user";
+DROP TABLE IF EXISTS security.web_user;
 DROP TABLE IF EXISTS province;
+
+DROP SCHEMA IF EXISTS security;
 
 CREATE TABLE province (
 	id serial NOT NULL PRIMARY KEY,
 	name character varying(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE "user" (
+CREATE SCHEMA security;
+
+CREATE TABLE security.web_user (
 	id serial NOT NULL PRIMARY KEY,
 	name character varying(25) NOT NULL,
 	surname character varying(80),

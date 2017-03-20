@@ -22,6 +22,7 @@ public class AppInitializer implements WebApplicationInitializer {
 				new DispatcherServlet(context));
 				
 		registration.setLoadOnStartup(1);
+		registration.addMapping("/*");
 		registration.addMapping("*.html");
 	}
 	

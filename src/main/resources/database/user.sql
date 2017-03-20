@@ -1,4 +1,6 @@
-CREATE TABLE "user" (
+CREATE SCHEMA IF NOT EXISTS security.web_user;
+
+CREATE TABLE security.web_user (
 	id serial NOT NULL PRIMARY KEY,
 	name character varying(25) NOT NULL,
 	surname character varying(80),
