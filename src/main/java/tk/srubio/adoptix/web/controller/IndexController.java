@@ -8,11 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class IndexController {
 	
-	@RequestMapping("/holaMundo")
-	public @ResponseBody String holaMundo() {
-		return "Hola mundo";
-	}
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showIndex() {
 		return "redirect:/index.html";

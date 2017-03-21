@@ -53,3 +53,6 @@ VALUES
 	('Valladolid'),
 	('Zamora'),
 	('Zaragoza');
+	
+-- ROLES
+INSERT INTO security.role (name) VALUES ('usuario'), ('asociacion');
