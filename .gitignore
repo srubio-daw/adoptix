@@ -3,6 +3,6 @@ target/
 .project
 .settings/
 **/.DS_Store
-/lib/
-/bin/
-/node/
+src/main/resources/front-end/lib/
+src/main/resources/front-end/bin/
+src/main/resources/front-end/node/
