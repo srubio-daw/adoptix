@@ -1,13 +1,22 @@
 import { Component, ViewContainerRef } from '@angular/core';
 
 // MODULES
-import {Md5} from 'ts-md5/dist/md5';
+import { Md5 } from 'ts-md5/dist/md5';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'menu',
   templateUrl: 'menu.html'
 })
 export class MenuComponent {
+	constructor(translate: TranslateService) {
+        // this language will be used as a fallback when a translation isn't found in the current language
+        translate.setDefaultLang('es');
+
+         // the lang to use, if the lang isn't available, it will use the current loader to get them
+        translate.use('es');
+    }
+
 	public user : any = {};
 	public provinces : any = [];
 

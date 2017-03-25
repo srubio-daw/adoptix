@@ -1,0 +1,27 @@
+{
+	"menu": {
+		"login": "Log in",
+		"createUser": "New user"
+	},
+	"button": {
+		"cancel": "Cancel"
+	},
+	"login": {
+		"mail": "Mail",
+		"password": "Password"
+	},
+	"register": {
+		"association": "Are you member of an association?",
+		"name": "Name",
+		"surname": "Surname",
+		"id": "ID",
+		"address": "Address",
+		"province": "Province",
+		"passwordRepeat": "Repeat password",
+		"username": "Nickname",
+		"createUser": "Create user"
+	},
+	"form": {
+		"required": "This field is required"
+	}
+}

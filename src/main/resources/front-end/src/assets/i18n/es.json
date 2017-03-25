@@ -1,0 +1,27 @@
+{
+	"menu": {
+		"login": "Iniciar sesión",
+		"createUser": "Nuevo usuario"
+	},
+	"button": {
+		"cancel": "Cancelar"
+	},
+	"login": {
+		"mail": "Email",
+		"password": "Contraseña"
+	},
+	"register": {
+		"association": "¿Eres de una ascociación?",
+		"name": "Nombre",
+		"surname": "Apellidos",
+		"id": "NIF",
+		"address": "Dirección",
+		"province": "Provincia",
+		"passwordRepeat": "Repite contraseña",
+		"username": "Usuario",
+		"createUser": "Crear usuario"
+	},
+	"form": {
+		"required": "Este campo es obligatorio"
+	}
+}
