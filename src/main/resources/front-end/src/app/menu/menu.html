@@ -1,1 +1,120 @@
-Prueba
+<div class="row">
+	<div class="pull-right">
+		<button class="btn btn-default" (click)="login.open()">Iniciar sesión</button>
+		<button class="btn btn-default" (click)="register.open()">Nuevo usuario</button>
+	</div>
+</div>
+
+<!-- Modal de registro -->
+<modal #register (onClose)="registerUser(user)" (onDismiss)="resetForm(registerForm)">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Registro</h4>
+    </modal-header>
+    <modal-body>
+    	<form class="form-horizontal" #registerForm="ngForm">
+    		<div class="form-group" [ngClass]="{'has-error': association.errors && (association.dirty ||association.touched)}">
+				<label class="col-md-5 text-right">¿Eres de una asociación?</label>
+				<div class="col-md-2 col-md-offset-1">
+					<label>Si <input type="radio" name="association" value="yes" required [(ngModel)]="user.association" #association="ngModel"></label>
+				</div>
+				<div class="col-md-2">
+					<label>No <input type="radio" name="association" value="no" required [(ngModel)]="user.association"></label>
+				</div><br>
+				<div class="col-md-offset-1">
+					<span class="help-block" *ngIf="association.errors && (association.dirty ||association.touched)">Este campo es obligatorio</span>
+				</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-4">Nombre</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="name" type="text" required [(ngModel)]="user.name">
+    			</div>
+    		</div>
+    		<div class="form-group" *ngIf="user.association=='no'">
+    			<label class="control-label col-md-4">Apellidos</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="surname" type="text" required="user.association=='no'" [(ngModel)]="user.surname">
+    			</div>
+    		</div>
+    		<div class="form-group" *ngIf="user.association=='yes'">
+    			<label class="control-label col-md-4">NIF</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="nif" type="text" required="user.association=='yes'" [(ngModel)]="user.nif">
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-4">Dirección</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="address" type="text" required [(ngModel)]="user.address">
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-4">Provincia</label>
+    			<div class="col-md-8">
+    				<select name="province" class="form-control" required [(ngModel)]="user.province">
+    					<option value="0">- Selecciona una -</option>
+    					<option value="1">Huesca</option>
+    					<option value="2">Zaragoza</option>
+    				</select>
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-4">Nombre de usuario</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="username" type="text" required [(ngModel)]="user.username">
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-4">Email</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="mail" type="mail" required [(ngModel)]="user.mail">
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-4">Contraseña</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="password" type="password" required [(ngModel)]="user.password">
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="col-md-4 text-right">Repetición de contraseña</label>
+    			<div class="col-md-8">
+    				<input class="form-control" name="password2" type="password" required [(ngModel)]="user.passwordRepeat">
+    			</div>
+    		</div>
+    	</form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(registerForm)">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="registerUser(user, registerForm, register)">Crear usuario</button>
+    </modal-footer>
+</modal>
+
+<!-- Modal de inicio de sesión -->
+<modal #login>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Login</h4>
+    </modal-header>
+    <modal-body>
+    	<form class="form-horizontal" #loginForm="ngForm">
+        	<div class="form-group" [ngClass]="{'has-error': mail.errors && (mail.dirty || mail.touched)}">
+    			<label class="control-label col-md-3">Email</label>
+    			<div class="col-md-9">
+    				<input class="form-control" name="mail" type="mail" required [(ngModel)]="user.mail" #mail="ngModel">
+    				<span class="help-block" *ngIf="mail.errors && (mail.dirty || mail.touched)">Este campo es obligatorio</span>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': password.errors && (password.dirty || password.touched)}">
+    			<label class="control-label col-md-3">Contraseña</label>
+    			<div class="col-md-9">
+    				<input class="form-control" name="password" type="password" required [(ngModel)]="user.password" #password="ngModel">
+    				<span class="help-block" *ngIf="password.errors && (password.dirty || password.touched)">Este campo es obligatorio</span>
+    			</div>
+    		</div>
+    	</form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(loginForm)">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="loginUser(user, loginForm, login)">Iniciar sesión</button>
+    </modal-footer>
+</modal>
