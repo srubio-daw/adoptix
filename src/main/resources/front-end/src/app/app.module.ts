@@ -38,6 +38,7 @@ export function HttpLoaderFactory(http: Http) {
   	ContentComponent, 
   	FooterComponent, 
   	MenuComponent
+
   ],
   bootstrap: [
   	HeaderComponent, 

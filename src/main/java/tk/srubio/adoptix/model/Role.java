@@ -9,24 +9,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 /**
- * The persistent class for the province database table.
+ * The persistent class for the role database table.
  * 
  */
 @Entity
-@Table(name="province")
-public class Province implements Serializable {
+@Table(name = "role")
+public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private byte id;
 	private String name;
 
-	public Province() {
+	public Role() {
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(unique = true, nullable = false)
 	public byte getId() {
 		return this.id;
 	}
@@ -35,7 +34,7 @@ public class Province implements Serializable {
 		this.id = id;
 	}
 
-	@Column(nullable=false, length=50)
+	@Column(nullable = false, length = 20)
 	public String getName() {
 		return this.name;
 	}

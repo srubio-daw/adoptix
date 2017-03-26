@@ -55,4 +55,4 @@ VALUES
 	('Zaragoza');
 	
 -- ROLES
-INSERT INTO security.role (name) VALUES ('usuario'), ('asociacion');
+INSERT INTO role (name) VALUES ('usuario'), ('asociacion');
