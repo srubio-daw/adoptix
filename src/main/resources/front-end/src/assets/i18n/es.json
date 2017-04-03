@@ -22,6 +22,7 @@
 		"createUser": "Crear usuario"
 	},
 	"form": {
-		"required": "Este campo es obligatorio"
+		"required": "Este campo es obligatorio",
+		"maxLength": "La longitud no puede ser mayor de {{maxLength}}"
 	}
 }

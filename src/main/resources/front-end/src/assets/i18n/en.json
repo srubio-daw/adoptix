@@ -22,6 +22,7 @@
 		"createUser": "Create user"
 	},
 	"form": {
-		"required": "This field is required"
+		"required": "This field is required",
+		"maxLength": "Length can not be greater than {{maxLength}}"
 	}
 }

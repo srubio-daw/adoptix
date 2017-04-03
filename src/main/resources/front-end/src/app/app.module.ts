@@ -1,7 +1,7 @@
 // BASE ANGULAR
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 
 // COMPONENTES
@@ -24,6 +24,7 @@ export function HttpLoaderFactory(http: Http) {
   	BrowserModule,
   	Ng2Bs3ModalModule,
   	FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     TranslateModule.forRoot({
       loader: {

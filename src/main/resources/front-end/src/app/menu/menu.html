@@ -6,94 +6,93 @@
 </div>
 
 <!-- Modal de registro -->
-<modal #register (onClose)="registerUser(user)" (onDismiss)="resetForm(registerForm)">
+<modal #register (onClose)="submitRegisterForm(registerForm, register)" (onDismiss)="resetForm(registerForm)">
     <modal-header [show-close]="true">
         <h4 class="modal-title"><span translate="menu.login"></span></h4>
     </modal-header>
     <modal-body>
-    	<form class="form-horizontal" #registerForm="ngForm">
-    		<div class="form-group" [ngClass]="{'has-error': association.errors && (association.dirty ||association.touched)}">
+    	<form class="form-horizontal" [formGroup]="registerForm">
+    		<div class="form-group" [ngClass]="{'has-error': association.touched && !association.valid}">
 				<label class="control-label col-md-5 text-right"><span translate="register.association"></span></label>
-				<label class="control-label label-inline col-md-2">Si <input type="radio" name="association" value="yes" required [(ngModel)]="user.association" #association="ngModel"></label>
-				<label class="control-label label-inline col-md-2">No <input type="radio" name="association" value="no" required [(ngModel)]="user.association"></label>
+				<label class="control-label label-inline col-md-2">Si <input type="radio" value="yes" [formControl]="association"></label>
+				<label class="control-label label-inline col-md-2">No <input type="radio" value="no" [formControl]="association"></label>
 				<div class="row">
 					<div class="col-md-7 col-md-offset-4">
-						<span class="help-block" *ngIf="association.errors && (association.dirty ||association.touched)" translate="form.required"></span>
+						<span class="help-block" *ngIf="association.touched && !association.valid" translate="form.required"></span>
 					</div>
 				</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': name.errors && (name.dirty ||name.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': name.touched && !name.valid}">
     			<label class="control-label col-md-4"><span translate="register.name"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="name" type="text" required [(ngModel)]="user.name" #name="ngModel">
-    				<span class="help-block" *ngIf="name.errors && (name.dirty ||name.touched)" translate="form.required"></span>
+    				<input class="form-control" type="text" [formControl]="name">
+    				<span class="help-block" *ngIf="name.touched && !name.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" *ngIf="user.association=='no'" [ngClass]="{'has-error': surname.errors && (surname.dirty ||surname.touched)}">
+    		<div class="form-group" *ngIf="association.value=='no'" [ngClass]="{'has-error': surname.touched && !surname.valid}">
     			<label class="control-label col-md-4"><span translate="register.surname"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="surname" type="text" required="user.association=='no'" [(ngModel)]="user.surname" #surname="ngModel">
-    				<span class="help-block" *ngIf="surname.errors && (surname.dirty ||surname.touched)" translate="form.required"></span>
+    				<input class="form-control" type="text" [formControl]="surname">
+    				<span class="help-block" *ngIf="surname.touched && !surname.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" *ngIf="user.association=='yes'" [ngClass]="{'has-error': nif.errors && (nif.dirty ||nif.touched)}">
+    		<div class="form-group" *ngIf="association.value=='yes'" [ngClass]="{'has-error': nif.touched && !nif.valid}">
     			<label class="control-label col-md-4"><span translate="register.id"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="nif" type="text" required="user.association=='yes'" [(ngModel)]="user.nif" #nif="ngModel">
-    				<span class="help-block" *ngIf="nif.errors && (nif.dirty ||nif.touched)" translate="form.required"></span>
+    				<input class="form-control" type="text" [formControl]="nif">
+    				<span class="help-block" *ngIf="nif.touched && !nif.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': address.errors && (address.dirty ||address.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': address.touched && !address.valid}">
     			<label class="control-label col-md-4"><span translate="register.address"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="address" type="text" required [(ngModel)]="user.address" #address="ngModel">
-    				<span class="help-block" *ngIf="address.errors && (address.dirty ||address.touched)" translate="form.required"></span>
+    				<input class="form-control" type="text" [formControl]="address">
+    				<span class="help-block" *ngIf="address.touched && !address.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': province.errors && (province.dirty ||province.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': province.touched && !province.valid}">
     			<label class="control-label col-md-4"><span translate="register.province"></span></label>
     			<div class="col-md-8">
-    				<select name="province" class="form-control" required [(ngModel)]="user.province" #province="ngModel">
+    				<select class="form-control" [formControl]="province">
     					<option value="0">- Selecciona una -</option>
-    					<option value="1">Huesca</option>
-    					<option value="2">Zaragoza</option>
+    					<option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
     				</select>
-    				<span class="help-block" *ngIf="province.errors && (province.dirty ||province.touched)" translate="form.required"></span>
+    				<span class="help-block" *ngIf="province.touched && !province.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': username.errors && (username.dirty ||username.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': username.touched && !username.valid}">
     			<label class="control-label col-md-4"><span translate="register.username"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="username" type="text" required [(ngModel)]="user.username" #username="ngModel">
-    				<span class="help-block" *ngIf="username.errors && (username.dirty ||username.touched)" translate="form.required"></span>
+    				<input class="form-control" type="text" [formControl]="username">
+    				<span class="help-block" *ngIf="username.touched && !username.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': mail.errors && (mail.dirty ||mail.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': registerMail.touched && !registerMail.valid}">
     			<label class="control-label col-md-4"><span translate="login.mail"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="mail" type="mail" required [(ngModel)]="user.mail" #mail="ngModel">
-    				<span class="help-block" *ngIf="mail.errors && (mail.dirty ||mail.touched)" translate="form.required"></span>
+    				<input class="form-control" type="mail" [formControl]="registerMail">
+    				<span class="help-block" *ngIf="registerMail.touched && !registerMail.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': password.errors && (password.dirty ||password.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': registerPass.touched && !registerPass.valid}">
     			<label class="control-label col-md-4"><span translate="login.password"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="password" type="password" required [(ngModel)]="user.password" #password="ngModel">
-    				<span class="help-block" *ngIf="password.errors && (password.dirty || password.touched)" translate="form.required"></span>
+    				<input class="form-control" type="password" [formControl]="registerPass">
+    				<span class="help-block" *ngIf="registerPass.touched && !registerPass.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': passwordRepeat.errors && (passwordRepeat.dirty ||passwordRepeat.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': passRepeat.touched && !passRepeat.valid}">
     			<label class="control-label col-md-4"><span translate="register.passwordRepeat"></span></label>
     			<div class="col-md-8">
-    				<input class="form-control" name="password2" type="password" required [(ngModel)]="user.password2" #passwordRepeat="ngModel">
-    				<span class="help-block" *ngIf="passwordRepeat.errors && (passwordRepeat.dirty ||passwordRepeat.touched)" translate="form.required"></span>
+    				<input class="form-control" type="password" [formControl]="passRepeat">
+    				<span class="help-block" *ngIf="passRepeat.touched && !passRepeat.valid" translate="form.required"></span>
     			</div>
     		</div>
     	</form>
     </modal-body>
     <modal-footer [show-default-buttons]="false">
     	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(registerForm)"><span translate="button.cancel"></span></button>
-        <button type="button" class="btn btn-primary" (click)="registerUser(user, registerForm, register)"><span translate="register.createUser"></span></button>
+        <button type="button" class="btn btn-primary" (click)="registerUser(registerForm, register)" [disabled]="!registerForm.valid"><span translate="register.createUser"></span></button>
     </modal-footer>
 </modal>
 
@@ -103,25 +102,32 @@
         <h4 class="modal-title"><span translate="menu.login"></span></h4>
     </modal-header>
     <modal-body>
-    	<form class="form-horizontal" #loginForm="ngForm">
-        	<div class="form-group" [ngClass]="{'has-error': loginMail.errors && (loginMail.dirty || loginMail.touched)}">
+    	<form class="form-horizontal" [formGroup]="loginForm">
+        	<div class="form-group" [ngClass]="{'has-error': loginMail.touched && !loginMail.valid}">
     			<label class="control-label col-md-3"><span translate="login.mail"></span></label>
     			<div class="col-md-9">
-    				<input class="form-control" name="mail" type="mail" required [(ngModel)]="user.mail" #loginMail="ngModel">
-    				<span class="help-block" *ngIf="loginMail.errors && (loginMail.dirty || loginMail.touched)" translate="form.required"></span>
+    				<input class="form-control" type="mail" [formControl]="loginMail">
+                    <div *ngIf="loginMail.touched && !loginMail.valid">
+                        <span class="help-block" *ngIf="loginMail.hasError('required')" translate="form.required"></span>
+                        <span class="help-block" *ngIf="loginMail.hasError('maxlength')" translate="form.maxLength" [translateParams]="{maxLength: 150}"></span>
+                    </div>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': loginPassword.errors && (loginPassword.dirty ||loginPassword.touched)}">
+    		<div class="form-group" [ngClass]="{'has-error': loginPass.touched && !loginPass.valid}">
     			<label class="control-label col-md-3"><span translate="login.password"></span></label>
     			<div class="col-md-9">
-    				<input class="form-control" name="loginPassword" type="password" required [(ngModel)]="user.password" #loginPassword="ngModel">
-    				<span class="help-block" *ngIf="loginPassword.errors && (loginPassword.dirty ||loginPassword.touched)" translate="form.required"></span>
+    				<input class="form-control" type="password" [formControl]="loginPass">
+                    <span class="help-block" *ngIf="loginPass.touched && !loginPass.valid" translate="form.required"></span>
     			</div>
     		</div>
     	</form>
     </modal-body>
     <modal-footer [show-default-buttons]="false">
-    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(loginForm)"><span translate="button.cancel"></span></button>
-        <button type="button" class="btn btn-primary" (click)="loginUser(user, loginForm, login)"><span translate="menu.login"></span></button>
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(loginForm)">
+            <span translate="button.cancel"></span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submitLoginForm(loginForm, login)" [disabled]="!loginForm.valid">
+            <span translate="menu.login"></span>
+        </button>
     </modal-footer>
 </modal>
