@@ -53,8 +53,8 @@
     		<div class="form-group" [ngClass]="{'has-error': province.touched && !province.valid}">
     			<label class="control-label col-md-4"><span translate="register.province"></span></label>
     			<div class="col-md-8">
-    				<select class="form-control" [formControl]="province">
-    					<option value="0">- Selecciona una -</option>
+    				<select class="form-control" [formControl]="province" placeholder="Selecciona una provincia">
+                        <option value="0">{{'register.selectProvince' | translate}}
     					<option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
     				</select>
     				<span class="help-block" *ngIf="province.touched && !province.valid" translate="form.required"></span>
@@ -77,28 +77,30 @@
                     </div>
     			</div>
     		</div>
-    		<div class="form-group" [ngClass]="{'has-error': registerPass.touched && !registerPass.valid}">
-    			<label class="control-label col-md-4"><span translate="login.password"></span></label>
-    			<div class="col-md-8">
-    				<input class="form-control" type="password" [formControl]="registerPass">
-    				<span class="help-block" *ngIf="registerPass.touched && !registerPass.valid" translate="form.required"></span>
-    			</div>
-    		</div>
-    		<div class="form-group" [ngClass]="{'has-error': passRepeat.touched && !passRepeat.valid}">
-    			<label class="control-label col-md-4"><span translate="register.passwordRepeat"></span></label>
-    			<div class="col-md-8">
-    				<input class="form-control" type="password" [formControl]="passRepeat">
-                    <div *ngIf="passRepeat.touched && !passRepeat.valid">
-                        <span class="help-block" *ngIf="passRepeat.hasError('required')" translate="form.required"></span>
-                        <span class="help-block" *ngIf="passRepeat.hasError('passwordRepeat')" translate="form.repeatPassword"></span>
-                    </div>
-    			</div>
-    		</div>
+            <div [formGroup]="passwords">
+        		<div class="form-group" [ngClass]="{'has-error': registerPass.touched && !registerPass.valid}">
+        			<label class="control-label col-md-4"><span translate="login.password"></span></label>
+        			<div class="col-md-8">
+        				<input class="form-control" type="password" [formControl]="registerPass">
+        				<span class="help-block" *ngIf="registerPass.touched && !registerPass.valid" translate="form.required"></span>
+        			</div>
+        		</div>
+        		<div class="form-group" [ngClass]="{'has-error': passRepeat.touched && (!passRepeat.valid || passwords.hasError('matchingPasswords'))}">
+        			<label class="control-label col-md-4"><span translate="register.passwordRepeat"></span></label>
+        			<div class="col-md-8">
+        				<input class="form-control" type="password" [formControl]="passRepeat">
+                        <div *ngIf="passRepeat.touched">
+                            <span class="help-block" *ngIf="passRepeat.hasError('required')" translate="form.required"></span>
+                            <span class="help-block" *ngIf="!passRepeat.hasError('required') && passwords.hasError('matchingPasswords')" translate="form.repeatPassword"></span>
+                        </div>
+        			</div>
+        		</div>
+            </div>
     	</form>
     </modal-body>
     <modal-footer [show-default-buttons]="false">
-    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(registerForm)"><span translate="button.cancel"></span></button>
-        <button type="button" class="btn btn-primary" (click)="registerUser(registerForm, register)" [disabled]="!registerForm.valid"><span translate="register.createUser"></span></button>
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetRegisterForm()"><span translate="button.cancel"></span></button>
+        <button type="button" class="btn btn-primary" (click)="submitRegisterForm(register)"><span translate="register.createUser"></span></button>
     </modal-footer>
 </modal>
 
@@ -129,10 +131,10 @@
     	</form>
     </modal-body>
     <modal-footer [show-default-buttons]="false">
-    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(loginForm)">
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetLoginForm()">
             <span translate="button.cancel"></span>
         </button>
-        <button type="button" class="btn btn-primary" (click)="submitLoginForm(loginForm, login)" [disabled]="!loginForm.valid">
+        <button type="button" class="btn btn-primary" (click)="submitLoginForm(login)">
             <span translate="menu.login"></span>
         </button>
     </modal-footer>

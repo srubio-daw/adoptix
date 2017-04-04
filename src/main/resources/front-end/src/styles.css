@@ -30,9 +30,18 @@ menu {
 	height: 5%;
 }
 
-img.logo {
-	/* TODO: ajustar a tamaño de pantallas pequeñas*/
-	max-height: 100px;
+/* Logo general */
+div > img.logo {
+	margin: 0 auto;
+}
+img.logo {	
+	max-height: 60px;
+}
+/* Logo para pantallas grandes */
+@media(min-width:767px) {
+	img.logo {
+		max-height: 100px;
+	}
 }
 
 /* CONTENT */

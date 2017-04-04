@@ -19,7 +19,8 @@
 		"province": "Province",
 		"passwordRepeat": "Repeat password",
 		"username": "Nickname",
-		"createUser": "Create user"
+		"createUser": "Create user",
+		"selectProvince": "--- Select a province ---"
 	},
 	"form": {
 		"required": "This field is required",

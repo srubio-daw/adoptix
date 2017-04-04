@@ -39,11 +39,9 @@ export class MenuComponent {
         	surname: [null, Validators.required],
         	nif: [null],
         	address: [null, Validators.required],
-        	province: 0,
+        	province: [0, validationService.comboSelected],
         	mail: [null, Validators.compose([Validators.required, validationService.email])],
-        	username: [null, Validators.required],
-        	password: [null, Validators.required],
-        	passwordRepeat: [null, Validators.compose([Validators.required, validationService.passwordRepeat(this.registerPass)])]
+        	username: [null, Validators.required]
         });
 	    this.association = this.registerForm.controls['association'];
 	    this.name = this.registerForm.controls['name'];
@@ -53,8 +51,13 @@ export class MenuComponent {
 	    this.province = this.registerForm.controls['province'];
 	    this.username = this.registerForm.controls['username'];
 	    this.registerMail = this.registerForm.controls['mail'];
-	    this.registerPass = this.registerForm.controls['password'];
-   		this.passRepeat = this.registerForm.controls['passwordRepeat'];
+   		// Grupo de contraseñas
+   		this.passwords = fb.group({
+   			password: [null, Validators.required],
+        	passwordRepeat: [null, Validators.required]
+   		}, {validator: validationService.matchingPasswords('password', 'passwordRepeat')});
+   		this.registerPass = this.passwords.controls['password'];
+   		this.passRepeat = this.passwords.controls['passwordRepeat'];
     }
 
     // Inicialización
@@ -79,10 +82,7 @@ export class MenuComponent {
     registerMail : AbstractControl;
     registerPass : AbstractControl;
     passRepeat : AbstractControl;
-
-	user : any = {
-		province: 0
-	};
+    passwords : FormGroup;
 
 	provinces : any = [];
 
@@ -115,30 +115,35 @@ export class MenuComponent {
                error =>  alert(error));
 	}
 
-	registerUser(user: any, registerForm: any, modal: any) {
-		if (registerForm.valid) {
-			// Additional validations
-			if (user.password != user.passwordRepeat) {
-				// Passwords do not match
-				registerForm.controls.password;
-			}
-			modal.close();
-			let headers = new Headers({ 'Content-Type': 'application/json' });
-    		let options = new RequestOptions({ headers: headers });
+	submitRegisterForm(modal: any) {
+		if (!this.registerForm.valid || !this.passwords.valid) {
+			// Mark fields as dirty and return
+			this.validationService.markFormAsTouched(this.registerForm);
+			this.validationService.markFormAsTouched(this.passwords);
 		} else {
-			for (var property in registerForm.controls) {
-				registerForm.controls[property].markAsDirty();
-			}
+			modal.close();
+			this.registerForm.reset();
 		}
 	}
 
-	submitLoginForm(loginForm: any, modal: any) {
+	submitLoginForm(modal: any) {
+		if (!this.loginForm.valid) {
+			this.validationService.markFormAsTouched(this.loginForm);
+		} else {
 			modal.close();
-			alert("Email: " + loginForm.value.mail + ". Pass: " + Md5.hashStr(loginForm.value.password) );
-			loginForm.reset();
+			alert("Email: " + this.loginForm.value.mail + ". Pass: " + Md5.hashStr(this.loginForm.value.password) );
+			this.loginForm.reset();
+		}
 	}
 
-	resetForm(form : any) {
-		form.reset();
+	resetLoginForm() {
+		this.loginForm.reset();
+	}
+
+	resetRegisterForm() {
+		this.registerForm.reset();
+		this.province.setValue(0);
+		this.association.setValue('no');
+		this.passwords.reset();
 	}
 }

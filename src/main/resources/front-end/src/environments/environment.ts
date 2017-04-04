@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:8443/adoptix'
+  apiUrl: 'https://localhost:8443/adoptix',
+  i18nPath: ''
 };

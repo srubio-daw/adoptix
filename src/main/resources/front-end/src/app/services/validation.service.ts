@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core'
 
 @Injectable()
@@ -14,17 +14,36 @@ export class ValidationService {
 		};
 	}
 
-	passwordRepeat = (password : AbstractControl) => {
-		return (repeatPassword: FormControl) => {
-			if (password.touched && repeatPassword.touched && password.value != repeatPassword.value) {
+	matchingPasswords(passwordKey: string, passwordRepeatKey: string) {
+		return (group: FormGroup) => {
+			let password = group.controls[passwordKey];
+			let confirmPassword = group.controls[passwordRepeatKey];
+
+			if (password.value !== confirmPassword.value) {
 				return {
-					repeatPassword: {
+					matchingPasswords: {
 						valid: false
 					}
-				}
+				};
 			}
-			return null;
 		}
-	};
+	}
+
+	comboSelected(c: FormControl) {
+		return c.value !== 0 ? null : {
+			comboSelected: {
+				valid: false
+			}
+		}
+	}
+
+	markFormAsTouched(form : FormGroup) {
+		for (var field in form.controls) {
+			form.controls[field].markAsTouched();
+			form.controls[field].updateValueAndValidity();
+		}
+		form.markAsTouched();
+		form.updateValueAndValidity();
+	}
 
 }

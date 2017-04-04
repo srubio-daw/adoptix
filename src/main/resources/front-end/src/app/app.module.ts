@@ -15,8 +15,10 @@ import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+import { environment } from '../environments/environment';
+
 export function HttpLoaderFactory(http: Http) {
-    return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http, environment.i18nPath + "/assets/i18n/", ".json");
 }
 
 @NgModule({

@@ -19,7 +19,8 @@
 		"province": "Provincia",
 		"passwordRepeat": "Repite contraseña",
 		"username": "Usuario",
-		"createUser": "Crear usuario"
+		"createUser": "Crear usuario",
+		"selectProvince": "--- Selecciona una provincia ---"
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
