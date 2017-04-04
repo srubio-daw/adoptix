@@ -23,6 +23,8 @@
 	},
 	"form": {
 		"required": "This field is required",
-		"maxLength": "Length can not be greater than {{maxLength}}"
+		"maxLength": "Length can not be greater than {{maxLength}}",
+		"validEmail": "This is not a valid email address",
+		"repeatPassword": "Passwords do not match"
 	}
 }

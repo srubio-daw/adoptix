@@ -23,6 +23,8 @@
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
-		"maxLength": "La longitud no puede ser mayor de {{maxLength}}"
+		"maxLength": "La longitud no puede ser mayor de {{maxLength}}",
+		"validEmail": "No es una dirección de email válida",
+		"repeatPassword": "Las contraseñas no coinciden"
 	}
 }

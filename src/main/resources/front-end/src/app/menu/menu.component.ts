@@ -8,16 +8,17 @@ import { TranslateService } from '@ngx-translate/core';
 
 // INTERNAL
 import { ProvinceService } from '../services/province.service';
+import { ValidationService } from '../services/validation.service';
 
 @Component({
   selector: 'menu',
   templateUrl: 'menu.html',
-  providers: [ProvinceService]
+  providers: [ProvinceService, ValidationService]
 })
 export class MenuComponent {
 	// Constructor
 	constructor(fb: FormBuilder, translate: TranslateService, private http: Http, 
-			private provinceService : ProvinceService) {
+			private provinceService : ProvinceService, private validationService : ValidationService ) {
         // this language will be used as a fallback when a translation isn't found in the current language
         translate.setDefaultLang('es');
          // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -39,10 +40,10 @@ export class MenuComponent {
         	nif: [null],
         	address: [null, Validators.required],
         	province: 0,
-        	mail: [null, Validators.required],
+        	mail: [null, Validators.compose([Validators.required, validationService.email])],
         	username: [null, Validators.required],
         	password: [null, Validators.required],
-        	passwordRepeat: [null, Validators.required]
+        	passwordRepeat: [null, Validators.compose([Validators.required, validationService.passwordRepeat(this.registerPass)])]
         });
 	    this.association = this.registerForm.controls['association'];
 	    this.name = this.registerForm.controls['name'];
