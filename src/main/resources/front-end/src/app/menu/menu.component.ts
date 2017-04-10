@@ -1,32 +1,35 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Headers, RequestOptions, Http, Response } from '@angular/http';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 
 // MODULES
-import { Md5 } from 'ts-md5/dist/md5';
 import { TranslateService } from '@ngx-translate/core';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 // INTERNAL
 import { ProvinceService } from '../services/province.service';
 import { ValidationService } from '../services/validation.service';
+import { UserService } from '../services/user.service';
+import { ErrorModalComponent } from '../modal/error-modal.component';
 
 @Component({
   selector: 'menu',
   templateUrl: 'menu.html',
-  providers: [ProvinceService, ValidationService]
+  providers: [ProvinceService, ValidationService, UserService]
 })
 export class MenuComponent {
 	// Constructor
 	constructor(fb: FormBuilder, translate: TranslateService, private http: Http, 
-			private provinceService : ProvinceService, private validationService : ValidationService ) {
+			private provinceService : ProvinceService, private validationService : ValidationService, 
+			private userService : UserService ) {
         // this language will be used as a fallback when a translation isn't found in the current language
         translate.setDefaultLang('es');
          // the lang to use, if the lang isn't available, it will use the current loader to get them
         translate.use('es');
-
+        
         // Formulario login
         this.loginForm = fb.group({
-        	mail: [null, Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(150)])],
+        	mail: [null, Validators.compose([Validators.required, validationService.email])],
         	password: [null, Validators.required]
         });
         this.loginMail = this.loginForm.controls['mail'];
@@ -34,7 +37,7 @@ export class MenuComponent {
 
         // Formulario registro
         this.registerForm = fb.group({
-        	association: ["no"],
+        	association: ["false"],
         	name: [null, Validators.required],
         	surname: [null, Validators.required],
         	nif: [null],
@@ -67,6 +70,15 @@ export class MenuComponent {
     }
 
     // Variables del contexto
+	@ViewChild(ErrorModalComponent)
+	errorModal : ErrorModalComponent;
+
+	@ViewChild('loginModal')
+	loginModal : ModalComponent;
+
+	@ViewChild('registerModal')
+	registerModal : ModalComponent;
+
     loginForm : FormGroup;
     loginMail : AbstractControl;
     loginPass : AbstractControl;
@@ -85,14 +97,15 @@ export class MenuComponent {
     passwords : FormGroup;
 
 	provinces : any = [];
-
+	badCredentials : String = null;
+	duplicated : String = null;
 
 	// Meétodos
 	subscribeToAssociationChanges() {
 		const associationChanges$ = this.association.valueChanges;
 
 		associationChanges$.subscribe(value => {
-			if (value == "yes") {
+			if (value == "true") {
 				this.nif.setValidators(Validators.required);
 				this.nif.updateValueAndValidity();
 				this.surname.setValue(null);
@@ -115,29 +128,76 @@ export class MenuComponent {
                error =>  alert(error));
 	}
 
-	submitRegisterForm(modal: any) {
+	submitRegisterForm() {
 		if (!this.registerForm.valid || !this.passwords.valid) {
 			// Mark fields as dirty and return
 			this.validationService.markFormAsTouched(this.registerForm);
 			this.validationService.markFormAsTouched(this.passwords);
 		} else {
-			modal.close();
-			this.registerForm.reset();
+			let user : Object = this.registerForm.value;
+			for (var property in this.passwords.value) {
+				user[property] = this.passwords.value[property];
+			}
+			let result = this.userService.register(user).subscribe(
+				result => {
+					if (!result.success) {
+						if (result.message.indexOf('error.duplicated') != -1) {
+							this.duplicated = result.message;
+						} else {
+							this.errorModal.open('error.title', result.message);
+						}
+					} else {
+						this.registerModal.close();
+						this.resetRegisterForm();
+					}
+				}, 
+				error => {
+					console.log(JSON.stringify(error.json()))
+					return null;
+				}
+			);
 		}
 	}
 
-	submitLoginForm(modal: any) {
+	submitLoginForm() {
 		if (!this.loginForm.valid) {
 			this.validationService.markFormAsTouched(this.loginForm);
 		} else {
-			modal.close();
-			alert("Email: " + this.loginForm.value.mail + ". Pass: " + Md5.hashStr(this.loginForm.value.password) );
-			this.loginForm.reset();
+			let user : Object = this.loginForm.value;
+			let result = this.userService.login(user).subscribe(
+				result => {
+					if (!result.success) {
+						this.badCredentials = result.message;
+					} else {
+						this.loginModal.close();
+						this.resetLoginForm();
+					}
+				}, 
+				error => {
+					console.log(JSON.stringify(error.json()))
+					return null;
+				}
+			);
 		}
+	}
+
+	logout() {
+		let result = this.userService.logout().subscribe(
+			result => {
+				if (!result) {
+					this.errorModal.open('error.title', 'error.unexpected');
+				}
+			}, 
+			error => {
+				console.log(JSON.stringify(error.json()))
+				return null;
+			}
+		);
 	}
 
 	resetLoginForm() {
 		this.loginForm.reset();
+		this.badCredentials = null;
 	}
 
 	resetRegisterForm() {
@@ -145,5 +205,6 @@ export class MenuComponent {
 		this.province.setValue(0);
 		this.association.setValue('no');
 		this.passwords.reset();
+		this.duplicated = null;
 	}
 }

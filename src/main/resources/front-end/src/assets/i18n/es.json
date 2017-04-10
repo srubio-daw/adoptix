@@ -1,10 +1,12 @@
 {
 	"menu": {
 		"login": "Iniciar sesión",
-		"createUser": "Nuevo usuario"
+		"createUser": "Nuevo usuario",
+		"logout": "Cerrar sesión"
 	},
 	"button": {
-		"cancel": "Cancelar"
+		"cancel": "Cancelar",
+		"close": "Cerrar"
 	},
 	"login": {
 		"mail": "Email",
@@ -27,5 +29,12 @@
 		"maxLength": "La longitud no puede ser mayor de {{maxLength}}",
 		"validEmail": "No es una dirección de email válida",
 		"repeatPassword": "Las contraseñas no coinciden"
+	},
+	"error": {
+		"title": "Error",
+		"badCredentials": "El email y/o la contraseña son incorrectos.",
+		"unexpected": "Ha ocurrido un error inesperado. Por favor, contacta con el administrador del sitio.",
+		"duplicated.mail": "Este email ya está registrado.",
+		"duplicated.username": "Este usuario ya está en uso."
 	}
 }

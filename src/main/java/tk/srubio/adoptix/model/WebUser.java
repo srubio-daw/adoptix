@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "web_user")
 public class WebUser implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private Integer id;
 	private String address;
 	private String mail;
 	private String name;
@@ -23,20 +23,31 @@ public class WebUser implements Serializable {
 	private Province province;
 	private List<Role> roles;
 
-	// Transient
-	private boolean association;
-
 	public WebUser() {
+	}
+
+	public WebUser(Integer id, String address, String mail, String name, String nif, String password, String surname,
+			String username, Province province, List<Role> roles) {
+		this.id = id;
+		this.address = address;
+		this.mail = mail;
+		this.name = name;
+		this.nif = nif;
+		this.password = password;
+		this.surname = surname;
+		this.username = username;
+		this.province = province;
+		this.roles = roles;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -123,15 +134,6 @@ public class WebUser implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
-	}
-
-	// Transient
-	public boolean isAssociation() {
-		return association;
-	}
-
-	public void setAssociation(boolean association) {
-		this.association = association;
 	}
 
 }

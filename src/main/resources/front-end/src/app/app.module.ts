@@ -9,6 +9,7 @@ import { HeaderComponent }  from './header/header.component';
 import { ContentComponent }  from './content/content.component';
 import { FooterComponent }  from './footer/footer.component';
 import { MenuComponent }  from './menu/menu.component';
+import { ErrorModalComponent } from './modal/error-modal.component';
 
 // MODULOS
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -40,7 +41,8 @@ export function HttpLoaderFactory(http: Http) {
   	HeaderComponent, 
   	ContentComponent, 
   	FooterComponent, 
-  	MenuComponent
+  	MenuComponent,
+    ErrorModalComponent
 
   ],
   bootstrap: [

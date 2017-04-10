@@ -1,10 +1,12 @@
 {
 	"menu": {
 		"login": "Log in",
-		"createUser": "New user"
+		"createUser": "New user",
+		"logout": "Log out"
 	},
 	"button": {
-		"cancel": "Cancel"
+		"cancel": "Cancel",
+		"close": "Close"
 	},
 	"login": {
 		"mail": "Mail",
@@ -27,5 +29,12 @@
 		"maxLength": "Length can not be greater than {{maxLength}}",
 		"validEmail": "This is not a valid email address",
 		"repeatPassword": "Passwords do not match"
+	},
+	"error": {
+		"title": "Error",
+		"badCredentials": "Email and/or password are incorrect.",
+		"unexpected": "Unexpected error ocurred. Please, contact the website's admin.",
+		"duplicated.mail": "This mail is already registered.",
+		"duplicated.username": "This username is already registered."
 	}
 }

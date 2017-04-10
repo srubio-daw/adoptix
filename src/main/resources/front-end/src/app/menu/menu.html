@@ -1,21 +1,25 @@
 <div class="row">
 	<div class="pull-right">
-		<button class="btn btn-default" (click)="login.open()"><span translate="menu.login"></span></button>
-		<button class="btn btn-default" (click)="register.open()"><span translate="menu.createUser"></span></button>
+		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
+		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
+        <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><span translate="menu.logout"></span></button>
 	</div>
 </div>
 
 <!-- Modal de registro -->
-<modal #register (onClose)="submitRegisterForm(registerForm, register)" (onDismiss)="resetForm(registerForm)">
+<modal #registerModal (keyup.enter)="submitRegisterForm()" (onDismiss)="resetRegisterForm()" >
     <modal-header [show-close]="true">
         <h4 class="modal-title"><span translate="menu.login"></span></h4>
     </modal-header>
     <modal-body>
     	<form class="form-horizontal" [formGroup]="registerForm">
+            <label class="control-label has-error">
+                <span class="help-block" *ngIf="duplicated != null" [translate]="duplicated"></span>
+            </label>
     		<div class="form-group" [ngClass]="{'has-error': association.touched && !association.valid}">
 				<label class="control-label col-md-5 text-right"><span translate="register.association"></span></label>
-				<label class="control-label label-inline col-md-2">Si <input type="radio" value="yes" [formControl]="association"></label>
-				<label class="control-label label-inline col-md-2">No <input type="radio" value="no" [formControl]="association"></label>
+				<label class="control-label label-inline col-md-2">Si <input type="radio" value="true" [formControl]="association"></label>
+				<label class="control-label label-inline col-md-2">No <input type="radio" value="false" [formControl]="association"></label>
 				<div class="row">
 					<div class="col-md-7 col-md-offset-4">
 						<span class="help-block" *ngIf="association.touched && !association.valid" translate="form.required"></span>
@@ -29,14 +33,14 @@
     				<span class="help-block" *ngIf="name.touched && !name.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" *ngIf="association.value=='no'" [ngClass]="{'has-error': surname.touched && !surname.valid}">
+    		<div class="form-group" *ngIf="association.value=='false'" [ngClass]="{'has-error': surname.touched && !surname.valid}">
     			<label class="control-label col-md-4"><span translate="register.surname"></span></label>
     			<div class="col-md-8">
     				<input class="form-control" type="text" [formControl]="surname">
     				<span class="help-block" *ngIf="surname.touched && !surname.valid" translate="form.required"></span>
     			</div>
     		</div>
-    		<div class="form-group" *ngIf="association.value=='yes'" [ngClass]="{'has-error': nif.touched && !nif.valid}">
+    		<div class="form-group" *ngIf="association.value=='true'" [ngClass]="{'has-error': nif.touched && !nif.valid}">
     			<label class="control-label col-md-4"><span translate="register.id"></span></label>
     			<div class="col-md-8">
     				<input class="form-control" type="text" [formControl]="nif">
@@ -100,24 +104,27 @@
     </modal-body>
     <modal-footer [show-default-buttons]="false">
     	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetRegisterForm()"><span translate="button.cancel"></span></button>
-        <button type="button" class="btn btn-primary" (click)="submitRegisterForm(register)"><span translate="register.createUser"></span></button>
+        <button type="button" class="btn btn-primary" (click)="submitRegisterForm()"><span translate="register.createUser"></span></button>
     </modal-footer>
 </modal>
 
 <!-- Modal de inicio de sesión -->
-<modal #login>
+<modal #loginModal (keyup.enter)="submitLoginForm()" (onDismiss)="resetLoginForm()" >
     <modal-header [show-close]="true">
         <h4 class="modal-title"><span translate="menu.login"></span></h4>
     </modal-header>
     <modal-body>
     	<form class="form-horizontal" [formGroup]="loginForm">
+            <label class="control-label has-error">
+                <span class="help-block" *ngIf="badCredentials != null" translate="error.badCredentials"></span>
+            </label>
         	<div class="form-group" [ngClass]="{'has-error': loginMail.touched && !loginMail.valid}">
     			<label class="control-label col-md-3"><span translate="login.mail"></span></label>
     			<div class="col-md-9">
     				<input class="form-control" type="mail" [formControl]="loginMail">
                     <div *ngIf="loginMail.touched && !loginMail.valid">
                         <span class="help-block" *ngIf="loginMail.hasError('required')" translate="form.required"></span>
-                        <span class="help-block" *ngIf="loginMail.hasError('maxlength')" translate="form.maxLength" [translateParams]="{maxLength: 150}"></span>
+                        <span class="help-block" *ngIf="!loginMail.hasError('required') && loginMail.hasError('email')" translate="form.validEmail"></span>
                     </div>
     			</div>
     		</div>
@@ -134,8 +141,10 @@
     	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetLoginForm()">
             <span translate="button.cancel"></span>
         </button>
-        <button type="button" class="btn btn-primary" (click)="submitLoginForm(login)">
+        <button type="button" class="btn btn-primary" (click)="submitLoginForm()">
             <span translate="menu.login"></span>
         </button>
     </modal-footer>
 </modal>
+
+<error-modal></error-modal>
