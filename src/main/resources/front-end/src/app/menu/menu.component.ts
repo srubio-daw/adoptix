@@ -15,7 +15,7 @@ import { ErrorModalComponent } from '../modal/error-modal.component';
 @Component({
   selector: 'menu',
   templateUrl: 'menu.html',
-  providers: [ProvinceService, ValidationService, UserService]
+  providers: [ProvinceService, ValidationService]
 })
 export class MenuComponent {
 	// Constructor
@@ -149,6 +149,7 @@ export class MenuComponent {
 					} else {
 						this.registerModal.close();
 						this.resetRegisterForm();
+						this.userService.loggedUser = result.data;
 					}
 				}, 
 				error => {
@@ -171,6 +172,7 @@ export class MenuComponent {
 					} else {
 						this.loginModal.close();
 						this.resetLoginForm();
+						this.userService.loggedUser = result.data;
 					}
 				}, 
 				error => {
@@ -186,6 +188,8 @@ export class MenuComponent {
 			result => {
 				if (!result) {
 					this.errorModal.open('error.title', 'error.unexpected');
+				} else {
+					this.userService.loggedUser = null;
 				}
 			}, 
 			error => {

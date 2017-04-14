@@ -11,6 +11,9 @@ import { FooterComponent }  from './footer/footer.component';
 import { MenuComponent }  from './menu/menu.component';
 import { ErrorModalComponent } from './modal/error-modal.component';
 
+// SERVICIOS
+import { UserService } from './services/user.service';
+
 // MODULOS
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -50,6 +53,11 @@ export function HttpLoaderFactory(http: Http) {
   	ContentComponent, 
   	FooterComponent, 
   	MenuComponent
+  ],
+  providers: [
+    UserService
   ]
 })
-export class AppModule { }
+export class AppModule { 
+
+}

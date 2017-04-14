@@ -11,11 +11,11 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class UserService {
-	loggedUser : any = null;
-
 	url : string = environment.apiUrl + "/user";
 	headers : Headers =  new Headers({ 'Content-Type': 'application/json' });
 	options : RequestOptions = new RequestOptions({ headers: this.headers });
+
+	loggedUser : Object = null;
 
 	constructor (private http: Http) {}
 
@@ -23,14 +23,14 @@ export class UserService {
 		user['password'] = Md5.hashStr(user['password']);
 		let body = JSON.stringify(user);
 		return this.http.post(this.url + "/create", body, this.options)
-			.map(this.extractDataWithUser);
+			.map(this.extractData);
 	}
 
 	login(user : Object) {
 		user['password'] = Md5.hashStr(user['password']);
 		let body = JSON.stringify(user);
 		return this.http.post(this.url + "/login", body, this.options)
-			.map(this.extractDataWithUser);
+			.map(this.extractData);
 	}
 
 	logout() {
@@ -38,11 +38,8 @@ export class UserService {
 			.map(this.responseOk);
 	}
 
-	private extractDataWithUser(response : any) {
+	private extractData(response : any) {
 		let body = response.json();
-		if (body && body.data != null) {
-			this.loggedUser = body.data;
-		}
 		return body || [];
 	}
 
