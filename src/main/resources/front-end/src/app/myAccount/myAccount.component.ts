@@ -1,10 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Headers, RequestOptions, Http, Response } from '@angular/http';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 
 // MODULES
 import { TranslateService } from '@ngx-translate/core';
-import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 // INTERNAL
 import { ProvinceService } from '../services/province.service';
@@ -13,29 +11,13 @@ import { UserService } from '../services/user.service';
 import { ErrorModalComponent } from '../modal/error-modal.component';
 
 @Component({
-  selector: 'menu',
-  templateUrl: 'menu.html',
+  templateUrl: 'myAccount.html',
   providers: [ProvinceService, ValidationService]
 })
-export class MenuComponent {
-	// Constructor
-	constructor(fb: FormBuilder, translate: TranslateService, private http: Http, 
-			private provinceService : ProvinceService, private validationService : ValidationService, 
-			private userService : UserService ) {
-        // this language will be used as a fallback when a translation isn't found in the current language
-        translate.setDefaultLang('es');
-         // the lang to use, if the lang isn't available, it will use the current loader to get them
-        translate.use('es');
-        
-        // Formulario login
-        this.loginForm = fb.group({
-        	mail: [null, Validators.compose([Validators.required, validationService.email])],
-        	password: [null, Validators.required]
-        });
-        this.loginMail = this.loginForm.controls['mail'];
-        this.loginPass = this.loginForm.controls['password'];
-
-        // Formulario registro
+export class MyAccountComponent {
+	constructor(fb: FormBuilder, translate: TranslateService, private validationService : ValidationService, 
+		private userService : UserService, private provinceService : ProvinceService ) {
+		 // Formulario registro
         this.registerForm = fb.group({
         	association: ["false"],
         	name: [null, Validators.required],
@@ -61,29 +43,16 @@ export class MenuComponent {
    		}, {validator: validationService.matchingPasswords('password', 'passwordRepeat')});
    		this.registerPass = this.passwords.controls['password'];
    		this.passRepeat = this.passwords.controls['passwordRepeat'];
-    }
+	}
 
-    // Inicialización
+	// Inicialización
     ngOnInit() { 
     	this.getProvinces();
     	this.subscribeToAssociationChanges();
+    	this.getUserData();
     }
 
-    // Variables del contexto
-	@ViewChild(ErrorModalComponent)
-	errorModal : ErrorModalComponent;
-
-	@ViewChild('loginModal')
-	loginModal : ModalComponent;
-
-	@ViewChild('registerModal')
-	registerModal : ModalComponent;
-
-    loginForm : FormGroup;
-    loginMail : AbstractControl;
-    loginPass : AbstractControl;
-
-    registerForm : FormGroup;
+	registerForm : FormGroup;
     association : AbstractControl;
     name : AbstractControl;
     surname : AbstractControl;
@@ -97,8 +66,11 @@ export class MenuComponent {
     passwords : FormGroup;
 
 	provinces : any = [];
-	badCredentials : String = null;
+	user : any = null;
 	duplicated : String = null;
+
+	@ViewChild(ErrorModalComponent)
+	errorModal : ErrorModalComponent;
 
 	// Meétodos
 	subscribeToAssociationChanges() {
@@ -128,6 +100,13 @@ export class MenuComponent {
                error =>  alert(error));
 	}
 
+	getUserData() {
+		this.userService.getUserData()
+			.subscribe(
+				user => this.user = user,
+				error => alert(error));
+	}
+
 	submitRegisterForm() {
 		if (!this.registerForm.valid || !this.passwords.valid) {
 			// Mark fields as dirty and return
@@ -147,7 +126,6 @@ export class MenuComponent {
 							this.errorModal.open('error.title', result.message);
 						}
 					} else {
-						this.registerModal.close();
 						this.resetRegisterForm();
 						this.userService.loggedUser = result.data;
 					}
@@ -158,51 +136,6 @@ export class MenuComponent {
 				}
 			);
 		}
-	}
-
-	submitLoginForm() {
-		if (!this.loginForm.valid) {
-			this.validationService.markFormAsTouched(this.loginForm);
-		} else {
-			let user : Object = this.loginForm.value;
-			let result = this.userService.login(user).subscribe(
-				result => {
-					if (!result.success) {
-						this.badCredentials = result.message;
-					} else {
-						this.loginModal.close();
-						this.resetLoginForm();
-						this.userService.loggedUser = result.data;
-						alert(JSON.stringify(this.userService.loggedUser));
-					}
-				}, 
-				error => {
-					console.log(JSON.stringify(error.json()))
-					return null;
-				}
-			);
-		}
-	}
-
-	logout() {
-		let result = this.userService.logout().subscribe(
-			result => {
-				if (!result) {
-					this.errorModal.open('error.title', 'error.unexpected');
-				} else {
-					this.userService.loggedUser = null;
-				}
-			}, 
-			error => {
-				console.log(JSON.stringify(error.json()))
-				return null;
-			}
-		);
-	}
-
-	resetLoginForm() {
-		this.loginForm.reset();
-		this.badCredentials = null;
 	}
 
 	resetRegisterForm() {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import tk.srubio.adoptix.web.dto.WebUserDTO;
@@ -34,5 +35,10 @@ public class WebUserController {
 	public @ResponseBody ResponseEntity<AdoptixResponse> logout() {
 		webUserService.logout();
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<AdoptixResponse> getUser(@RequestParam("mail") String mail) {
+		return new ResponseEntity<>(webUserService.getUser(mail), HttpStatus.OK);
 	}
 }

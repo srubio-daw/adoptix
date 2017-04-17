@@ -2,7 +2,8 @@
 	"menu": {
 		"login": "Iniciar sesión",
 		"createUser": "Nuevo usuario",
-		"logout": "Cerrar sesión"
+		"logout": "Cerrar sesión",
+		"account": "Mi cuenta"
 	},
 	"button": {
 		"cancel": "Cancelar",

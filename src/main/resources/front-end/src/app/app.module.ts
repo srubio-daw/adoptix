@@ -3,6 +3,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 // COMPONENTES
 import { HeaderComponent }  from './header/header.component';
@@ -10,6 +11,7 @@ import { ContentComponent }  from './content/content.component';
 import { FooterComponent }  from './footer/footer.component';
 import { MenuComponent }  from './menu/menu.component';
 import { ErrorModalComponent } from './modal/error-modal.component';
+import { MyAccountComponent } from './myAccount/myAccount.component';
 
 // SERVICIOS
 import { UserService } from './services/user.service';
@@ -25,6 +27,11 @@ export function HttpLoaderFactory(http: Http) {
     return new TranslateHttpLoader(http, environment.i18nPath + "/assets/i18n/", ".json");
 }
 
+// RUTAS
+const appRoutes: Routes = [
+  { path: 'myAccount', component: MyAccountComponent }
+];
+
 @NgModule({
   imports: [
   	BrowserModule,
@@ -38,15 +45,16 @@ export function HttpLoaderFactory(http: Http) {
         useFactory: HttpLoaderFactory,
         deps: [Http]
       }
-    })
+    }),
+    RouterModule.forRoot(appRoutes)
   ],
   declarations: [
   	HeaderComponent, 
-  	ContentComponent, 
+    ContentComponent,
   	FooterComponent, 
   	MenuComponent,
-    ErrorModalComponent
-
+    ErrorModalComponent,
+    MyAccountComponent
   ],
   bootstrap: [
   	HeaderComponent, 

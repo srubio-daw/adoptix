@@ -47,8 +47,8 @@ img.logo {
 /* CONTENT */
 section {
 	border: solid 10px #FA8C19;
-	background-color: white;
-	color: white;
+	background-color: #F2F2F2;
+	color: black;
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
 	padding: 5px 20px;

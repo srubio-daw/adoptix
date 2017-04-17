@@ -2,6 +2,7 @@
 	<div class="pull-right">
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
+        <button class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']"><i class="glyphicon glyphicon-user"></i>&nbsp;<span translate="menu.account"></span></button>
         <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><span translate="menu.logout"></span></button>
 	</div>
 </div>
@@ -58,7 +59,7 @@
     			<label class="control-label col-md-4"><span translate="register.province"></span></label>
     			<div class="col-md-8">
     				<select class="form-control" [formControl]="province" placeholder="Selecciona una provincia">
-                        <option value="0">{{'register.selectProvince' | translate}}
+                        <option value="0">{{'register.selectProvince' | translate}}</option>
     					<option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
     				</select>
     				<span class="help-block" *ngIf="province.touched && !province.valid" translate="form.required"></span>

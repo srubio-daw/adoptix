@@ -2,7 +2,8 @@
 	"menu": {
 		"login": "Log in",
 		"createUser": "New user",
-		"logout": "Log out"
+		"logout": "Log out",
+		"account": "My account"
 	},
 	"button": {
 		"cancel": "Cancel",

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -13,9 +13,13 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class UserService {
 	url : string = environment.apiUrl + "/user";
 	headers : Headers =  new Headers({ 'Content-Type': 'application/json' });
+	formHeaders : Headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 	options : RequestOptions = new RequestOptions({ headers: this.headers });
+	formOptions : RequestOptions = new RequestOptions({ headers: this.formHeaders });
 
-	loggedUser : Object = null;
+	// Testing
+	loggedUser : Object = {"authorities":[{"authority":"usuario"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"sylrupenopa@gmail.com","authorities":[{"authority":"usuario"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"sylrupenopa@gmail.com"};
+	//loggedUser : Object = null;
 
 	constructor (private http: Http) {}
 
@@ -36,6 +40,13 @@ export class UserService {
 	logout() {
 		return this.http.get(this.url + "/logout")
 			.map(this.responseOk);
+	}
+
+	getUserData() {
+		let body = new URLSearchParams();
+		body.set('mail', this.loggedUser['name']);
+		return this.http.post(this.url, body, this.formOptions)
+			.map(this.extractData);
 	}
 
 	private extractData(response : any) {

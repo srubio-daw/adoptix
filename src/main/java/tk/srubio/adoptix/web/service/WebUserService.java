@@ -132,4 +132,14 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 	public void logout() {
 		SecurityContextHolder.getContext().setAuthentication(null);
 	}
+	
+	public AdoptixResponse getUser(String mail) {
+		AdoptixResponse response = new AdoptixResponse(null, false, null);
+		WebUser user = webUserRepository.findOneByMail(mail);
+		if (user != null) {
+			response.setSuccess(true);
+			response.setData(convertToDTO(user));
+		}
+		return response;
+	}
 }
