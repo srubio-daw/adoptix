@@ -92,6 +92,8 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 		} catch (DataIntegrityViolationException ex) {
 			if (ex.getCause().getCause().getMessage().contains("Duplicate")) {
 				return "error.duplicated." + ex.getCause().getCause().getMessage().split("key ")[1].replace("'", "");
+			} else{
+				return ex.getMessage();
 			}
 		} catch (Exception ex) {
 			return ex.getMessage();
@@ -135,11 +137,59 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 	
 	public AdoptixResponse getUser(String mail) {
 		AdoptixResponse response = new AdoptixResponse(null, false, null);
-		WebUser user = webUserRepository.findOneByMail(mail);
+		WebUser user = webUserRepository.findOneByMailWithRoles(mail);
 		if (user != null) {
 			response.setSuccess(true);
 			response.setData(convertToDTO(user));
 		}
+		return response;
+	}
+	
+	public AdoptixResponse updateUserData(WebUserDTO dto) {
+		WebUser user = webUserRepository.findOneByMailWithRoles(dto.getMail());
+		// Data change
+		user.setName(dto.getName());
+		user.setSurname(dto.getSurname());
+		user.setProvince(provinceRepository.findOne(dto.getProvince()));
+		user.setNif(dto.getNif());
+		user.setUsername(dto.getUsername());
+		user.setAddress(dto.getAddress());
+		// Role change
+		List<Role> roles = new ArrayList<>();
+		if (dto.isAssociation() != convertToDTO(user).isAssociation()) {
+			if (dto.isAssociation()) {
+				roles.add(roleRepository.findOneByName(RoleEnum.ASOCIACION.getName()));
+			} else {
+				roles.add(roleRepository.findOneByName(RoleEnum.USUARIO.getName()));
+			}
+			user.setRoles(roles);
+		}
+		
+		AdoptixResponse response = new AdoptixResponse();
+		try {
+			webUserRepository.save(user);
+			response.setSuccess(true);
+			response.setData(convertToDTO(user));
+		} catch (DataIntegrityViolationException ex) {
+			response.setSuccess(false);
+			if (ex.getCause().getCause().getMessage().contains("Duplicate")) {
+				response.setMessage("error.duplicated." + ex.getCause().getCause().getMessage().split("key ")[1].replace("'", ""));
+			} else {
+				response.setMessage(ex.getMessage());
+			}
+		} catch (Exception ex) {
+			response.setMessage(ex.getMessage());
+			response.setSuccess(false);
+		}
+		return response;
+	}
+	
+	public AdoptixResponse updateUserPassword(String mail, String password) {
+		WebUser user = webUserRepository.findOneByMailWithRoles(mail);
+		user.setPassword(password);
+		webUserRepository.save(user);
+		AdoptixResponse response = new AdoptixResponse();
+		response.setSuccess(true);
 		return response;
 	}
 }

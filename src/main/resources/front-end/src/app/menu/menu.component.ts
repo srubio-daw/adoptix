@@ -208,7 +208,7 @@ export class MenuComponent {
 	resetRegisterForm() {
 		this.registerForm.reset();
 		this.province.setValue(0);
-		this.association.setValue('no');
+		this.association.setValue('false');
 		this.passwords.reset();
 		this.duplicated = null;
 	}

@@ -7,7 +7,8 @@
 	},
 	"button": {
 		"cancel": "Cancelar",
-		"close": "Cerrar"
+		"close": "Cerrar",
+		"save": "Guardar"
 	},
 	"login": {
 		"mail": "Email",
@@ -24,6 +25,10 @@
 		"username": "Usuario",
 		"createUser": "Crear usuario",
 		"selectProvince": "--- Selecciona una provincia ---"
+	},
+	"myAccount": {
+		"passwordChanged": "Tu contraseña se ha actualizado.",
+		"dataChanged": "Tu perfil se ha actualizado."
 	},
 	"form": {
 		"required": "Este campo es obligatorio",

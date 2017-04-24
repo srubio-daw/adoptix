@@ -41,4 +41,14 @@ public class WebUserController {
 	public @ResponseBody ResponseEntity<AdoptixResponse> getUser(@RequestParam("mail") String mail) {
 		return new ResponseEntity<>(webUserService.getUser(mail), HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<AdoptixResponse> updateUserData(@RequestBody WebUserDTO userForm) {
+		return new ResponseEntity<>(webUserService.updateUserData(userForm), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<AdoptixResponse> updateUserData(@RequestParam("mail") String mail, @RequestParam("password") String password) {
+		return new ResponseEntity<>(webUserService.updateUserPassword(mail, password), HttpStatus.OK);
+	}
 }

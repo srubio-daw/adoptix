@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
-		WebUser user = webUserRepository.findOneByMail(mail);
+		WebUser user = webUserRepository.findOneByMailWithRoles(mail);
 
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		for (Role role : user.getRoles()) {

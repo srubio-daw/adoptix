@@ -7,7 +7,8 @@
 	},
 	"button": {
 		"cancel": "Cancel",
-		"close": "Close"
+		"close": "Close",
+		"save": "Save"
 	},
 	"login": {
 		"mail": "Mail",
@@ -24,6 +25,10 @@
 		"username": "Nickname",
 		"createUser": "Create user",
 		"selectProvince": "--- Select a province ---"
+	},
+	"myAccount": {
+		"passwordChanged": "You password has been updated.",
+		"dataChanged": "Your profile has been updated."
 	},
 	"form": {
 		"required": "This field is required",

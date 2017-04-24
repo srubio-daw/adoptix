@@ -49,6 +49,21 @@ export class UserService {
 			.map(this.extractData);
 	}
 
+	saveUserData(user : Object) {
+		let body = JSON.stringify(user);
+		return this.http.post(this.url + "/update", body, this.options)
+			.map(this.extractData);
+	}
+
+	saveUserPassword(mail : String, password : String) {
+		password = Md5.hashStr(password);
+		let body = new URLSearchParams();
+		body.set('mail', mail);
+		body.set('password', password);
+		return this.http.post(this.url + "/updatePassword", body, this.formOptions)
+			.map(this.extractData);
+	}
+
 	private extractData(response : any) {
 		let body = response.json();
 		return body || [];

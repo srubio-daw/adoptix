@@ -68,11 +68,13 @@ export class MyAccountComponent {
 	provinces : any = [];
 	user : any = null;
 	duplicated : String = null;
+	passwordChangeSuccess : boolean = false;
+	dataChangeSuccess : boolean = false;
 
 	@ViewChild(ErrorModalComponent)
 	errorModal : ErrorModalComponent;
 
-	// Meétodos
+	// Métodos
 	subscribeToAssociationChanges() {
 		const associationChanges$ = this.association.valueChanges;
 
@@ -103,21 +105,32 @@ export class MyAccountComponent {
 	getUserData() {
 		this.userService.getUserData()
 			.subscribe(
-				user => this.user = user,
+				result => {
+					this.user = result.data;
+					this.setDataFormValues();
+				},
 				error => alert(error));
 	}
 
-	submitRegisterForm() {
-		if (!this.registerForm.valid || !this.passwords.valid) {
+	setDataFormValues() {
+		this.name.setValue(this.user.name);
+		this.surname.setValue(this.user.surname);
+		this.nif.setValue(this.user.nif);
+		this.address.setValue(this.user.address);
+		this.province.setValue(this.user.province);
+		this.username.setValue(this.user.username);
+		this.registerMail.setValue(this.user.mail);
+		this.association.setValue(this.user.association.toString());
+	}
+
+	saveChanges() {
+		this.clearDataMessage();
+		if (!this.registerForm.valid) {
 			// Mark fields as dirty and return
 			this.validationService.markFormAsTouched(this.registerForm);
-			this.validationService.markFormAsTouched(this.passwords);
 		} else {
 			let user : Object = this.registerForm.value;
-			for (var property in this.passwords.value) {
-				user[property] = this.passwords.value[property];
-			}
-			let result = this.userService.register(user).subscribe(
+			let result = this.userService.saveUserData(user).subscribe(
 				result => {
 					if (!result.success) {
 						if (result.message.indexOf('error.duplicated') != -1) {
@@ -126,8 +139,9 @@ export class MyAccountComponent {
 							this.errorModal.open('error.title', result.message);
 						}
 					} else {
-						this.resetRegisterForm();
-						this.userService.loggedUser = result.data;
+						this.user = result.data;
+						this.setDataFormValues();
+						this.dataChangeSuccess = true;
 					}
 				}, 
 				error => {
@@ -138,11 +152,45 @@ export class MyAccountComponent {
 		}
 	}
 
-	resetRegisterForm() {
-		this.registerForm.reset();
-		this.province.setValue(0);
-		this.association.setValue('no');
-		this.passwords.reset();
+	savePassword() {
+		this.clearPasswordMessage();
+		if (!this.passwords.valid) {
+			// Mark fields as dirty and return
+			this.validationService.markFormAsTouched(this.passwords);
+		} else {
+			let result = this.userService.saveUserPassword(this.registerMail.value, this.registerPass.value ).subscribe(
+				result => {
+					if (!result.success) {
+						this.errorModal.open('error.title', result.message);
+					} else {
+						this.passwords.reset();
+						this.passwordChangeSuccess = true;
+					}
+				}, 
+				error => {
+					console.log(JSON.stringify(error.json()))
+					return null;
+				}
+			);
+		}
+	}
+
+	clearDataMessage() {
+		this.dataChangeSuccess = false;
 		this.duplicated = null;
+	}
+
+	clearDataForm() {
+		this.clearDataMessage();
+		this.setDataFormValues();
+	}
+
+	clearPasswordMessage() {
+		this.passwordChangeSuccess = false;
+	}
+
+	clearPasswordForm() {
+		this.clearPasswordMessage();
+		this.passwords.reset();
 	}
 }
