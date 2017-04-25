@@ -3,7 +3,8 @@
 		"login": "Log in",
 		"createUser": "New user",
 		"logout": "Log out",
-		"account": "My account"
+		"account": "My account",
+		"newPet": "Add pet"
 	},
 	"button": {
 		"cancel": "Cancel",

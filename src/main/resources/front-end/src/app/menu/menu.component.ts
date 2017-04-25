@@ -11,6 +11,7 @@ import { ProvinceService } from '../services/province.service';
 import { ValidationService } from '../services/validation.service';
 import { UserService } from '../services/user.service';
 import { ErrorModalComponent } from '../modal/error-modal.component';
+import * as $ from "jquery";
 
 @Component({
   selector: 'menu',
@@ -104,6 +105,12 @@ export class MenuComponent {
 	translate : TranslateService;
 
 	// Meétodos
+	changeMenu(id : string) {
+		$('#menuBar button').removeClass('btn-success');
+    	$('#menuBar button').addClass('btn-default');
+    	$('#' + id).addClass('btn-success');
+    }
+	
 	changeLanguage(lang : string) {
 		this.translate.use(lang);
 	}

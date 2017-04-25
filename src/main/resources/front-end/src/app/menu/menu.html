@@ -1,8 +1,10 @@
-<div class="row">
+<div id="menuBar" class="row">
+    <button id="homeBtn" class="btn btn-success" (click)="changeMenu('homeBtn')"><i class="glyphicon glyphicon-home"></i></button>
+    <button id="addPetBtn" class="btn btn-default" (click)="changeMenu('addPetBtn')"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="menu.newPet"></span></button>
 	<div class="pull-right">
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
-        <button class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']"><i class="glyphicon glyphicon-user"></i>&nbsp;<span translate="menu.account"></span></button>
+        <button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;<span translate="menu.account"></span></button>
         <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><span translate="menu.logout"></span></button>
         <span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span>
 	</div>
