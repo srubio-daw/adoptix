@@ -26,6 +26,7 @@ export class MenuComponent {
         translate.setDefaultLang('es');
          // the lang to use, if the lang isn't available, it will use the current loader to get them
         translate.use('es');
+        this.translate = translate;
         
         // Formulario login
         this.loginForm = fb.group({
@@ -100,7 +101,13 @@ export class MenuComponent {
 	badCredentials : String = null;
 	duplicated : String = null;
 
+	translate : TranslateService;
+
 	// Meétodos
+	changeLanguage(lang : string) {
+		this.translate.use(lang);
+	}
+
 	subscribeToAssociationChanges() {
 		const associationChanges$ = this.association.valueChanges;
 
@@ -173,7 +180,6 @@ export class MenuComponent {
 						this.loginModal.close();
 						this.resetLoginForm();
 						this.userService.loggedUser = result.data;
-						alert(JSON.stringify(this.userService.loggedUser));
 					}
 				}, 
 				error => {

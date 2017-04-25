@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h1 class="text-center">Mis datos</h1>
+        <h1 class="text-center"><span translate="myAccount.myData"></span></h1>
         <form class="form-horizontal" [formGroup]="registerForm">
             <div class="row" *ngIf="dataChangeSuccess">
                 <div class="col-md-12 text-center">
@@ -18,8 +18,8 @@
             </div>
         	<div class="form-group" [ngClass]="{'has-error': association.touched && !association.valid}">
         		<label class="control-label col-md-5 text-right"><span translate="register.association"></span></label>
-        		<label class="control-label label-inline col-md-2">Si <input type="radio" value="true" [formControl]="association" (focus)="clearDataMessage()"></label>
-        		<label class="control-label label-inline col-md-2">No <input type="radio" value="false" [formControl]="association" (focus)="clearDataMessage()"></label>
+        		<label class="control-label label-inline col-md-2"><span translate="form.yes"></span> <input type="radio" value="true" [formControl]="association" (focus)="clearDataMessage()"></label>
+        		<label class="control-label label-inline col-md-2"><span translate="form.no"></span> <input type="radio" value="false" [formControl]="association" (focus)="clearDataMessage()"></label>
         		<div class="row">
         			<div class="col-md-7 col-md-offset-4">
         				<span class="help-block" *ngIf="association.touched && !association.valid" translate="form.required"></span>
@@ -87,7 +87,7 @@
 
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h2>Cambiar contraseña</h2>
+                    <h2><span translate="myAccount.changePassword"></span></h2>
                 </div>
             </div>
             <div [formGroup]="passwords">

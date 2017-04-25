@@ -4,6 +4,7 @@
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
         <button class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']"><i class="glyphicon glyphicon-user"></i>&nbsp;<span translate="menu.account"></span></button>
         <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><span translate="menu.logout"></span></button>
+        <span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span>
 	</div>
 </div>
 
@@ -19,8 +20,8 @@
             </label>
     		<div class="form-group" [ngClass]="{'has-error': association.touched && !association.valid}">
 				<label class="control-label col-md-5 text-right"><span translate="register.association"></span></label>
-				<label class="control-label label-inline col-md-2">Si <input type="radio" value="true" [formControl]="association"></label>
-				<label class="control-label label-inline col-md-2">No <input type="radio" value="false" [formControl]="association"></label>
+				<label class="control-label label-inline col-md-2"><span translate="form.yes"></span> <input type="radio" value="true" [formControl]="association"></label>
+				<label class="control-label label-inline col-md-2"><span translate="form.no"></span> <input type="radio" value="false" [formControl]="association"></label>
 				<div class="row">
 					<div class="col-md-7 col-md-offset-4">
 						<span class="help-block" *ngIf="association.touched && !association.valid" translate="form.required"></span>

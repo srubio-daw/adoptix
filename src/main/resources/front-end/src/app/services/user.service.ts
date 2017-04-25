@@ -55,7 +55,7 @@ export class UserService {
 			.map(this.extractData);
 	}
 
-	saveUserPassword(mail : String, password : String) {
+	saveUserPassword(mail : string, password : any) {
 		password = Md5.hashStr(password);
 		let body = new URLSearchParams();
 		body.set('mail', mail);

@@ -28,13 +28,17 @@
 	},
 	"myAccount": {
 		"passwordChanged": "Tu contraseña se ha actualizado.",
-		"dataChanged": "Tu perfil se ha actualizado."
+		"dataChanged": "Tu perfil se ha actualizado.",
+		"myData": "Mis datos",
+		"changePassword": "Cambiar contraseña"
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
 		"maxLength": "La longitud no puede ser mayor de {{maxLength}}",
 		"validEmail": "No es una dirección de email válida",
-		"repeatPassword": "Las contraseñas no coinciden"
+		"repeatPassword": "Las contraseñas no coinciden",
+		"yes": "Si",
+		"no": "No"
 	},
 	"error": {
 		"title": "Error",

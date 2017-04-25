@@ -28,13 +28,17 @@
 	},
 	"myAccount": {
 		"passwordChanged": "You password has been updated.",
-		"dataChanged": "Your profile has been updated."
+		"dataChanged": "Your profile has been updated.",
+		"myData": "My data",
+		"changePassword": "Change password"
 	},
 	"form": {
 		"required": "This field is required",
 		"maxLength": "Length can not be greater than {{maxLength}}",
 		"validEmail": "This is not a valid email address",
-		"repeatPassword": "Passwords do not match"
+		"repeatPassword": "Passwords do not match",
+		"yes": "Yes",
+		"no": "No"
 	},
 	"error": {
 		"title": "Error",
