@@ -33,13 +33,35 @@
 		"myData": "My data",
 		"changePassword": "Change password"
 	},
+	"newPet": {
+		"generalInfo": "General information",
+		"dog": "Dog",
+		"cat": "Cat",
+		"breed": "Breed",
+		"age": "Age (months)",
+		"location": "Location",
+		"adopter": "Adopter",
+		"host": "Host",
+		"dogsAffinity": "Affinity with dogs",
+		"catsAffinity": "Affinity with cats",
+		"kidsAffinity": "Affinity with kids",
+		"description": "Description",
+		"notAdopted": "Not adopted",
+		"notHosted": "Not hosted",
+		"forAdoption": "Needs adoption",
+		"forHost": "Needs host",
+		"vaccines": "Vaccines",
+		"medicalTests": "Medical Tests",
+		"vetVisits": "Vet visits"
+	},
 	"form": {
 		"required": "This field is required",
 		"maxLength": "Length can not be greater than {{maxLength}}",
 		"validEmail": "This is not a valid email address",
 		"repeatPassword": "Passwords do not match",
 		"yes": "Yes",
-		"no": "No"
+		"no": "No",
+		"integer": "Decimals are not allowed"
 	},
 	"error": {
 		"title": "Error",
@@ -47,5 +69,8 @@
 		"unexpected": "Unexpected error ocurred. Please, contact the website's admin.",
 		"duplicated.mail": "This mail is already registered.",
 		"duplicated.username": "This username is already registered."
+	},
+	"ngSelect": {
+		"nothingFound": "No results"
 	}
 }

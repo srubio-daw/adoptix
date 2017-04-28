@@ -18,7 +18,7 @@ export class UserService {
 	formOptions : RequestOptions = new RequestOptions({ headers: this.formHeaders });
 
 	// Testing
-	loggedUser : Object = {"authorities":[{"authority":"usuario"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"sylrupenopa@gmail.com","authorities":[{"authority":"usuario"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"sylrupenopa@gmail.com"};
+	loggedUser : any = {"authorities":[{"authority":"usuario"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"sylrupenopa@gmail.com","authorities":[{"authority":"usuario"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"sylrupenopa@gmail.com"};
 	//loggedUser : Object = null;
 
 	constructor (private http: Http) {}
@@ -62,6 +62,22 @@ export class UserService {
 		body.set('password', password);
 		return this.http.post(this.url + "/updatePassword", body, this.formOptions)
 			.map(this.extractData);
+	}
+
+	getNormalUsers() {
+		return this.http.get(this.url + "/normal")
+			.map(this.extractData);
+	}
+
+	hasRole(role : string) {
+		if (this.loggedUser != null && this.loggedUser.authorities != null) {
+			for (var authority in this.loggedUser.authorities) {
+				if (this.loggedUser.authorities[authority].authority == role) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	private extractData(response : any) {

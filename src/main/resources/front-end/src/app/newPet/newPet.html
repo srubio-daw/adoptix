@@ -1,0 +1,177 @@
+<div class="row">
+	<div class="col-md-12 text-center">
+		<h1><span translate="menu.newPet"></span></h1>
+	</div>
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="panel-title"><span translate="newPet.generalInfo"></span></div>
+			</div>
+			<div class="panel-body row">
+				<div class="col-md-12">
+					<form class="form-horizontal" [formGroup]="petForm">
+						<div class="form-group row">
+							<div [ngClass]="{'has-error': name.touched && !name.valid}">
+				        		<label class="control-label col-md-2"><span translate="register.name"></span></label>
+				        		<div class="col-md-3">
+				        			<input class="form-control" type="text" [formControl]="name">
+				        			<span class="help-block" *ngIf="name.touched && !name.valid" translate="form.required"></span>
+				        		</div>
+							</div>
+							<div [ngClass]="{'has-error': petType.touched && !petType.valid}">
+				        		<label class="control-label label-inline col-md-2 col-md-offset-1" ><span translate="newPet.dog"></span> <input type="radio" value="1" [formControl]="petType" [attr.disabled]="showAdditionalInfo?'':null"></label>
+				        		<label class="control-label label-inline col-md-2"><span translate="newPet.cat"></span> <input type="radio" value="2" [formControl]="petType"></label>
+				        		<div class="row">
+				        			<div class="col-md-6 text-center">
+				        				<span class="help-block" *ngIf="petType.touched && !petType.valid" translate="form.required"></span>
+				        			</div>
+				        		</div>
+				        	</div>
+			        	</div>
+			        	<div class="row">
+			        		<div class="col-md-6 col-sm-12">
+			        			<div class="form-group" [ngClass]="{'has-error': breed.touched && !breed.valid}">
+			        				<label class="control-label col-md-4"><span translate="newPet.breed"></span></label>
+					        		<div class="col-md-6">
+					        			<input class="form-control" type="text" [formControl]="breed">
+					        			<span class="help-block" *ngIf="breed.touched && !breed.valid" translate="form.required"></span>
+					        		</div>
+								</div>
+					        </div>
+					        <div class="col-md-6 col-sm-12">
+			        			<div class="form-group" [ngClass]="{'has-error': age.touched && !age.valid}">
+			        				<label class="control-label col-md-4"><span translate="newPet.age"></span></label>
+					        		<div class="col-md-6">
+					        			<input class="form-control" type="number" step="1" min="0" [formControl]="age">
+					        			<div *ngIf="age.touched">
+				                            <span class="help-block" *ngIf="age.hasError('required')" translate="form.required"></span>
+				                            <span class="help-block" *ngIf="!age.hasError('required') && age.hasError('integer')" translate="form.integer"></span>
+                        				</div>
+					        		</div>
+								</div>
+					        </div>
+			        	</div>
+			        	<div class="row">
+					    	<div class="col-md-6 col-sm-12">
+					        	<div class="form-group" [ngClass]="{'has-error': forAdoption.touched && !forAdoption.valid}">
+					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="newPet.forAdoption"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="forAdoption"></label>
+								</div>
+					        </div>
+					        <div class="col-md-6 col-sm-12">
+					        	<div class="form-group" [ngClass]="{'has-error': forHost.touched && !forHost.valid}">
+					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="newPet.forHost"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="forHost"></label>
+								</div>
+					        </div>
+					    </div>
+					    <hr>
+			        	<div class="row">
+			        		<div class="col-md-6 col-sm-12">
+			        			<div class="form-group" [ngClass]="{'has-error': adopter.touched && !adopter.valid}">
+			        				<label class="control-label col-md-4"><span translate="newPet.adopter"></span></label>
+					        		<div class="col-md-6">
+					        			<ng-select [options]="normalUsers" [multiple]="false" placeholder="{{'newPet.notAdopted' | translate}}" formControlName="adopter" [allowClear]="true" notFoundMsg="{{'ngSelect.nothingFound' | translate}}"></ng-select>
+					        			<span class="help-block" *ngIf="adopter.touched && !adopter.valid" translate="form.required"></span>
+					        		</div>
+								</div>
+					        </div>
+					        <div class="col-md-6 col-sm-12">
+			        			<div class="form-group" [ngClass]="{'has-error': host.touched && !host.valid}">
+			        				<label class="control-label col-md-4"><span translate="newPet.host"></span></label>
+					        		<div class="col-md-6">
+					        			<ng-select [options]="normalUsers" [multiple]="false" placeholder="{{'newPet.notHosted' | translate}}" formControlName="host" [allowClear]="true" notFoundMsg="{{'ngSelect.nothingFound' | translate}}"></ng-select>
+					        			<span class="help-block" *ngIf="host.touched && !host.valid" translate="form.required"></span>
+					        		</div>
+								</div>
+					        </div>
+					        <div class="row">
+						        <div class="col-md-6 col-sm-12">
+						        	<div class="form-group" [ngClass]="{'has-error': location.touched && !location.valid}">
+				        				<label class="control-label col-md-4"><span translate="newPet.location"></span></label>
+				        				<div class="col-md-6">
+						        			<select class="form-control" [formControl]="location" placeholder="Selecciona una provincia">
+						                        <option value="0">{{'register.selectProvince' | translate}}</option>
+						        				<option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
+						        			</select>
+						        			<span class="help-block" *ngIf="location.touched && !location.valid" translate="form.required"></span>
+						        		</div>
+									</div>
+						        </div>
+						    </div>
+						    <hr>
+						    <div class="row">
+						    	<div class="col-md-4 col-sm-12">
+						        	<div class="form-group" [ngClass]="{'has-error': dogsAffinity.touched && !dogsAffinity.valid}">
+						        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="newPet.dogsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="dogsAffinity"></label>
+						        		<div class="row">
+						        			<div class="col-md-4 col-md-offset-2">
+						        				<span class="help-block" *ngIf="dogsAffinity.touched && !dogsAffinity.valid" translate="form.required"></span>
+						        			</div>
+						        		</div>
+									</div>
+						        </div>
+						        <div class="col-md-4 col-sm-12">
+						        	<div class="form-group" [ngClass]="{'has-error': catsAffinity.touched && !catsAffinity.valid}">
+						        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="newPet.catsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="catsAffinity"></label>
+						        		<div class="row">
+						        			<div class="col-md-4 col-md-offset-2">
+						        				<span class="help-block" *ngIf="catsAffinity.touched && !catsAffinity.valid" translate="form.required"></span>
+						        			</div>
+						        		</div>
+									</div>
+						        </div>
+						        <div class="col-md-4 col-sm-12">
+						        	<div class="form-group" [ngClass]="{'has-error': kidsAffinity.touched && !kidsAffinity.valid}">
+						        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="newPet.kidsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="kidsAffinity"></label>
+						        		<div class="row">
+						        			<div class="col-md-4 col-md-offset-2">
+						        				<span class="help-block" *ngIf="kidsAffinity.touched && !kidsAffinity.valid" translate="form.required"></span>
+						        			</div>
+						        		</div>
+									</div>
+						        </div>
+						    </div>
+						    <hr>
+						    <div class="row">
+						    	<div class="col-md-12 text-center">
+						    		<button class="btn btn-primary" (click)="savePet()"><span translate="button.save"></span></button>
+						    		<button class="btn btn-danger" (click)="resetPetForm()"><span translate="button.cancel"></span></button>
+						    	</div>
+						    </div>
+			        	</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-sm-12" *ngIf="showAdditionalInfo">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<div class="panel-title">HOLA</div>
+					</div>
+					<div class="panel-body">
+						asd
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-12" *ngIf="showAdditionalInfo">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<div class="panel-title">HOLA</div>
+					</div>
+					<div class="panel-body">
+						asd
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-danger" *ngIf="showAdditionalInfo">
+			<div class="panel-heading">
+				<div class="panel-title">HOLA</div>
+			</div>
+			<div class="panel-body">
+				asd
+			</div>
+		</div>
+	</div>
+</div>
+<error-modal></error-modal>

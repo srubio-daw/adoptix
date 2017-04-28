@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 
-// MODULES
-import { TranslateService } from '@ngx-translate/core';
-
 // INTERNAL
 import { ProvinceService } from '../services/province.service';
 import { ValidationService } from '../services/validation.service';
@@ -15,7 +12,7 @@ import { ErrorModalComponent } from '../modal/error-modal.component';
   providers: [ProvinceService, ValidationService]
 })
 export class MyAccountComponent {
-	constructor(fb: FormBuilder, translate: TranslateService, private validationService : ValidationService, 
+	constructor(fb: FormBuilder, private validationService : ValidationService, 
 		private userService : UserService, private provinceService : ProvinceService ) {
 		 // Formulario registro
         this.registerForm = fb.group({

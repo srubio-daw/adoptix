@@ -11,6 +11,9 @@ public class WebUserDTO {
 	private String username;
 	private Byte province;
 	private boolean association;
+	// Properties for select
+	private String value;
+	private String label;
 
 	public WebUserDTO() {
 	}
@@ -27,6 +30,8 @@ public class WebUserDTO {
 		this.username = username;
 		this.province = province;
 		this.association = association;
+		this.value = id.toString();
+		this.label = name + (surname != null ? " " + surname : "");
 	}
 
 	public Integer getId() {
@@ -107,6 +112,23 @@ public class WebUserDTO {
 
 	public void setAssociation(boolean association) {
 		this.association = association;
+	}
+
+	// Properties for select
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 }

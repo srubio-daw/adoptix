@@ -192,4 +192,17 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 		response.setSuccess(true);
 		return response;
 	}
+	
+	public AdoptixResponse getNormalUsers() {
+		AdoptixResponse response = new AdoptixResponse();
+		Role userRole = roleRepository.findOneByName(RoleEnum.USUARIO.getName());
+		List<WebUser> users = webUserRepository.findAllByRole(userRole);
+		List<WebUserDTO> dtoUsers = new ArrayList<>();
+		for (WebUser user : users) {
+			dtoUsers.add(convertToDTO(user));
+		}
+		response.setSuccess(true);
+		response.setData(dtoUsers);
+		return response;
+	}
 }

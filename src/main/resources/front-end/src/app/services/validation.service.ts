@@ -29,6 +29,16 @@ export class ValidationService {
 		}
 	}
 
+	integer(c: FormControl) {
+		let INTEGER_REGEXP = /^\d+$/;
+
+		return INTEGER_REGEXP.test(c.value) ? null : {
+			integer: {
+				valid: false
+			}
+		}
+	}
+
 	comboSelected(c: FormControl) {
 		return c.value !== 0 ? null : {
 			comboSelected: {

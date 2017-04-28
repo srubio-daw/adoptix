@@ -12,6 +12,8 @@ import { FooterComponent }  from './footer/footer.component';
 import { MenuComponent }  from './menu/menu.component';
 import { ErrorModalComponent } from './modal/error-modal.component';
 import { MyAccountComponent } from './myAccount/myAccount.component';
+import { HomeComponent } from './home/home.component';
+import { NewPetComponent } from './newPet/newPet.component';
 
 // SERVICIOS
 import { UserService } from './services/user.service';
@@ -20,6 +22,7 @@ import { UserService } from './services/user.service';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { SelectModule } from 'ng-select';
 
 import { environment } from '../environments/environment';
 
@@ -29,7 +32,9 @@ export function HttpLoaderFactory(http: Http) {
 
 // RUTAS
 const appRoutes: Routes = [
-  { path: 'myAccount', component: MyAccountComponent }
+  { path: 'myAccount', component: MyAccountComponent },
+  { path: 'association/newPet', component: NewPetComponent },
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
@@ -46,7 +51,8 @@ const appRoutes: Routes = [
         deps: [Http]
       }
     }),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    SelectModule
   ],
   declarations: [
   	HeaderComponent, 
@@ -54,7 +60,9 @@ const appRoutes: Routes = [
   	FooterComponent, 
   	MenuComponent,
     ErrorModalComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    HomeComponent,
+    NewPetComponent
   ],
   bootstrap: [
   	HeaderComponent, 

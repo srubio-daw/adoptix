@@ -1,8 +1,15 @@
 package tk.srubio.adoptix.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the pet database table.
@@ -12,47 +19,54 @@ import java.util.List;
 @Table(name = "pet")
 public class Pet implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
-	private byte adopted;
+	private Long id;
 	private short age;
 	private String breed;
-	private byte catsAffinity;
-	private String comment;
-	private byte dogsAffinity;
-	private byte forAdoption;
-	private byte forHost;
-	private byte kidsAffinity;
+	private boolean catsAffinity;
+	private String description;
+	private boolean dogsAffinity;
+	private boolean forAdoption;
+	private boolean forHost;
+	private boolean kidsAffinity;
 	private String name;
 	private byte petType;
-	private Province province;
+	private Province location;
 	private WebUser adopter;
 	private WebUser host;
-	private List<Vaccine> vaccines;
-	private List<VetVisit> vetVisits;
-	private List<VetTest> vetTests;
 	private WebUser association;
 
 	public Pet() {
 	}
 
+	public Pet(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
+			boolean forAdoption, boolean forHost, boolean kidsAffinity, String name, byte petType, Province province,
+			WebUser adopter, WebUser host, WebUser association) {
+		this.id = id;
+		this.age = age;
+		this.breed = breed;
+		this.catsAffinity = catsAffinity;
+		this.description = description;
+		this.dogsAffinity = dogsAffinity;
+		this.forAdoption = forAdoption;
+		this.forHost = forHost;
+		this.kidsAffinity = kidsAffinity;
+		this.name = name;
+		this.petType = petType;
+		this.location = province;
+		this.adopter = adopter;
+		this.host = host;
+		this.association = association;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	@Column(nullable = false)
-	public byte getAdopted() {
-		return this.adopted;
-	}
-
-	public void setAdopted(byte adopted) {
-		this.adopted = adopted;
 	}
 
 	@Column(nullable = false)
@@ -74,56 +88,56 @@ public class Pet implements Serializable {
 	}
 
 	@Column(name = "cats_affinity", nullable = false)
-	public byte getCatsAffinity() {
+	public boolean getCatsAffinity() {
 		return this.catsAffinity;
 	}
 
-	public void setCatsAffinity(byte catsAffinity) {
+	public void setCatsAffinity(boolean catsAffinity) {
 		this.catsAffinity = catsAffinity;
 	}
 
 	@Column(length = 200)
-	public String getComment() {
-		return this.comment;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Column(name = "dogs_affinity", nullable = false)
-	public byte getDogsAffinity() {
+	public boolean getDogsAffinity() {
 		return this.dogsAffinity;
 	}
 
-	public void setDogsAffinity(byte dogsAffinity) {
+	public void setDogsAffinity(boolean dogsAffinity) {
 		this.dogsAffinity = dogsAffinity;
 	}
 
 	@Column(name = "for_adoption", nullable = false)
-	public byte getForAdoption() {
+	public boolean getForAdoption() {
 		return this.forAdoption;
 	}
 
-	public void setForAdoption(byte forAdoption) {
+	public void setForAdoption(boolean forAdoption) {
 		this.forAdoption = forAdoption;
 	}
 
 	@Column(name = "for_host", nullable = false)
-	public byte getForHost() {
+	public boolean getForHost() {
 		return this.forHost;
 	}
 
-	public void setForHost(byte forHost) {
+	public void setForHost(boolean forHost) {
 		this.forHost = forHost;
 	}
 
 	@Column(name = "kids_affinity", nullable = false)
-	public byte getKidsAffinity() {
+	public boolean getKidsAffinity() {
 		return this.kidsAffinity;
 	}
 
-	public void setKidsAffinity(byte kidsAffinity) {
+	public void setKidsAffinity(boolean kidsAffinity) {
 		this.kidsAffinity = kidsAffinity;
 	}
 
@@ -148,12 +162,12 @@ public class Pet implements Serializable {
 	// uni-directional many-to-one association to Province
 	@ManyToOne
 	@JoinColumn(name = "province", nullable = false)
-	public Province getProvince() {
-		return this.province;
+	public Province getLocation() {
+		return this.location;
 	}
 
-	public void setProvince(Province province) {
-		this.province = province;
+	public void setLocation(Province province) {
+		this.location = province;
 	}
 
 	// uni-directional many-to-one association to WebUser
@@ -176,78 +190,6 @@ public class Pet implements Serializable {
 
 	public void setHost(WebUser host) {
 		this.host = host;
-	}
-
-	// bi-directional many-to-one association to Vaccine
-	@OneToMany(mappedBy = "pet")
-	public List<Vaccine> getVaccines() {
-		return this.vaccines;
-	}
-
-	public void setVaccines(List<Vaccine> vaccines) {
-		this.vaccines = vaccines;
-	}
-
-	public Vaccine addVaccine(Vaccine vaccine) {
-		getVaccines().add(vaccine);
-		vaccine.setPet(this);
-
-		return vaccine;
-	}
-
-	public Vaccine removeVaccine(Vaccine vaccine) {
-		getVaccines().remove(vaccine);
-		vaccine.setPet(null);
-
-		return vaccine;
-	}
-
-	// bi-directional many-to-one association to VetVisit
-	@OneToMany(mappedBy = "pet")
-	public List<VetVisit> getVetVisits() {
-		return this.vetVisits;
-	}
-
-	public void setVetVisits(List<VetVisit> vetVisits) {
-		this.vetVisits = vetVisits;
-	}
-
-	public VetVisit addVetVisit(VetVisit vetVisit) {
-		getVetVisits().add(vetVisit);
-		vetVisit.setPet(this);
-
-		return vetVisit;
-	}
-
-	public VetVisit removeVetVisit(VetVisit vetVisit) {
-		getVetVisits().remove(vetVisit);
-		vetVisit.setPet(null);
-
-		return vetVisit;
-	}
-
-	// bi-directional many-to-one association to VetTest
-	@OneToMany(mappedBy = "pet")
-	public List<VetTest> getVetTests() {
-		return this.vetTests;
-	}
-
-	public void setVetTests(List<VetTest> vetTests) {
-		this.vetTests = vetTests;
-	}
-
-	public VetTest addVetTest(VetTest vetTest) {
-		getVetTests().add(vetTest);
-		vetTest.setPet(this);
-
-		return vetTest;
-	}
-
-	public VetTest removeVetTest(VetTest vetTest) {
-		getVetTests().remove(vetTest);
-		vetTest.setPet(null);
-
-		return vetTest;
 	}
 
 	// uni-directional many-to-one association to WebUser

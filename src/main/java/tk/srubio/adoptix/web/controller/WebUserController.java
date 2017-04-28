@@ -51,4 +51,9 @@ public class WebUserController {
 	public @ResponseBody ResponseEntity<AdoptixResponse> updateUserData(@RequestParam("mail") String mail, @RequestParam("password") String password) {
 		return new ResponseEntity<>(webUserService.updateUserPassword(mail, password), HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/normal", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<AdoptixResponse> getNormalUsers() {
+		return new ResponseEntity<>(webUserService.getNormalUsers(), HttpStatus.OK);
+	}
 }

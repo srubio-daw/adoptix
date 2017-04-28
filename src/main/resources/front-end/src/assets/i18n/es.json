@@ -33,13 +33,35 @@
 		"myData": "Mis datos",
 		"changePassword": "Cambiar contraseña"
 	},
+	"newPet": {
+		"generalInfo": "Información general",
+		"dog": "Perro",
+		"cat": "Gato",
+		"breed": "Raza",
+		"age": "Edad (meses)",
+		"location": "Localización",
+		"adopter": "Adoptante",
+		"host": "Hospedador",
+		"dogsAffinity": "Afinidad con perros",
+		"catsAffinity": "Afinidad con gatos",
+		"kidsAffinity": "Afinidad con niños",
+		"description": "Description",
+		"notAdopted": "Sin adoptar",
+		"notHosted": "Sin acoger",
+		"forAdoption": "Busca adopción",
+		"forHost": "Busca acogida",
+		"vaccines": "Vacunas",
+		"medicalTests": "Pruebas médicas",
+		"vetVisits": "Visitas veterinarias"
+	},
 	"form": {
 		"required": "Este campo es obligatorio",
 		"maxLength": "La longitud no puede ser mayor de {{maxLength}}",
 		"validEmail": "No es una dirección de email válida",
 		"repeatPassword": "Las contraseñas no coinciden",
 		"yes": "Si",
-		"no": "No"
+		"no": "No",
+		"integer": "El valor no puede tener decimales"
 	},
 	"error": {
 		"title": "Error",
@@ -47,5 +69,8 @@
 		"unexpected": "Ha ocurrido un error inesperado. Por favor, contacta con el administrador del sitio.",
 		"duplicated.mail": "Este email ya está registrado.",
 		"duplicated.username": "Este usuario ya está en uso."
+	},
+	"ngSelect": {
+		"nothingFound": "Sin resultados"
 	}
 }
