@@ -102,7 +102,7 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 	}
 
 	public AdoptixResponse registerAndLogin(WebUserDTO dto) {
-		AdoptixResponse response = new AdoptixResponse(null, true, null);
+		AdoptixResponse response = new AdoptixResponse(null, true, null, null);
 		String result = saveDTO(dto);
 		if (result == null) {
 			response = login(dto);
@@ -114,7 +114,7 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 	}
 
 	public AdoptixResponse login(WebUserDTO dto) {
-		AdoptixResponse response = new AdoptixResponse(null, true, null);
+		AdoptixResponse response = new AdoptixResponse(null, true, null, null);
 		Authentication authentication = null;
 		try {
 			authentication = authenticationManager
@@ -136,7 +136,7 @@ public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
 	}
 	
 	public AdoptixResponse getUser(String mail) {
-		AdoptixResponse response = new AdoptixResponse(null, false, null);
+		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
 		WebUser user = webUserRepository.findOneByMailWithRoles(mail);
 		if (user != null) {
 			response.setSuccess(true);

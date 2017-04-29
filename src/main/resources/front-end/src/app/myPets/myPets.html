@@ -1,0 +1,49 @@
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>{{'pet.type' | translate}}</th>
+					<th>{{'pet.name' | translate}}</th>
+					<th>{{'pet.breed' | translate}}</th>
+					<th>{{'pet.age' | translate}}</th>
+					<th>{{'pet.location' | translate}}</th>
+					<th>{{'pet.forAdoption' | translate}}</th>
+					<th>{{'pet.forHost' | translate}}</th>
+					<th>{{'grid.actions' | translate}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let pet of pets">
+					<td>{{getPetTypeLabel(pet.petType) | translate}}</td>
+					<td>{{pet.name}}</td>
+					<td>{{pet.breed}}</td>
+					<td>{{pet.age}}</td>
+					<td>{{pet.locationName}}</td>
+					<td><i [class]="getCheckboxIcon(pet.forAdoption)"></i></td>
+					<td><i [class]="getCheckboxIcon(pet.forHost)"></i></td>
+					<td>
+						<a class="actionButton" [routerLink]="['/pet/' + pet.id]"><i class="purple glyphicon glyphicon-eye-open"></i></a>
+						<a class="actionButton" [routerLink]="['/pet/edit/' + pet.id]"><i class="orange glyphicon glyphicon-pencil"></i></a>
+						<a class="actionButton" [routerLink]="['/pet/delete/' + pet.id]"><i class="red glyphicon glyphicon-remove"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<div class="col-md-12">
+				<span translate="grid.rows"></span>
+				<select [(ngModel)]="pagination.rows" (change)="refreshTable()">
+					<option value="20">20</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<span translate="grid.page"></span>
+				<select [(ngModel)]="pagination.page" (change)="refreshTable()">
+					<option *ngFor="let page of pagination.pages" [value]="page">{{page}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>

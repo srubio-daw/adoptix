@@ -4,7 +4,8 @@
 		"createUser": "Nuevo usuario",
 		"logout": "Cerrar sesión",
 		"account": "Mi cuenta",
-		"newPet": "Registrar animal"
+		"newPet": "Registrar animal",
+		"myPets": "Mis animales"
 	},
 	"button": {
 		"cancel": "Cancelar",
@@ -33,8 +34,10 @@
 		"myData": "Mis datos",
 		"changePassword": "Cambiar contraseña"
 	},
-	"newPet": {
+	"pet": {
+		"name": "Nombre",
 		"generalInfo": "Información general",
+		"type": "Tipo",
 		"dog": "Perro",
 		"cat": "Gato",
 		"breed": "Raza",
@@ -72,5 +75,10 @@
 	},
 	"ngSelect": {
 		"nothingFound": "Sin resultados"
+	},
+	"grid": {
+		"actions": "Acciones",
+		"rows": "Filas por página",
+		"page": "Página"
 	}
 }

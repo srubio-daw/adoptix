@@ -9,14 +9,16 @@ public class AdoptixResponse implements Serializable {
 	private String message;
 	private Boolean success;
 	private Object data;
+	private Long totalRecords;
 
 	public AdoptixResponse() {
 	}
 
-	public AdoptixResponse(String message, Boolean success, Object data) {
+	public AdoptixResponse(String message, Boolean success, Object data, Long totalRecords) {
 		this.message = message;
 		this.success = success;
 		this.data = data;
+		this.totalRecords = totalRecords;
 	}
 
 	public String getMessage() {
@@ -41,6 +43,14 @@ public class AdoptixResponse implements Serializable {
 
 	public void setData(Object data) {
 		this.data = data;
+	}
+
+	public Long getTotalRecords() {
+		return totalRecords;
+	}
+
+	public void setTotalRecords(Long totalRecords) {
+		this.totalRecords = totalRecords;
 	}
 
 }

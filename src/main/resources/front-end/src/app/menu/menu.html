@@ -1,11 +1,12 @@
 <div id="menuBar" class="row">
     <button id="homeBtn" class="btn btn-success" [routerLink]="['/home']" (click)="changeMenu('homeBtn')"><i class="glyphicon glyphicon-home"></i></button>
-    <button id="addPetBtn" class="btn btn-default" [routerLink]="['/association/newPet']" (click)="changeMenu('addPetBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="menu.newPet"></span></button>
+    <button id="newPetBtn" class="btn btn-default" [routerLink]="['/association/newPet']" (click)="changeMenu('newPetBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="menu.newPet"></span></button>
+    <button id="myPetsBtn" class="btn btn-default" [routerLink]="['/association/myPets']" (click)="changeMenu('myPetsBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="menu.myPets"></span></button>
 	<div class="pull-right">
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
-        <button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;<span translate="menu.account"></span></button>
-        <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><span translate="menu.logout"></span></button>
+        <button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<span translate="menu.account"></span></button>
+        <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><i class="glyphicon glyphicon-off"></i>&nbsp;&nbsp;<span translate="menu.logout"></span></button>
         <span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span>
 	</div>
 </div>

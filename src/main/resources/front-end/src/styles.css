@@ -8,6 +8,44 @@ html, body {
 	background-color: #C1BDB9;
 }
 
+/* Botones de accion */
+a.actionButton {
+	padding: 0 5px;
+}
+
+a.actionButton i.red {
+	color: red;
+}
+
+a.actionButton i.orange {
+	color: orange;
+}
+
+a.actionButton i.purple {
+	color: #6B18C3;
+}
+
+/* Color de la cabecera de las tablas */
+table.table thead th {
+	background-color: #337ab7;
+	color: white;
+}
+
+/* Color de las lineas pares de las tablas */
+.table-striped > tbody > tr:nth-child(even) > td {
+   background-color: #C3E3FF;
+}
+
+/* SELECT paginación */
+.pagination select {
+    display:inline-block;
+    width:85px;
+    border-radius:0px;
+    float: left;
+    vertical-align: top;
+    margin-left: -1px;
+}
+
 /* Tamaño de los H1 reducido, normal para pantallas grandes */
 h1 {
 	font-size: 1.7em;
@@ -17,6 +55,12 @@ h1 {
 	h1 {
 		font-size: 2em;
 	}
+}
+
+/* Centrar texto en tablas */
+table.table td,
+table.table th {
+	text-align: center;
 }
 
 /* Padding de los paneles */

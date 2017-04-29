@@ -4,7 +4,8 @@
 		"createUser": "New user",
 		"logout": "Log out",
 		"account": "My account",
-		"newPet": "Add pet"
+		"newPet": "Add pet",
+		"myPets": "My pets"
 	},
 	"button": {
 		"cancel": "Cancel",
@@ -33,8 +34,10 @@
 		"myData": "My data",
 		"changePassword": "Change password"
 	},
-	"newPet": {
+	"pet": {
+		"name": "Name",
 		"generalInfo": "General information",
+		"type": "Type",
 		"dog": "Dog",
 		"cat": "Cat",
 		"breed": "Breed",
@@ -72,5 +75,10 @@
 	},
 	"ngSelect": {
 		"nothingFound": "No results"
+	},
+	"grid": {
+		"actions": "Actions",
+		"rows": "Rows per page",
+		"page": "Page"
 	}
 }

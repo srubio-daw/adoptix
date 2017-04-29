@@ -1,7 +1,12 @@
 package tk.srubio.adoptix.web.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import tk.srubio.adoptix.model.Pet;
@@ -26,9 +31,10 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 	public PetDTO convertToDTO(Pet object) {
 		PetDTO dto = new PetDTO(object.getId(), object.getAge(), object.getBreed(), object.getCatsAffinity(),
 				object.getDescription(), object.getDogsAffinity(), object.getForAdoption(), object.getForHost(),
-				object.getKidsAffinity(), object.getName(), object.getPetType(),
-				object.getLocation().getId(), object.getAdopter().getId(), object.getHost().getId(),
-				object.getAssociation().getId(), object.getAssociation().getMail());
+				object.getKidsAffinity(), object.getName(), object.getPetType(), object.getLocation().getId(),
+				object.getLocation().getName(), object.getAdopter() != null ? object.getAdopter().getId() : null,
+				object.getHost() != null ? object.getHost().getId() : null, object.getAssociation().getId(),
+				object.getAssociation().getMail());
 		return dto;
 	}
 
@@ -49,9 +55,8 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 
 		Pet object = new Pet(dtoObject.getId(), dtoObject.getAge(), dtoObject.getBreed(), dtoObject.getCatsAffinity(),
 				dtoObject.getDescription(), dtoObject.getDogsAffinity(), dtoObject.getForAdoption(),
-				dtoObject.getForHost(), dtoObject.getKidsAffinity(), dtoObject.getName(),
-				dtoObject.getPetType(), provinceRepository.findOne(dtoObject.getLocation()), adopter,
-				host, association);
+				dtoObject.getForHost(), dtoObject.getKidsAffinity(), dtoObject.getName(), dtoObject.getPetType(),
+				provinceRepository.findOne(dtoObject.getLocationId()), adopter, host, association);
 		return object;
 	}
 
@@ -90,7 +95,7 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		}
 		return null;
 	}
-	
+
 	public AdoptixResponse create(PetDTO dto) {
 		AdoptixResponse response = new AdoptixResponse();
 		WebUser association = webUserRepository.findOneByMailWithRoles(dto.getUserMail());
@@ -102,6 +107,19 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 			response.setSuccess(false);
 			response.setMessage(result);
 		}
+		return response;
+	}
+
+	public AdoptixResponse getMyPets(String mail, Pageable pageable) {
+		Long totalRecords = petRepository.countByAssociationMail(mail);
+		List<PetDTO> petsDTO = new ArrayList<>();
+		if (totalRecords > 0) {
+			Page<Pet> pets = petRepository.findByAssociationMail(mail, pageable);
+			for (Pet pet : pets) {
+				petsDTO.add(convertToDTO(pet));
+			}
+		}
+		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
 		return response;
 	}
 }

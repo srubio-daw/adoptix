@@ -1,6 +1,7 @@
 package tk.srubio.adoptix.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,12 +18,18 @@ import tk.srubio.adoptix.web.util.AdoptixResponse;
 @Controller
 @RequestMapping(value = "/pet")
 public class PetController {
-	
+
 	@Autowired
 	private PetService petService;
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<AdoptixResponse> register(@RequestBody PetDTO petForm) {
 		return new ResponseEntity<>(petService.create(petForm), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/myPets", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<AdoptixResponse> getMyPets(@RequestParam String mail, @RequestParam int page,
+			@RequestParam int rows) {
+		return new ResponseEntity<>(petService.getMyPets(mail, new PageRequest(page - 1, rows)), HttpStatus.OK);
 	}
 }

@@ -12,7 +12,8 @@ public class PetDTO {
 	private boolean kidsAffinity;
 	private String name;
 	private Byte petType;
-	private Byte location;
+	private Byte locationId;
+	private String locationName;
 	private Integer adopter;
 	private Integer host;
 	private Integer association;
@@ -24,8 +25,8 @@ public class PetDTO {
 	}
 
 	public PetDTO(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
-			boolean forAdoption, boolean forHost, boolean kidsAffinity, String name, Byte petType, Byte location,
-			Integer adopter, Integer host, Integer association, String userMail) {
+			boolean forAdoption, boolean forHost, boolean kidsAffinity, String name, Byte petType, Byte locationId,
+			String locationName, Integer adopter, Integer host, Integer association, String userMail) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -37,7 +38,8 @@ public class PetDTO {
 		this.kidsAffinity = kidsAffinity;
 		this.name = name;
 		this.petType = petType;
-		this.location = location;
+		this.locationId = locationId;
+		this.locationName = locationName;
 		this.adopter = adopter;
 		this.host = host;
 		this.association = association;
@@ -132,12 +134,20 @@ public class PetDTO {
 		this.petType = petType;
 	}
 
-	public Byte getLocation() {
-		return location;
+	public Byte getLocationId() {
+		return locationId;
 	}
 
-	public void setLocation(Byte location) {
-		this.location = location;
+	public void setLocationId(Byte location) {
+		this.locationId = location;
+	}
+
+	public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
 	}
 
 	public Integer getAdopter() {

@@ -71,6 +71,14 @@ export class MenuComponent {
     	this.subscribeToAssociationChanges();
     }
 
+    ngAfterViewInit() {
+    	let currentRoute = window.location.href.split('/')[window.location.href.split('/').length - 1];
+    	// Active current menu
+    	$('#menuBar button').removeClass('btn-success');
+    	$('#menuBar button').addClass('btn-default');
+    	$('#' + currentRoute + "Btn").addClass('btn-success');
+    }
+
     // Variables del contexto
 	@ViewChild(ErrorModalComponent)
 	errorModal : ErrorModalComponent;
