@@ -5,7 +5,8 @@
 		"logout": "Log out",
 		"account": "My account",
 		"newPet": "Add pet",
-		"myPets": "My pets"
+		"myPets": "My pets",
+		"petDetail": "Pet details"
 	},
 	"button": {
 		"cancel": "Cancel",

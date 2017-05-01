@@ -5,7 +5,8 @@
 		"logout": "Cerrar sesión",
 		"account": "Mi cuenta",
 		"newPet": "Registrar animal",
-		"myPets": "Mis animales"
+		"myPets": "Mis animales",
+		"petDetail": "Detalle del animal"
 	},
 	"button": {
 		"cancel": "Cancelar",
