@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 // INTERNO
 import { PetService } from '../services/pet.service';
@@ -20,6 +20,9 @@ export class MyPetsComponent {
     totalRecords: 0,
     pages: []
   };
+
+  @ViewChild(ErrorModalComponent)
+  errorModal : ErrorModalComponent;
  
   ngOnInit() {
   	this.getMyPets();
@@ -69,7 +72,24 @@ export class MyPetsComponent {
     }
   }
 
-  refreshTable() {
+  deletePet(petId : number) {
+    this.petService.deletePet(petId)
+        .subscribe(
+            result => {
+                if (result.success) {
+                    this.getMyPets();
+                } else {
+                    this.errorModal.open('error.title', result.message);
+                }
+            },
+            error => alert(error)
+        );
+  }
+
+  refreshTable(rowsChanged : boolean) {
+    if (rowsChanged) {
+      this.pagination.page = 1;
+    }
     this.getMyPets();
   }
 }

@@ -76,6 +76,11 @@ export class PetService {
 			.catch(this.handleError);
 	}
 
+	deletePet(petId : number) {
+		return this.http.get(this.url + "/" + petId + "/delete")
+			.map(this.extractData);
+	}
+
 	getPetVaccines(petId : number, pagination : any) {
 		let body = new URLSearchParams();
 		body.set('page', pagination.page);
