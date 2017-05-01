@@ -83,7 +83,8 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 	@Override
 	public String saveDTO(PetDTO object) {
 		try {
-			super.saveDTO(object, petRepository);
+			Pet saved = super.saveDTO(object, petRepository);
+			return "SAVED: " + saved.getId();
 		} catch (DataIntegrityViolationException ex) {
 			if (ex.getCause().getCause().getMessage().contains("Duplicate")) {
 				return "error.duplicated." + ex.getCause().getCause().getMessage().split("key ")[1].replace("'", "");
@@ -93,16 +94,16 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		} catch (Exception ex) {
 			return ex.getMessage();
 		}
-		return null;
 	}
 
-	public AdoptixResponse create(PetDTO dto) {
+	public AdoptixResponse save(PetDTO dto) {
 		AdoptixResponse response = new AdoptixResponse();
 		WebUser association = webUserRepository.findOneByMailWithRoles(dto.getUserMail());
 		dto.setAssociation(association.getId());
 		String result = saveDTO(dto);
-		if (result == null) {
+		if (result.startsWith("SAVED: ")) {
 			response.setSuccess(true);
+			response.setData(Long.valueOf(result.split("SAVED: ")[1]));
 		} else {
 			response.setSuccess(false);
 			response.setMessage(result);
@@ -121,5 +122,10 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		}
 		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
 		return response;
+	}
+	
+	public AdoptixResponse getPet(Long petId) {
+		Pet pet = petRepository.findOne(petId);
+		return new AdoptixResponse(null, true, convertToDTO(pet), null);
 	}
 }

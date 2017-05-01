@@ -10,7 +10,9 @@
 	"button": {
 		"cancel": "Cancel",
 		"close": "Close",
-		"save": "Save"
+		"save": "Save",
+		"new": "New",
+		"edit": "Edit"
 	},
 	"login": {
 		"mail": "Mail",
@@ -55,7 +57,16 @@
 		"forHost": "Needs host",
 		"vaccines": "Vaccines",
 		"medicalTests": "Medical Tests",
-		"vetVisits": "Vet visits"
+		"vetVisits": "Vet visits",
+		"editPet": "Edit pet",
+		"vaccine": "Vaccine",
+		"medicalTest": "Medical test",
+		"appliedOn": "Application date",
+		"visitDate": "Visit date",
+		"cost":" Cost",
+		"newVaccine": "New vaccine",
+		"newMedicalTest": "New medical test",
+		"newVetVisit": "New vet visit"
 	},
 	"form": {
 		"required": "This field is required",
@@ -64,7 +75,8 @@
 		"repeatPassword": "Passwords do not match",
 		"yes": "Yes",
 		"no": "No",
-		"integer": "Decimals are not allowed"
+		"integer": "Decimals are not allowed",
+		"decimal": "Only numbers with two decimals are allowed"
 	},
 	"error": {
 		"title": "Error",
@@ -79,6 +91,7 @@
 	"grid": {
 		"actions": "Actions",
 		"rows": "Rows per page",
-		"page": "Page"
+		"page": "Page",
+		"noData": "No data found"
 	}
 }

@@ -10,8 +10,8 @@ public abstract class DTOService<DTO, POJO, ID extends Serializable> extends Gen
 
 	public abstract POJO convertToPOJO(DTO dtoObject);
 	
-	public void saveDTO(DTO object, CrudRepository<POJO, ID> repository) throws Exception {
-		super.save(convertToPOJO(object), repository);
+	public POJO saveDTO(DTO object, CrudRepository<POJO, ID> repository) throws Exception {
+		return super.save(convertToPOJO(object), repository);
 	}
 	
 	public abstract String saveDTO(DTO object);

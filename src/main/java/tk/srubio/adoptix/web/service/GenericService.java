@@ -5,8 +5,8 @@ import java.io.Serializable;
 import org.springframework.data.repository.CrudRepository;
 
 public abstract class GenericService<T, ID extends Serializable> {
-	public void save(T object, CrudRepository<T, ID> repository) throws Exception{
-		repository.save(object);
+	public T save(T object, CrudRepository<T, ID> repository) throws Exception{
+		return repository.save(object);
 	}
 	
 	public void delete(T object, CrudRepository<T, ID> repository) throws Exception {

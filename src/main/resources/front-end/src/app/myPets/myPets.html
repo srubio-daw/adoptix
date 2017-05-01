@@ -1,35 +1,38 @@
 <div class="row">
 	<div class="col-md-12">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>{{'pet.type' | translate}}</th>
-					<th>{{'pet.name' | translate}}</th>
-					<th>{{'pet.breed' | translate}}</th>
-					<th>{{'pet.age' | translate}}</th>
-					<th>{{'pet.location' | translate}}</th>
-					<th>{{'pet.forAdoption' | translate}}</th>
-					<th>{{'pet.forHost' | translate}}</th>
-					<th>{{'grid.actions' | translate}}</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let pet of pets">
-					<td>{{getPetTypeLabel(pet.petType) | translate}}</td>
-					<td>{{pet.name}}</td>
-					<td>{{pet.breed}}</td>
-					<td>{{pet.age}}</td>
-					<td>{{pet.locationName}}</td>
-					<td><i [class]="getCheckboxIcon(pet.forAdoption)"></i></td>
-					<td><i [class]="getCheckboxIcon(pet.forHost)"></i></td>
-					<td>
-						<a class="actionButton" [routerLink]="['/pet/' + pet.id]"><i class="purple glyphicon glyphicon-eye-open"></i></a>
-						<a class="actionButton" [routerLink]="['/pet/delete/' + pet.id]"><i class="red glyphicon glyphicon-remove"></i></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="row">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>{{'pet.type' | translate}}</th>
+						<th>{{'pet.name' | translate}}</th>
+						<th>{{'pet.breed' | translate}}</th>
+						<th>{{'pet.age' | translate}}</th>
+						<th>{{'pet.location' | translate}}</th>
+						<th>{{'pet.forAdoption' | translate}}</th>
+						<th>{{'pet.forHost' | translate}}</th>
+						<th>{{'grid.actions' | translate}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngIf="pets.length == 0"><td colspan="8"><span translate="grid.noData"></span></td></tr>
+					<tr *ngFor="let pet of pets">
+						<td>{{getPetTypeLabel(pet.petType) | translate}}</td>
+						<td>{{pet.name}}</td>
+						<td>{{pet.breed}}</td>
+						<td>{{pet.age}}</td>
+						<td>{{pet.locationName}}</td>
+						<td><i [class]="getCheckboxIcon(pet.forAdoption)"></i></td>
+						<td><i [class]="getCheckboxIcon(pet.forHost)"></i></td>
+						<td>
+							<a class="actionButton" [routerLink]="['/pet/' + pet.id]"><i class="purple glyphicon glyphicon-eye-open"></i></a>
+							<a class="actionButton" [routerLink]="['/pet/delete/' + pet.id]"><i class="red glyphicon glyphicon-remove"></i></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="row" *ngIf="pets.length != 0">
 			<div class="col-md-12">
 				<span translate="grid.rows"></span>
 				<select [(ngModel)]="pagination.rows" (change)="refreshTable()">

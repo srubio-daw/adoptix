@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // INTERNAL
 import { ValidationService } from '../services/validation.service';
@@ -14,7 +15,7 @@ import { ErrorModalComponent } from '../modal/error-modal.component';
 })
 export class NewPetComponent {
 	constructor(fb: FormBuilder, private validationService : ValidationService, private userService : UserService,
-		private provinceService : ProvinceService, private petService : PetService) {
+		private provinceService : ProvinceService, private petService : PetService, private router : Router) {
 		 // Formulario registro
         this.petForm = fb.group({
         	name: [null, Validators.required],
@@ -23,7 +24,7 @@ export class NewPetComponent {
         	age: [null, Validators.compose([Validators.required, validationService.integer])],
         	adopter: [null],
         	host: [null],
-        	location: [0, validationService.comboSelected],
+        	locationId: [0, validationService.comboSelected],
         	kidsAffinity: [null],
         	dogsAffinity: [null],
         	catsAffinity: [null],
@@ -37,7 +38,7 @@ export class NewPetComponent {
 	    this.age = this.petForm.controls['age'];
 	    this.adopter = this.petForm.controls['adopter'];
 	    this.host = this.petForm.controls['host'];
-	    this.location = this.petForm.controls['location'];
+	    this.locationId = this.petForm.controls['locationId'];
 	    this.kidsAffinity = this.petForm.controls['kidsAffinity'];
 	    this.dogsAffinity = this.petForm.controls['dogsAffinity'];
 	    this.catsAffinity = this.petForm.controls['catsAffinity'];
@@ -59,7 +60,7 @@ export class NewPetComponent {
     age : AbstractControl;
     adopter : AbstractControl;
     host : AbstractControl;
-    location : AbstractControl;
+    locationId : AbstractControl;
     kidsAffinity : AbstractControl;
     dogsAffinity : AbstractControl;
     catsAffinity : AbstractControl;
@@ -72,6 +73,11 @@ export class NewPetComponent {
 
     @ViewChild(ErrorModalComponent)
 	errorModal : ErrorModalComponent;
+
+    // Reutilización de vista
+    headingTitle : string = "menu.newPet";
+    showAdditionalInfo : boolean = false;
+    editEnabled : boolean = true;
 
     getNormalUsers() {
 		this.userService.getNormalUsers()
@@ -93,13 +99,14 @@ export class NewPetComponent {
 			this.validationService.markFormAsTouched(this.petForm);
 		} else {
 			let pet : Object = this.petForm.value;
-			pet['association'] = 8;
 			let result = this.petService.save(pet, this.userService.loggedUser['name']).subscribe(
 				result => {
 					if (!result.success) {
 						this.errorModal.open('error.title', result.message);
 					} else {
-
+                        // Redirijo a la pantalla de edición
+                        let petId = result.data;
+                        this.router.navigateByUrl("/association/editPet/" + petId);
 					}
 				}, 
 				error => {
@@ -112,6 +119,6 @@ export class NewPetComponent {
 
 	resetPetForm() {
 		this.petForm.reset();
-		this.location.setValue(0);
+		this.locationId.setValue(0);
 	}
 }

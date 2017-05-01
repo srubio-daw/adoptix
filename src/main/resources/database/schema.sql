@@ -66,7 +66,7 @@ CREATE TABLE vet_test (
 	id bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	pet bigint NOT NULL REFERENCES pet(id),
 	name character varying (50) NOT NULL,
-	description character varying (200) NOT NULL,
+	description character varying (200),
 	applied_on date NOT NULL
 );
 
@@ -75,5 +75,5 @@ CREATE TABLE vet_visit (
 	pet bigint NOT NULL REFERENCES pet(id),
 	description character varying (200) NOT NULL,
 	visit_date date NOT NULL,
-	cost numeric (7,2)
+	cost numeric (7,2) NOT NULL DEFAULT 0
 );

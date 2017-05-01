@@ -15,6 +15,7 @@ import { MyAccountComponent } from './myAccount/myAccount.component';
 import { HomeComponent } from './home/home.component';
 import { NewPetComponent } from './newPet/newPet.component';
 import { MyPetsComponent } from './myPets/myPets.component';
+import { EditPetComponent } from './editPet/editPet.component';
 
 // SERVICIOS
 import { UserService } from './services/user.service';
@@ -36,6 +37,7 @@ const appRoutes: Routes = [
   { path: 'myAccount', component: MyAccountComponent },
   { path: 'association/newPet', component: NewPetComponent },
   { path: 'association/myPets', component: MyPetsComponent },
+  { path: 'association/editPet/:petId', component: EditPetComponent },
   { path: '**', component: HomeComponent }
 ];
 
@@ -65,7 +67,8 @@ const appRoutes: Routes = [
     MyAccountComponent,
     HomeComponent,
     NewPetComponent,
-    MyPetsComponent
+    MyPetsComponent,
+    EditPetComponent 
   ],
   bootstrap: [
   	HeaderComponent, 

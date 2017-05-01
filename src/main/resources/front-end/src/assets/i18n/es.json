@@ -10,7 +10,9 @@
 	"button": {
 		"cancel": "Cancelar",
 		"close": "Cerrar",
-		"save": "Guardar"
+		"save": "Guardar",
+		"new": "Nuevo",
+		"edit": "Editar"
 	},
 	"login": {
 		"mail": "Email",
@@ -48,14 +50,23 @@
 		"dogsAffinity": "Afinidad con perros",
 		"catsAffinity": "Afinidad con gatos",
 		"kidsAffinity": "Afinidad con niños",
-		"description": "Description",
+		"description": "Descripción",
 		"notAdopted": "Sin adoptar",
 		"notHosted": "Sin acoger",
 		"forAdoption": "Busca adopción",
 		"forHost": "Busca acogida",
 		"vaccines": "Vacunas",
 		"medicalTests": "Pruebas médicas",
-		"vetVisits": "Visitas veterinarias"
+		"vetVisits": "Visitas veterinarias",
+		"editPet": "Editar animal",
+		"vaccine": "Vacuna",
+		"medicalTest": "Prueba médica",
+		"appliedOn": "Fecha de aplicación",
+		"visitDate": "Fecha de visita",
+		"cost": "Precio",
+		"newVaccine": "Nueva vacuna",
+		"newMedicalTest": "Nueva prueba médica",
+		"newVetVisit": "Nueva visita veterinaria"
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
@@ -64,7 +75,8 @@
 		"repeatPassword": "Las contraseñas no coinciden",
 		"yes": "Si",
 		"no": "No",
-		"integer": "El valor no puede tener decimales"
+		"integer": "El valor no puede tener decimales",
+		"decimal": "El valor debe ser un número con dos decimales"
 	},
 	"error": {
 		"title": "Error",
@@ -79,6 +91,7 @@
 	"grid": {
 		"actions": "Acciones",
 		"rows": "Filas por página",
-		"page": "Página"
+		"page": "Página",
+		"noData": "No hay datos"
 	}
 }

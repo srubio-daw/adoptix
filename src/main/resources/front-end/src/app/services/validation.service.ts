@@ -39,6 +39,16 @@ export class ValidationService {
 		}
 	}
 
+	decimal(c: FormControl) {
+		let DECIMAL_REGEXP = /^\d+([\.\,]\d{1,2})?$/;
+		
+		return DECIMAL_REGEXP.test(c.value) ? null : {
+			decimal: {
+				valid: false
+			}
+		}
+	}
+
 	comboSelected(c: FormControl) {
 		return c.value !== 0 ? null : {
 			comboSelected: {

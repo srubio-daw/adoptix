@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = "vet_test")
 public class VetTest implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private Long id;
 	private Date appliedOn;
 	private String description;
 	private String name;
@@ -21,14 +21,22 @@ public class VetTest implements Serializable {
 	public VetTest() {
 	}
 
+	public VetTest(Long id, Date appliedOn, String description, String name, Pet pet) {
+		this.id = id;
+		this.appliedOn = appliedOn;
+		this.description = description;
+		this.name = name;
+		this.pet = pet;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -42,7 +50,7 @@ public class VetTest implements Serializable {
 		this.appliedOn = appliedOn;
 	}
 
-	@Column(nullable = false, length = 200)
+	@Column(length = 200)
 	public String getDescription() {
 		return this.description;
 	}

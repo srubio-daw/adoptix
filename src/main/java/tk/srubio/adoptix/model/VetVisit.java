@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @Table(name = "vet_visit")
 public class VetVisit implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private Long id;
 	private BigDecimal cost;
 	private String description;
 	private Date visitDate;
@@ -32,18 +32,26 @@ public class VetVisit implements Serializable {
 	public VetVisit() {
 	}
 
+	public VetVisit(Long id, BigDecimal cost, String description, Date visitDate, Pet pet) {
+		this.id = id;
+		this.cost = cost;
+		this.description = description;
+		this.visitDate = visitDate;
+		this.pet = pet;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@Column(precision = 10, scale = 2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getCost() {
 		return this.cost;
 	}

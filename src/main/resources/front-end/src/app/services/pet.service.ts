@@ -22,16 +22,83 @@ export class PetService {
 	save(pet : Object, mail : string) {
 		pet['userMail'] = mail;
 		let body = JSON.stringify(pet);
-		return this.http.post(this.url + "/create", body, this.options)
+		return this.http.post(this.url + "/save", body, this.options)
 			.map(this.extractData);
 	}
 
-	getMyPets(mail : string, pagination : Object) {
+	saveVaccine(petId : number, vaccine : any) {
+		let body = JSON.stringify(vaccine);
+		return this.http.post(this.url + "/" + petId + "/vaccine", body, this.options)
+			.map(this.extractData);
+	}
+
+	deleteVaccine(vaccineId : number) {
+		return this.http.get(this.url + "/deleteVaccine/" + vaccineId)
+			.map(this.extractData);
+	}
+
+	saveMedicalTest(petId : number, medicalTest : any) {
+		let body = JSON.stringify(medicalTest);
+		return this.http.post(this.url + "/" + petId + "/medicalTest", body, this.options)
+			.map(this.extractData);
+	}
+
+	deleteMedicalTest(medicalTestId : number) {
+		return this.http.get(this.url + "/deleteMedicalTest/" + medicalTestId)
+			.map(this.extractData);
+	}
+
+	saveVetVisit(petId : number, vetVisit : any) {
+		let body = JSON.stringify(vetVisit);
+		return this.http.post(this.url + "/" + petId + "/vetVisit", body, this.options)
+			.map(this.extractData);
+	}
+
+	deleteVetVisit(vetVisitId : number) {
+		return this.http.get(this.url + "/deleteVetVisit/" + vetVisitId)
+			.map(this.extractData);
+	}
+
+	getMyPets(mail : string, pagination : any) {
 		let body = new URLSearchParams();
 		body.set('mail', mail);
 		body.set('page', pagination.page);
 		body.set('rows', pagination.rows);
 		return this.http.get(this.url + "/myPets", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getPet(petId : number) {
+		let body = new URLSearchParams();
+		return this.http.get(this.url + "/" + petId, {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getPetVaccines(petId : number, pagination : any) {
+		let body = new URLSearchParams();
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/" + petId + "/vaccines", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getPetMedicalTests(petId : number, pagination : any) {
+		let body = new URLSearchParams();
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/" + petId + "/medicalTests", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getPetVetVisits(petId : number, pagination : any) {
+		let body = new URLSearchParams();
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/" + petId + "/vetVisits", {search: body})
 			.map(this.extractData)
 			.catch(this.handleError);
 	}

@@ -3,5 +3,5 @@ CREATE TABLE vet_visit (
 	pet bigint NOT NULL REFERENCES pet(id),
 	description character varying (200) NOT NULL,
 	visit_date date NOT NULL,
-	cost numeric (7,2)
+	cost numeric (7,2) NOT NULL DEFAULT 0
 );

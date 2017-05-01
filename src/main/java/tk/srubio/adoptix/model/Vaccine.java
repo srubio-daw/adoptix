@@ -1,9 +1,18 @@
 package tk.srubio.adoptix.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
-import java.math.BigInteger;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the vaccine database table.
@@ -13,7 +22,7 @@ import java.math.BigInteger;
 @Table(name = "vaccine")
 public class Vaccine implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private Long id;
 	private Date appliedOn;
 	private String description;
 	private String name;
@@ -22,14 +31,22 @@ public class Vaccine implements Serializable {
 	public Vaccine() {
 	}
 
+	public Vaccine(Long id, Date appliedOn, String description, String name, Pet pet) {
+		this.id = id;
+		this.appliedOn = appliedOn;
+		this.description = description;
+		this.name = name;
+		this.pet = pet;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	public String getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
