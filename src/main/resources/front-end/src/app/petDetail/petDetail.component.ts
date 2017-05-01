@@ -60,6 +60,20 @@ export class PetDetailComponent {
         pages: []
     };
 
+    getAdopterName(name : string) {
+      if (name == null) {
+        name = "pet.notAdopted";
+      }
+      return name;
+    }
+
+    getHostName(name : string) {
+      if (name == null) {
+        name = "pet.notHosted";
+      }
+      return name;
+    }
+
     getPet() {
         this.petService.getPet(this.petId)
             .subscribe(
@@ -78,6 +92,17 @@ export class PetDetailComponent {
           default:
             return "Pet type undefined";
         }
+    }
+
+    getGenderLabel(gender : string) {
+      switch (gender) {
+        case "f":
+          return "pet.female";
+        case "m":
+          return "pet.male";
+        default:
+          return "Pet gender undefined";
+      }
     }
 
     getCheckboxIcon(status : boolean) {

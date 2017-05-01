@@ -39,6 +39,9 @@
 	},
 	"pet": {
 		"name": "Name",
+		"gender": "Gender",
+		"male": "Male",
+		"female": "Female",
 		"generalInfo": "General information",
 		"type": "Type",
 		"dog": "Dog",

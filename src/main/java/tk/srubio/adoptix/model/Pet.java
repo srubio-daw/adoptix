@@ -27,6 +27,7 @@ public class Pet implements Serializable {
 	private boolean dogsAffinity;
 	private boolean forAdoption;
 	private boolean forHost;
+	private String gender;
 	private boolean kidsAffinity;
 	private String name;
 	private byte petType;
@@ -39,8 +40,8 @@ public class Pet implements Serializable {
 	}
 
 	public Pet(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
-			boolean forAdoption, boolean forHost, boolean kidsAffinity, String name, byte petType, Province province,
-			WebUser adopter, WebUser host, WebUser association) {
+			boolean forAdoption, boolean forHost, String gender, boolean kidsAffinity, String name, byte petType,
+			Province province, WebUser adopter, WebUser host, WebUser association) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -49,6 +50,7 @@ public class Pet implements Serializable {
 		this.dogsAffinity = dogsAffinity;
 		this.forAdoption = forAdoption;
 		this.forHost = forHost;
+		this.gender = gender;
 		this.kidsAffinity = kidsAffinity;
 		this.name = name;
 		this.petType = petType;
@@ -130,6 +132,15 @@ public class Pet implements Serializable {
 
 	public void setForHost(boolean forHost) {
 		this.forHost = forHost;
+	}
+
+	@Column(name = "gender", nullable = false)
+	public String getGender() {
+		return this.gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	@Column(name = "kids_affinity", nullable = false)

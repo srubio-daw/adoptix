@@ -22,6 +22,7 @@ export class EditPetComponent {
 		 // Formulario registro
         this.petForm = fb.group({
             id: [null],
+            gender: [null, Validators.required],
         	name: [null, Validators.required],
         	petType: [null, Validators.required],
         	breed: [null, Validators.required],
@@ -37,6 +38,7 @@ export class EditPetComponent {
         	description: [null]
         });
         this.id = this.petForm.controls['id'];
+        this.gender = this.petForm.controls['gender'];
 	    this.name = this.petForm.controls['name'];
 	    this.petType = this.petForm.controls['petType'];
 	    this.breed = this.petForm.controls['breed'];
@@ -111,6 +113,7 @@ export class EditPetComponent {
     petForm : FormGroup;
     id : AbstractControl
     name : AbstractControl;
+    gender : AbstractControl;
     petType : AbstractControl;
     breed : AbstractControl;
     age : AbstractControl;
@@ -240,6 +243,7 @@ export class EditPetComponent {
                    this.pet = result.data;
                    this.id.setValue(this.pet.id);
                    this.name.setValue(this.pet.name);
+                   this.gender.setValue(this.pet.gender);
                    this.breed.setValue(this.pet.breed);
                    this.age.setValue(this.pet.age);
                    this.petType.setValue(this.pet.petType.toString());

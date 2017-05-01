@@ -18,7 +18,7 @@ CREATE TABLE web_user (
 	surname character varying(80),
 	nif character varying(9) UNIQUE,
 	address character varying(200),
-	province_id tinyint NOT NULL REFERENCES province (id),
+	province_id tinyint NOT NULL REFERENCES province (id) ON DELETE CASCADE,
 	mail character varying(150) NOT NULL UNIQUE,
 	username character varying(20) NOT NULL UNIQUE,
 	password character varying(32) NOT NULL
@@ -31,19 +31,20 @@ CREATE TABLE role (
 
 CREATE TABLE user_role (
 	id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	user_id int NOT NULL REFERENCES web_user(id),
-	role_id tinyint NOT NULL REFERENCES role(id),
+	user_id int NOT NULL REFERENCES web_user(id) ON DELETE CASCADE,
+	role_id tinyint NOT NULL REFERENCES role(id) ON DELETE CASCADE,
 	CONSTRAINT user_role_uq UNIQUE (user_id, role_id)
 );
 
 CREATE TABLE pet (
 	id bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	pet_type tinyint NOT NULL,
+	gender character varying(1) NOT NULL,
 	name character varying (20) NOT NULL,
 	breed character varying (50) NOT NULL,
 	age smallint NOT NULL,
-	province tinyint NOT NULL REFERENCES province(id),
-	association int NOT NULL REFERENCES web_user(id),
+	province tinyint NOT NULL REFERENCES province(id) ON DELETE CASCADE,
+	association int NOT NULL REFERENCES web_user(id) ON DELETE CASCADE,
 	for_adoption boolean NOT NULL,
 	for_host boolean NOT NULL,
 	adopter int REFERENCES web_user(id),
@@ -56,7 +57,7 @@ CREATE TABLE pet (
 
 CREATE TABLE vaccine (
 	id bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	pet bigint NOT NULL REFERENCES pet(id),
+	pet bigint NOT NULL REFERENCES pet(id) ON DELETE CASCADE,
 	name character varying (50) NOT NULL,
 	description character varying (200),
 	applied_on date NOT NULL
@@ -64,7 +65,7 @@ CREATE TABLE vaccine (
 
 CREATE TABLE vet_test (
 	id bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	pet bigint NOT NULL REFERENCES pet(id),
+	pet bigint NOT NULL REFERENCES pet(id) ON DELETE CASCADE,
 	name character varying (50) NOT NULL,
 	description character varying (200),
 	applied_on date NOT NULL
@@ -72,7 +73,7 @@ CREATE TABLE vet_test (
 
 CREATE TABLE vet_visit (
 	id bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	pet bigint NOT NULL REFERENCES pet(id),
+	pet bigint NOT NULL REFERENCES pet(id) ON DELETE CASCADE,
 	description character varying (200) NOT NULL,
 	visit_date date NOT NULL,
 	cost numeric (7,2) NOT NULL DEFAULT 0

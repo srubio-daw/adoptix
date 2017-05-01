@@ -9,13 +9,16 @@ public class PetDTO {
 	private boolean dogsAffinity;
 	private boolean forAdoption;
 	private boolean forHost;
+	private String gender;
 	private boolean kidsAffinity;
 	private String name;
 	private Byte petType;
 	private Byte locationId;
 	private String locationName;
 	private Integer adopter;
+	private String adopterName;
 	private Integer host;
+	private String hostName;
 	private Integer association;
 
 	// For creation
@@ -25,8 +28,9 @@ public class PetDTO {
 	}
 
 	public PetDTO(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
-			boolean forAdoption, boolean forHost, boolean kidsAffinity, String name, Byte petType, Byte locationId,
-			String locationName, Integer adopter, Integer host, Integer association, String userMail) {
+			boolean forAdoption, boolean forHost, String gender, boolean kidsAffinity, String name, Byte petType,
+			Byte locationId, String locationName, Integer adopter, String adopterName, Integer host, String hostName,
+			Integer association, String userMail) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -35,13 +39,16 @@ public class PetDTO {
 		this.dogsAffinity = dogsAffinity;
 		this.forAdoption = forAdoption;
 		this.forHost = forHost;
+		this.gender = gender;
 		this.kidsAffinity = kidsAffinity;
 		this.name = name;
 		this.petType = petType;
 		this.locationId = locationId;
 		this.locationName = locationName;
 		this.adopter = adopter;
+		this.adopterName = adopterName;
 		this.host = host;
+		this.hostName = hostName;
 		this.association = association;
 		this.userMail = userMail;
 	}
@@ -116,6 +123,30 @@ public class PetDTO {
 
 	public void setKidsAffinity(boolean kidsAffinity) {
 		this.kidsAffinity = kidsAffinity;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getAdopterName() {
+		return adopterName;
+	}
+
+	public void setAdopterName(String adopterName) {
+		this.adopterName = adopterName;
+	}
+
+	public String getHostName() {
+		return hostName;
+	}
+
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
 	}
 
 	public String getName() {

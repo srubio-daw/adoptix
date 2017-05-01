@@ -195,6 +195,7 @@ export class MenuComponent {
 						this.loginModal.close();
 						this.resetLoginForm();
 						this.userService.loggedUser = result.data;
+						alert(JSON.stringify(this.userService.loggedUser));
 					}
 				}, 
 				error => {

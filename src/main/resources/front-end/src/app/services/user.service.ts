@@ -18,7 +18,7 @@ export class UserService {
 	formOptions : RequestOptions = new RequestOptions({ headers: this.formHeaders });
 
 	// Testing
-	loggedUser : any = {"authorities":[{"authority":"usuario"}, {"authority":"asociacion"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"sylrupenopa@gmail.com","authorities":[{"authority":"usuario"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"asoc@asoc.com"};
+	loggedUser : any = {"authorities":[{"authority":"asociacion"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"patitas@gmail.com","authorities":[{"authority":"asociacion"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"patitas@gmail.com"};
 	//loggedUser : Object = null;
 
 	constructor (private http: Http) {}

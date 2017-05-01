@@ -15,26 +15,17 @@
 			<div class="panel-body row">
 				<div class="col-md-12">
 					<form class="form-horizontal" [formGroup]="petForm">
-						<div class="form-group row">
-							<div [ngClass]="{'has-error': name.touched && !name.valid}">
-				        		<label class="control-label col-md-2"><span translate="pet.name"></span></label>
-				        		<div class="col-md-3">
-				        			<input class="form-control" type="text" [formControl]="name" [attr.disabled]="!editEnabled ? '' : null">
-				        			<span class="help-block" *ngIf="name.touched && !name.valid" translate="form.required"></span>
-				        		</div>
-							</div>
-							<div [ngClass]="{'has-error': petType.touched && !petType.valid}">
-				        		<label class="control-label label-inline col-md-2 col-md-offset-1" ><span translate="pet.dog"></span> <input type="radio" value="1" [formControl]="petType" [attr.disabled]="!editEnabled ? '' : null"></label>
-				        		<label class="control-label label-inline col-md-2"><span translate="pet.cat"></span> <input type="radio" value="2" [formControl]="petType" [attr.disabled]="!editEnabled ? '' : null"></label>
-				        		<div class="row">
-				        			<div class="col-md-6 text-center">
-				        				<span class="help-block" *ngIf="petType.touched && !petType.valid" translate="form.required"></span>
-				        			</div>
-				        		</div>
-				        	</div>
-			        	</div>
-			        	<div class="row">
+						<div class="row">
 			        		<div class="col-md-6 col-sm-12">
+			        			<div class="form-group" [ngClass]="{'has-error': name.touched && !name.valid}">
+			        				<label class="control-label col-md-4"><span translate="pet.name"></span></label>
+					        		<div class="col-md-6">
+					        			<input class="form-control" type="text" [formControl]="name" [attr.disabled]="!editEnabled ? '' : null">
+				        				<span class="help-block" *ngIf="name.touched && !name.valid" translate="form.required"></span>
+					        		</div>
+								</div>
+					        </div>
+					        <div class="col-md-6 col-sm-12">
 			        			<div class="form-group" [ngClass]="{'has-error': breed.touched && !breed.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.breed"></span></label>
 					        		<div class="col-md-6">
@@ -43,7 +34,33 @@
 					        		</div>
 								</div>
 					        </div>
-					        <div class="col-md-6 col-sm-12">
+			        	</div>
+						<div class="row">
+							<div class="form-group col-md-6 col-sm-12">
+								<div [ngClass]="{'has-error': petType.touched && !petType.valid}">
+					        		<label class="control-label label-inline col-md-2 col-md-offset-4" ><span translate="pet.dog"></span> <input name="petType" type="radio" value="1" [formControl]="petType" [attr.disabled]="!editEnabled ? '' : null"></label>
+					        		<label class="control-label label-inline col-md-2"><span translate="pet.cat"></span> <input name="petType" type="radio" value="2" [formControl]="petType" [attr.disabled]="!editEnabled ? '' : null"></label>
+					        		<div class="row">
+					        			<div class="col-md-6 col-md-offset-3 text-center">
+					        				<span class="help-block" *ngIf="petType.touched && !petType.valid" translate="form.required"></span>
+					        			</div>
+					        		</div>
+					        	</div>
+					        </div>
+					        <div class="form-group col-md-6 col-sm-12">
+					        	<div [ngClass]="{'has-error': gender.touched && !gender.valid}">
+					        		<label class="control-label label-inline col-md-2 col-md-offset-4" ><span translate="pet.male"></span> <input name="gender" type="radio" value="m" [formControl]="gender" [attr.disabled]="!editEnabled ? '' : null"></label>
+					        		<label class="control-label label-inline col-md-3"><span translate="pet.female"></span> <input name="gender" type="radio" value="f" [formControl]="gender" [attr.disabled]="!editEnabled ? '' : null"></label>
+					        		<div class="row">
+					        			<div class="col-md-6 col-md-offset-3 text-center">
+					        				<span class="help-block" *ngIf="gender.touched && !gender.valid" translate="form.required"></span>
+					        			</div>
+					        		</div>
+					        	</div>
+					        </div>
+			        	</div>
+			        	<div class="row">
+					        <div class="col-md-6">
 			        			<div class="form-group" [ngClass]="{'has-error': age.touched && !age.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.age"></span></label>
 					        		<div class="col-md-6">
@@ -56,6 +73,7 @@
 								</div>
 					        </div>
 			        	</div>
+			        	<hr>
 			        	<div class="row">
 					    	<div class="col-md-6 col-sm-12">
 					        	<div class="form-group" [ngClass]="{'has-error': forAdoption.touched && !forAdoption.valid}">
@@ -68,7 +86,6 @@
 								</div>
 					        </div>
 					    </div>
-					    <hr>
 			        	<div class="row">
 			        		<div class="col-md-6 col-sm-12">
 			        			<div class="form-group" [ngClass]="{'has-error': adopter.touched && !adopter.valid}">

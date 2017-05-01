@@ -31,9 +31,12 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 	public PetDTO convertToDTO(Pet object) {
 		PetDTO dto = new PetDTO(object.getId(), object.getAge(), object.getBreed(), object.getCatsAffinity(),
 				object.getDescription(), object.getDogsAffinity(), object.getForAdoption(), object.getForHost(),
-				object.getKidsAffinity(), object.getName(), object.getPetType(), object.getLocation().getId(),
-				object.getLocation().getName(), object.getAdopter() != null ? object.getAdopter().getId() : null,
-				object.getHost() != null ? object.getHost().getId() : null, object.getAssociation().getId(),
+				object.getGender(), object.getKidsAffinity(), object.getName(), object.getPetType(),
+				object.getLocation().getId(), object.getLocation().getName(),
+				object.getAdopter() != null ? object.getAdopter().getId() : null,
+				object.getAdopter() != null ? object.getAdopter().getName() : null,
+				object.getHost() != null ? object.getHost().getId() : null,
+				object.getHost() != null ? object.getHost().getName() : null, object.getAssociation().getId(),
 				object.getAssociation().getMail());
 		return dto;
 	}
@@ -55,8 +58,9 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 
 		Pet object = new Pet(dtoObject.getId(), dtoObject.getAge(), dtoObject.getBreed(), dtoObject.getCatsAffinity(),
 				dtoObject.getDescription(), dtoObject.getDogsAffinity(), dtoObject.getForAdoption(),
-				dtoObject.getForHost(), dtoObject.getKidsAffinity(), dtoObject.getName(), dtoObject.getPetType(),
-				provinceRepository.findOne(dtoObject.getLocationId()), adopter, host, association);
+				dtoObject.getForHost(), dtoObject.getGender(), dtoObject.getKidsAffinity(), dtoObject.getName(),
+				dtoObject.getPetType(), provinceRepository.findOne(dtoObject.getLocationId()), adopter, host,
+				association);
 		return object;
 	}
 
@@ -123,17 +127,17 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
 		return response;
 	}
-	
+
 	public AdoptixResponse getPet(Long petId) {
 		Pet pet = petRepository.findOne(petId);
 		return new AdoptixResponse(null, true, convertToDTO(pet), null);
 	}
-	
+
 	public AdoptixResponse delete(Long petId) {
 		AdoptixResponse response = new AdoptixResponse(null, true, null, null);
 		try {
 			petRepository.delete(petId);
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			response.setMessage(ex.getMessage());
 			response.setSuccess(false);
 		}
