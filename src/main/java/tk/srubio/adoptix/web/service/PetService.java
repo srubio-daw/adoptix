@@ -128,4 +128,15 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		Pet pet = petRepository.findOne(petId);
 		return new AdoptixResponse(null, true, convertToDTO(pet), null);
 	}
+	
+	public AdoptixResponse delete(Long petId) {
+		AdoptixResponse response = new AdoptixResponse(null, true, null, null);
+		try {
+			petRepository.delete(petId);
+		} catch(Exception ex) {
+			response.setMessage(ex.getMessage());
+			response.setSuccess(false);
+		}
+		return response;
+	}
 }

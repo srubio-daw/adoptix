@@ -54,6 +54,11 @@ public class PetController {
 		return new ResponseEntity<>(petService.getPet(petId), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/{petId}/delete", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<AdoptixResponse> deletePet(@PathVariable(name = "petId") Long petId) {
+		return new ResponseEntity<>(petService.delete(petId), HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/{petId}/vaccines", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<AdoptixResponse> getVaccines(@PathVariable(name = "petId") Long petId, @RequestParam int page,
 			@RequestParam int rows) {
