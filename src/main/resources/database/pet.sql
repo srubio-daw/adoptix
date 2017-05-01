@@ -14,5 +14,6 @@ CREATE TABLE pet (
 	description character varying (200),
 	dogs_affinity boolean NOT NULL DEFAULT true,
 	cats_affinity boolean NOT NULL DEFAULT true,
-	kids_affinity boolean NOT NULL DEFAULT true
+	kids_affinity boolean NOT NULL DEFAULT true,
+	creation_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

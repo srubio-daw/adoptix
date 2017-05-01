@@ -37,7 +37,7 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 				object.getAdopter() != null ? object.getAdopter().getName() : null,
 				object.getHost() != null ? object.getHost().getId() : null,
 				object.getHost() != null ? object.getHost().getName() : null, object.getAssociation().getId(),
-				object.getAssociation().getMail());
+				object.getAssociation().getMail(), object.getCreationDate());
 		return dto;
 	}
 
@@ -60,7 +60,7 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 				dtoObject.getDescription(), dtoObject.getDogsAffinity(), dtoObject.getForAdoption(),
 				dtoObject.getForHost(), dtoObject.getGender(), dtoObject.getKidsAffinity(), dtoObject.getName(),
 				dtoObject.getPetType(), provinceRepository.findOne(dtoObject.getLocationId()), adopter, host,
-				association);
+				association, dtoObject.getCreationDate());
 		return object;
 	}
 

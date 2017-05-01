@@ -5,7 +5,7 @@
 	<div class="pull-right">
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
-        <button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<span translate="menu.account"></span></button>
+        <button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<span translate="menu.account"></span>: {{userService.loggedUser.principal.username}}</button>
         <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><i class="glyphicon glyphicon-off"></i>&nbsp;&nbsp;<span translate="menu.logout"></span></button>
         <span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span>
 	</div>

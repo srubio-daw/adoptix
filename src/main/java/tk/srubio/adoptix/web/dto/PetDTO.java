@@ -1,5 +1,7 @@
 package tk.srubio.adoptix.web.dto;
 
+import java.util.Date;
+
 public class PetDTO {
 	private Long id;
 	private short age;
@@ -20,6 +22,7 @@ public class PetDTO {
 	private Integer host;
 	private String hostName;
 	private Integer association;
+	private Date creationDate;
 
 	// For creation
 	private String userMail;
@@ -30,7 +33,7 @@ public class PetDTO {
 	public PetDTO(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
 			boolean forAdoption, boolean forHost, String gender, boolean kidsAffinity, String name, Byte petType,
 			Byte locationId, String locationName, Integer adopter, String adopterName, Integer host, String hostName,
-			Integer association, String userMail) {
+			Integer association, String userMail, Date creationDate) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -51,6 +54,7 @@ public class PetDTO {
 		this.hostName = hostName;
 		this.association = association;
 		this.userMail = userMail;
+		this.creationDate = creationDate;
 	}
 
 	public Long getId() {
@@ -211,6 +215,14 @@ public class PetDTO {
 
 	public void setUserMail(String userMail) {
 		this.userMail = userMail;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 }

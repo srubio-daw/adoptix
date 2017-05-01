@@ -1,6 +1,7 @@
 package tk.srubio.adoptix.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 /**
  * The persistent class for the pet database table.
@@ -35,13 +39,14 @@ public class Pet implements Serializable {
 	private WebUser adopter;
 	private WebUser host;
 	private WebUser association;
+	private Date creationDate;
 
 	public Pet() {
 	}
 
 	public Pet(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
 			boolean forAdoption, boolean forHost, String gender, boolean kidsAffinity, String name, byte petType,
-			Province province, WebUser adopter, WebUser host, WebUser association) {
+			Province province, WebUser adopter, WebUser host, WebUser association, Date creationDate) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -58,6 +63,7 @@ public class Pet implements Serializable {
 		this.adopter = adopter;
 		this.host = host;
 		this.association = association;
+		this.creationDate = creationDate;
 	}
 
 	@Id
@@ -213,5 +219,14 @@ public class Pet implements Serializable {
 	public void setAssociation(WebUser association) {
 		this.association = association;
 	}
+	
+	@Column(name = "creationDate", insertable = false, updatable = false)
+	@Generated(GenerationTime.INSERT)
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 }

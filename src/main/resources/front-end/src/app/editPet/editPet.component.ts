@@ -231,9 +231,31 @@ export class EditPetComponent {
 		}
 	}
 
+    setPetFormValues() {
+        this.id.setValue(this.pet.id);
+        this.name.setValue(this.pet.name);
+        this.gender.setValue(this.pet.gender);
+        this.breed.setValue(this.pet.breed);
+        this.age.setValue(this.pet.age);
+        this.petType.setValue(this.pet.petType.toString());
+        this.forAdoption.setValue(this.pet.forAdoption);
+        this.forHost.setValue(this.pet.forHost);
+        this.locationId.setValue(this.pet.locationId);
+        if (this.pet.adopter != null) {
+           this.adopter.setValue(this.pet.adopter.toString());
+        }
+        if (this.pet.host != null) {
+           this.host.setValue(this.pet.host.toString());
+        }
+        this.description.setValue(this.pet.description);
+        this.dogsAffinity.setValue(this.pet.dogsAffinity);
+        this.catsAffinity.setValue(this.pet.catsAffinity);
+        this.kidsAffinity.setValue(this.pet.kidsAffinity);
+    }
+
 	resetPetForm() {
-		this.petForm.reset();
-		this.locationId.setValue(0);
+		this.setPetFormValues();
+        this.editEnabled = false;
 	}
 
     getPet() {
@@ -241,25 +263,7 @@ export class EditPetComponent {
             .subscribe(
                result => {
                    this.pet = result.data;
-                   this.id.setValue(this.pet.id);
-                   this.name.setValue(this.pet.name);
-                   this.gender.setValue(this.pet.gender);
-                   this.breed.setValue(this.pet.breed);
-                   this.age.setValue(this.pet.age);
-                   this.petType.setValue(this.pet.petType.toString());
-                   this.forAdoption.setValue(this.pet.forAdoption);
-                   this.forHost.setValue(this.pet.forHost);
-                   this.locationId.setValue(this.pet.locationId);
-                   if (this.pet.adopter != null) {
-                       this.adopter.setValue(this.pet.adopter.toString());
-                   }
-                   if (this.pet.host != null) {
-                       this.host.setValue(this.pet.host.toString());
-                   }
-                   this.description.setValue(this.pet.description);
-                   this.dogsAffinity.setValue(this.pet.dogsAffinity);
-                   this.catsAffinity.setValue(this.pet.catsAffinity);
-                   this.kidsAffinity.setValue(this.pet.kidsAffinity);
+                   this.setPetFormValues();
                },
                error =>  alert(error));
     }

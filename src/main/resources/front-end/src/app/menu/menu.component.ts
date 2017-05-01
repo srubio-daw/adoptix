@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Headers, RequestOptions, Http, Response } from '@angular/http';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // MODULES
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +23,7 @@ export class MenuComponent {
 	// Constructor
 	constructor(fb: FormBuilder, translate: TranslateService, private http: Http, 
 			private provinceService : ProvinceService, private validationService : ValidationService, 
-			private userService : UserService ) {
+			private userService : UserService, private router : Router ) {
         // this language will be used as a fallback when a translation isn't found in the current language
         translate.setDefaultLang('es');
          // the lang to use, if the lang isn't available, it will use the current loader to get them
@@ -195,7 +196,6 @@ export class MenuComponent {
 						this.loginModal.close();
 						this.resetLoginForm();
 						this.userService.loggedUser = result.data;
-						alert(JSON.stringify(this.userService.loggedUser));
 					}
 				}, 
 				error => {
@@ -213,6 +213,7 @@ export class MenuComponent {
 					this.errorModal.open('error.title', 'error.unexpected');
 				} else {
 					this.userService.loggedUser = null;
+					this.router.navigateByUrl("/home");
 				}
 			}, 
 			error => {

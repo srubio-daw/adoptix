@@ -293,16 +293,15 @@
 						</thead>
 						<tbody>
 							<tr *ngIf="petVetVisits.length == 0"><td colspan="4"><span translate="grid.noData"></span></td></tr>
-							<tr>
-								<tr *ngFor="let vetVisit of petVetVisits">
-									<td>{{vetVisit.description}}</td>
-									<td>{{vetVisit.visitDate}}</td>
-									<td>{{vetVisit.cost}} €</td>
-									<td>
-										<a class="actionButton" (click)="editVetVisit(vetVisit)"><i class="orange glyphicon glyphicon-pencil"></i></a>
-										<a class="actionButton" (click)="deleteVetVisit(vetVisit.id)"><i class="red glyphicon glyphicon-remove"></i></a>
-									</td>
-								</tr>
+							<tr *ngFor="let vetVisit of petVetVisits">
+								<td>{{vetVisit.description}}</td>
+								<td>{{vetVisit.visitDate}}</td>
+								<td>{{vetVisit.cost}} €</td>
+								<td>
+									<a class="actionButton" (click)="editVetVisit(vetVisit)"><i class="orange glyphicon glyphicon-pencil"></i></a>
+									<a class="actionButton" (click)="deleteVetVisit(vetVisit.id)"><i class="red glyphicon glyphicon-remove"></i></a>
+								</td>
+							</tr>
 						</tbody>
 					</table>
 					<div class="row" *ngIf="petVetVisits.length != 0">
