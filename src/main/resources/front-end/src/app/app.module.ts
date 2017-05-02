@@ -58,7 +58,8 @@ const appRoutes: Routes = [
       }
     }),
     RouterModule.forRoot(appRoutes),
-    SelectModule
+    SelectModule,
+    
   ],
   declarations: [
   	HeaderComponent, 

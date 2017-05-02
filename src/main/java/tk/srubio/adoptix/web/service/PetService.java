@@ -127,6 +127,19 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
 		return response;
 	}
+	
+	public AdoptixResponse getPets(Pageable pageable) {
+		Long totalRecords = petRepository.count();
+		List<PetDTO> petsDTO = new ArrayList<>();
+		if (totalRecords > 0) {
+			Page<Pet> pets = petRepository.findByOrderByCreationDateDesc(pageable);
+			for (Pet pet : pets) {
+				petsDTO.add(convertToDTO(pet));
+			}
+		}
+		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
+		return response;
+	}
 
 	public AdoptixResponse getPet(Long petId) {
 		Pet pet = petRepository.findOne(petId);

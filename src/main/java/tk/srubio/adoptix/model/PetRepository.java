@@ -11,4 +11,6 @@ public interface PetRepository extends PagingAndSortingRepository<Pet, Long> {
 	public Page<Pet> findByAssociationMail(String mail, Pageable pageable);
 
 	public Long countByAssociationMail(String mail);
+	
+	public Page<Pet> findByOrderByCreationDateDesc(Pageable pageable);
 }

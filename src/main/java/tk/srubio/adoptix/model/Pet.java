@@ -220,7 +220,7 @@ public class Pet implements Serializable {
 		this.association = association;
 	}
 	
-	@Column(name = "creationDate", insertable = false, updatable = false)
+	@Column(name = "creation_date", insertable = false, updatable = false)
 	@Generated(GenerationTime.INSERT)
 	public Date getCreationDate() {
 		return creationDate;

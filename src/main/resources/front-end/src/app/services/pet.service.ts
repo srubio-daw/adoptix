@@ -69,6 +69,15 @@ export class PetService {
 			.catch(this.handleError);
 	}
 
+	getPets(pagination : any) {
+		let body = new URLSearchParams();
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
 	getPet(petId : number) {
 		let body = new URLSearchParams();
 		return this.http.get(this.url + "/" + petId, {search: body})
