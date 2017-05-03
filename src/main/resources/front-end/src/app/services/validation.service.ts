@@ -32,6 +32,10 @@ export class ValidationService {
 	integer(c: FormControl) {
 		let INTEGER_REGEXP = /^\d+$/;
 
+		if (c.value == null) {
+			return null;
+		}
+
 		return INTEGER_REGEXP.test(c.value) ? null : {
 			integer: {
 				valid: false

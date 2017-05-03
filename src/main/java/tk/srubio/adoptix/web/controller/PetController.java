@@ -1,7 +1,14 @@
 package tk.srubio.adoptix.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import tk.srubio.adoptix.model.Pet;
 import tk.srubio.adoptix.web.dto.PetDTO;
 import tk.srubio.adoptix.web.dto.VaccineDTO;
 import tk.srubio.adoptix.web.dto.VetTestDTO;
 import tk.srubio.adoptix.web.dto.VetVisitDTO;
+import tk.srubio.adoptix.web.search.PetFilter;
 import tk.srubio.adoptix.web.service.PetService;
 import tk.srubio.adoptix.web.service.VaccineService;
 import tk.srubio.adoptix.web.service.VetTestService;
@@ -50,8 +59,43 @@ public class PetController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<AdoptixResponse> getPets(@RequestParam int page, @RequestParam int rows) {
-		return new ResponseEntity<>(petService.getPets(new PageRequest(page - 1, rows)), HttpStatus.OK);
+	public @ResponseBody ResponseEntity<AdoptixResponse> getPets(@RequestParam int page, @RequestParam int rows,
+			@RequestParam(required = false) Byte petType, @RequestParam(required = false) String gender,
+			@RequestParam(required = false) Integer minAge, @RequestParam(required = false) Integer maxAge,
+			@RequestParam(required = false) Byte location, @RequestParam(required = false) Boolean dogsAffinity,
+			@RequestParam(required = false) Boolean catsAffinity,
+			@RequestParam(required = false) Boolean kidsAffinity) {
+		List<Specification<Pet>> specifications = new  ArrayList<>();
+		// Filters
+		if (petType != null) {
+			specifications.add(PetFilter.equal("petType", petType));
+		}
+		if (gender != null) {
+			specifications.add(PetFilter.equal("gender", gender));
+		}
+		if (minAge != null) {
+			specifications.add(PetFilter.greaterOrEqual("age", minAge));
+		}
+		if (maxAge != null) {
+			specifications.add(PetFilter.lessOrEqual("age", maxAge));
+		}
+		if (location != null) {
+			specifications.add(PetFilter.equalToLocationId("location", location));
+		}
+		if (dogsAffinity != null) {
+			specifications.add(PetFilter.isTrue("dogsAffinity"));
+		}
+		if (catsAffinity != null) {
+			specifications.add(PetFilter.isTrue("catsAffinity"));
+		}
+		if (kidsAffinity != null) {
+			specifications.add(PetFilter.isTrue("kidsAffinity"));
+		}
+		
+		List<Order> orders = new ArrayList<Sort.Order>();
+		orders.add(new Order(Direction.DESC, "creationDate"));
+		
+		return new ResponseEntity<>(petService.getPets(specifications, new PageRequest(page - 1, rows, new Sort(orders))), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{petId}", method = RequestMethod.GET)

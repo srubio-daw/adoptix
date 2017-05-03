@@ -6,14 +6,16 @@
 		"account": "My account",
 		"newPet": "Add pet",
 		"myPets": "My pets",
-		"petDetail": "Pet details"
+		"petDetail": "Pet details",
+		"search": "Search"
 	},
 	"button": {
 		"cancel": "Cancel",
 		"close": "Close",
 		"save": "Save",
 		"new": "New",
-		"edit": "Edit"
+		"edit": "Edit",
+		"search": "Search"
 	},
 	"login": {
 		"mail": "Mail",
@@ -70,7 +72,9 @@
 		"cost":" Cost",
 		"newVaccine": "New vaccine",
 		"newMedicalTest": "New medical test",
-		"newVetVisit": "New vet visit"
+		"newVetVisit": "New vet visit",
+		"minAge": "Min age",
+		"maxAge": "Max age"
 	},
 	"form": {
 		"required": "This field is required",
@@ -80,7 +84,8 @@
 		"yes": "Yes",
 		"no": "No",
 		"integer": "Decimals are not allowed",
-		"decimal": "Only numbers with two decimals are allowed"
+		"decimal": "Only numbers with two decimals are allowed",
+		"all": "All"
 	},
 	"error": {
 		"title": "Error",

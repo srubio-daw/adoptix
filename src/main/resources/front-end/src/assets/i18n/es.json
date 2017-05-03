@@ -6,14 +6,16 @@
 		"account": "Mi cuenta",
 		"newPet": "Registrar animal",
 		"myPets": "Mis animales",
-		"petDetail": "Detalle del animal"
+		"petDetail": "Detalle del animal",
+		"search": "Buscar"
 	},
 	"button": {
 		"cancel": "Cancelar",
 		"close": "Cerrar",
 		"save": "Guardar",
 		"new": "Nuevo",
-		"edit": "Editar"
+		"edit": "Editar",
+		"search": "Buscar"
 	},
 	"login": {
 		"mail": "Email",
@@ -70,7 +72,9 @@
 		"cost": "Precio",
 		"newVaccine": "Nueva vacuna",
 		"newMedicalTest": "Nueva prueba médica",
-		"newVetVisit": "Nueva visita veterinaria"
+		"newVetVisit": "Nueva visita veterinaria",
+		"minAge": "Edad mínima",
+		"maxAge": "Edad máxima"
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
@@ -80,7 +84,8 @@
 		"yes": "Si",
 		"no": "No",
 		"integer": "El valor no puede tener decimales",
-		"decimal": "El valor debe ser un número con dos decimales"
+		"decimal": "El valor debe ser un número con dos decimales",
+		"all": "Todos"
 	},
 	"error": {
 		"title": "Error",

@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import tk.srubio.adoptix.model.Pet;
@@ -15,6 +19,7 @@ import tk.srubio.adoptix.model.ProvinceRepository;
 import tk.srubio.adoptix.model.WebUser;
 import tk.srubio.adoptix.model.WebUserRepository;
 import tk.srubio.adoptix.web.dto.PetDTO;
+import tk.srubio.adoptix.web.search.PetFilter;
 import tk.srubio.adoptix.web.util.AdoptixResponse;
 
 @Service
@@ -128,17 +133,16 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		return response;
 	}
 	
-	public AdoptixResponse getPets(Pageable pageable) {
-		Long totalRecords = petRepository.count();
+	public AdoptixResponse getPets(List<Specification<Pet>> specifications, Pageable pageable) {
+		Long totalRecords = petRepository.count(PetFilter.getSpecification(specifications));
 		List<PetDTO> petsDTO = new ArrayList<>();
 		if (totalRecords > 0) {
-			Page<Pet> pets = petRepository.findByOrderByCreationDateDesc(pageable);
+			Page<Pet> pets = petRepository.findAll(PetFilter.getSpecification(specifications), pageable);
 			for (Pet pet : pets) {
 				petsDTO.add(convertToDTO(pet));
 			}
 		}
-		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
-		return response;
+		return new AdoptixResponse(null, true, petsDTO, totalRecords);
 	}
 
 	public AdoptixResponse getPet(Long petId) {
@@ -156,4 +160,5 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		}
 		return response;
 	}
+
 }

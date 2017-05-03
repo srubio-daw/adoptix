@@ -69,10 +69,18 @@ export class PetService {
 			.catch(this.handleError);
 	}
 
-	getPets(pagination : any) {
+	getPets(pagination : any, form : any) {
 		let body = new URLSearchParams();
 		body.set('page', pagination.page);
 		body.set('rows', pagination.rows);
+		body.set('petType', form.petType != -1 ? form.petType : null);
+		body.set('gender', form.gender != -1 ? form.gender : null);
+		body.set('location', form.location != -1 ? form.location : null);
+		body.set('minAge', form.minAge);
+		body.set('maxAge', form.maxAge);
+		body.set('dogsAffinity', form.dogsAffinity ? form.dogsAffinity : null);
+		body.set('catsAffinity', form.catsAffinity ? form.catsAffinity : null);
+		body.set('kidsAffinity', form.kidsAffinity ? form.kidsAffinity : null);
 		return this.http.get(this.url + "/", {search: body})
 			.map(this.extractData)
 			.catch(this.handleError);
