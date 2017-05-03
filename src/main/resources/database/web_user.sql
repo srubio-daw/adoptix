@@ -1,5 +1,5 @@
 CREATE TABLE web_user (
-	id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+	id bigint AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	name character varying(25) NOT NULL,
 	surname character varying(80),
 	nif character varying(9) UNIQUE,

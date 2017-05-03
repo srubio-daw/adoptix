@@ -23,7 +23,7 @@ import tk.srubio.adoptix.web.dto.WebUserDTO;
 import tk.srubio.adoptix.web.util.AdoptixResponse;
 
 @Service
-public class WebUserService extends DTOService<WebUserDTO, WebUser, Integer> {
+public class WebUserService extends DTOService<WebUserDTO, WebUser, Long> {
 
 	@Autowired
 	private RoleRepository roleRepository;

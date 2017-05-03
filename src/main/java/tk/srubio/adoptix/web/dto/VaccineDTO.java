@@ -2,8 +2,6 @@ package tk.srubio.adoptix.web.dto;
 
 import java.util.Date;
 
-import tk.srubio.adoptix.model.Pet;
-
 public class VaccineDTO {
 	private Long id;
 	private Date appliedOn;

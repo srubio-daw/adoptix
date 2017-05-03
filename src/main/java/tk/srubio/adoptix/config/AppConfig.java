@@ -26,15 +26,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories("tk.srubio.adoptix.model")
 @EnableTransactionManagement
 public class AppConfig {
-	
+
 	private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driverClassName";
 	private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
 	private static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
 	private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
-	
+
 	@Resource
 	private Environment env;
-	
+
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -44,7 +44,7 @@ public class AppConfig {
 		dataSource.setPassword(env.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
 		return dataSource;
 	}
-	
+
 	Properties hibernateProperties() {
 		return new Properties() {
 			{
@@ -65,27 +65,27 @@ public class AppConfig {
 			}
 		};
 	}
-	
+
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setDatabase(Database.POSTGRESQL);
 		vendorAdapter.setGenerateDdl(true);
-		
+
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
 		factory.setDataSource(dataSource());
-		
+
 		factory.setPackagesToScan(new String[] { "tk.srubio.adoptix.model" });
 		factory.setJpaProperties(hibernateProperties());
 		return factory;
 	}
-	
+
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		JpaTransactionManager txManager = new JpaTransactionManager();
 		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return txManager;
 	}
-	
+
 }

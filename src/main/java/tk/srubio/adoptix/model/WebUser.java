@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "web_user")
 public class WebUser implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Integer id;
+	private Long id;
 	private String address;
 	private String mail;
 	private String name;
@@ -26,7 +26,7 @@ public class WebUser implements Serializable {
 	public WebUser() {
 	}
 
-	public WebUser(Integer id, String address, String mail, String name, String nif, String password, String surname,
+	public WebUser(Long id, String address, String mail, String name, String nif, String password, String surname,
 			String username, Province province, List<Role> roles) {
 		this.id = id;
 		this.address = address;
@@ -43,11 +43,11 @@ public class WebUser implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(unique = true, nullable = false)
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -1,7 +1,7 @@
 package tk.srubio.adoptix.web.dto;
 
 public class WebUserDTO {
-	private Integer id;
+	private Long id;
 	private String address;
 	private String mail;
 	private String name;
@@ -18,7 +18,7 @@ public class WebUserDTO {
 	public WebUserDTO() {
 	}
 
-	public WebUserDTO(Integer id, String address, String mail, String name, String nif, String password, String surname,
+	public WebUserDTO(Long id, String address, String mail, String name, String nif, String password, String surname,
 			String username, byte province, boolean association) {
 		this.id = id;
 		this.address = address;
@@ -34,11 +34,11 @@ public class WebUserDTO {
 		this.label = name + (surname != null ? " " + surname : "");
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

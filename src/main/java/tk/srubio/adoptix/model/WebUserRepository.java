@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface WebUserRepository extends JpaRepository<WebUser, Integer> {
+public interface WebUserRepository extends JpaRepository<WebUser, Long> {
 	
 	@Query("SELECT u FROM WebUser u INNER JOIN FETCH u.roles WHERE u.mail = :mail")
 	public WebUser findOneByMailWithRoles(@Param(value = "mail") String mail);

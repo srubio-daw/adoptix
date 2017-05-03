@@ -17,11 +17,11 @@ public class PetDTO {
 	private Byte petType;
 	private Byte locationId;
 	private String locationName;
-	private Integer adopter;
+	private Long adopter;
 	private String adopterName;
-	private Integer host;
+	private Long host;
 	private String hostName;
-	private Integer association;
+	private Long association;
 	private Date creationDate;
 
 	// For creation
@@ -32,8 +32,8 @@ public class PetDTO {
 
 	public PetDTO(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
 			boolean forAdoption, boolean forHost, String gender, boolean kidsAffinity, String name, Byte petType,
-			Byte locationId, String locationName, Integer adopter, String adopterName, Integer host, String hostName,
-			Integer association, String userMail, Date creationDate) {
+			Byte locationId, String locationName, Long adopter, String adopterName, Long host, String hostName,
+			Long association, String userMail, Date creationDate) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -185,27 +185,27 @@ public class PetDTO {
 		this.locationName = locationName;
 	}
 
-	public Integer getAdopter() {
+	public Long getAdopter() {
 		return adopter;
 	}
 
-	public void setAdopter(Integer adopter) {
+	public void setAdopter(Long adopter) {
 		this.adopter = adopter;
 	}
 
-	public Integer getHost() {
+	public Long getHost() {
 		return host;
 	}
 
-	public void setHost(Integer host) {
+	public void setHost(Long host) {
 		this.host = host;
 	}
 
-	public Integer getAssociation() {
+	public Long getAssociation() {
 		return association;
 	}
 
-	public void setAssociation(Integer association) {
+	public void setAssociation(Long association) {
 		this.association = association;
 	}
 
