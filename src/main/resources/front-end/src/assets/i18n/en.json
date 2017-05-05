@@ -15,7 +15,8 @@
 		"save": "Save",
 		"new": "New",
 		"edit": "Edit",
-		"search": "Search"
+		"search": "Search",
+		"detail": "See details"
 	},
 	"login": {
 		"mail": "Mail",
@@ -73,8 +74,10 @@
 		"newVaccine": "New vaccine",
 		"newMedicalTest": "New medical test",
 		"newVetVisit": "New vet visit",
-		"minAge": "Min age",
-		"maxAge": "Max age"
+		"minAge": "Min age (months)",
+		"maxAge": "Max age (months)",
+		"requestAdoption": "Request adoption",
+		"requestHost": "Request host"
 	},
 	"form": {
 		"required": "This field is required",
@@ -85,7 +88,8 @@
 		"no": "No",
 		"integer": "Decimals are not allowed",
 		"decimal": "Only numbers with two decimals are allowed",
-		"all": "All"
+		"all": "All",
+		"phone": "This is not a valid phone number"
 	},
 	"error": {
 		"title": "Error",
@@ -102,5 +106,13 @@
 		"rows": "Rows per page",
 		"page": "Page",
 		"noData": "No data found"
+	},
+	"request": {
+		"phone": "Phone",
+		"comment": "Comment",
+		"kidsAtHome": "Kids at home",
+		"dogsAtHome": "Dogs at home",
+		"catsAtHome": "Cats at home",
+		"requestSent": "Your request has been sent."
 	}
 }

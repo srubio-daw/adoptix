@@ -8,6 +8,16 @@ html, body {
 	background-color: #C1BDB9;
 }
 
+/* Boton en panel */
+button.button-panel-header {
+	margin-right: 10px;
+}
+
+/* Botón en detalles */
+button.margin-top {
+	margin-top: 10px;
+}
+
 /* Botones de accion */
 a.actionButton {
 	padding: 0 5px;

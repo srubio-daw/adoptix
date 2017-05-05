@@ -43,6 +43,20 @@ export class ValidationService {
 		}
 	}
 
+	phone(c: FormControl) {
+		let PHONE_REGEXP = /^\d{9}$/;
+
+		if (c.value == null) {
+			return null;
+		}
+
+		return PHONE_REGEXP.test(c.value) ? null : {
+			phone: {
+				valid: false
+			}
+		}
+	}
+
 	decimal(c: FormControl) {
 		let DECIMAL_REGEXP = /^\d+([\.\,]\d{1,2})?$/;
 		

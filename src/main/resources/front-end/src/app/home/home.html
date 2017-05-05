@@ -68,6 +68,7 @@
 					&nbsp;&nbsp;
 					<i [class]="getGenderIcon(pet.gender)" aria-hidden="true"></i>
 				</div>
+				<button class="pull-right button-panel-header" [routerLink]="['/pet/' + pet.id]"><span translate="button.detail"></span></button>
 				<div class="col-md-1 pull-right">{{pet.locationName}}</div>
 			</div>
 		</div>

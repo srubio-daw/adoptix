@@ -76,21 +76,21 @@
 			        		<strong><span translate="pet.adopter"></span>: </strong>
 			        	</div>
 			        	<div class="col-md-3">
-			        		{{getAdopterName(pet.adopter) | translate}}
+			        		{{getAdopterName(pet.adopterName) | translate}}
 						</div>
 						<div class="col-md-3 text-right">
 			        		<strong><span translate="pet.host"></span>: </strong>
 			        	</div>
 			        	<div class="col-md-3">
-			        		{{getHostName(pet.host) | translate}}
+			        		{{getHostName(pet.hostName) | translate}}
 						</div>
 					</div>
 					<div class="row hidden-md hidden-lg">
 						<div class="col-xs-5 col-xs-offset-1">
-			        		<strong><span translate="pet.adopter"></span>: </strong>{{getAdopterName(pet.adopter) | translate}}
+			        		<strong><span translate="pet.adopter"></span>: </strong>{{getAdopterName(pet.adopterName) | translate}}
 			        	</div>
 						<div class="col-xs-5 col-xs-offset-1">
-			        		<strong><span translate="pet.host"></span>: </strong>{{getHostName(pet.host) | translate}}
+			        		<strong><span translate="pet.host"></span>: </strong>{{getHostName(pet.hostName) | translate}}
 			        	</div>
 					</div>
 					<div class="row visible-md visible-lg">
@@ -114,6 +114,22 @@
 						<div class="col-xs-5 col-xs-offset-1">
 			        		<strong><span translate="pet.forHost"></span>: </strong><i [class]="getCheckboxIcon(pet.forHost)"></i>
 						</div>
+		        	</div>
+		        	<div class="row visible-md visible-lg">
+						<div class="col-md-6 text-center" *ngIf="pet.forAdoption && allowedToAdopt">
+			        		<button class="btn btn-default margin-top" (click)="adopt()"><span translate="pet.requestAdoption"></span></button>
+			        	</div>
+			        	<div class="col-md-6 text-center" *ngIf="pet.forHost && allowedToHost">
+			        		<button class="btn btn-default margin-top" (click)="host()"><span translate="pet.requestHost"></span></button>
+			        	</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-md-6 text-center" *ngIf="pet.forAdoption && allowedToAdopt">
+			        		<button class="btn btn-default margin-top" (click)="adopt()"><span translate="pet.requestAdoption"></span></button>
+			        	</div>
+			        	<div class="col-md-6 text-center" *ngIf="pet.forHost && allowedToHost">
+			        		<button class="btn btn-default margin-top" (click)="host()"><span translate="pet.requestHost"></span></button>
+			        	</div>
 		        	</div>
 		        	<hr>
 					<div class="row visible-md visible-lg">
@@ -312,4 +328,68 @@
 		</div>
 	</div>
 </div>
+<!-- Modal de petición -->
+<modal #requestModal (keyup.enter)="submitRequestForm()" >
+    <modal-header [show-close]="true">
+        <h4 class="modal-title"><span *ngIf="adoptOrHost.value" translate="pet.requestAdoption"></span><span *ngIf="!adoptOrHost.value" translate="pet.requestHost"></span></h4>
+    </modal-header>
+    <modal-body>
+    	<form class="form-horizontal" [formGroup]="requestForm">
+        	<div class="form-group" [ngClass]="{'has-error': phone.touched && !phone.valid}">
+    			<label class="control-label col-md-3"><span translate="request.phone"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="text" [formControl]="phone">
+                    <div *ngIf="phone.touched && !phone.valid">
+                        <span class="help-block" *ngIf="phone.hasError('required')" translate="form.required"></span>
+                        <span class="help-block" *ngIf="!phone.hasError('required') && phone.hasError('phone')" translate="form.phone"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': dogsAtHome.touched && !dogsAtHome.valid}">
+    			<label class="control-label col-md-3"><span translate="request.dogsAtHome"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="number" step="1" min="0" [formControl]="dogsAtHome">
+                    <div *ngIf="dogsAtHome.touched && !dogsAtHome.valid">
+                    	<span class="help-block" *ngIf="dogsAtHome.hasError('required')" translate="form.required"></span>
+                    	<span class="help-block" *ngIf="!dogsAtHome.hasError('required') && dogsAtHome.hasError('integer')" translate="form.required"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': catsAtHome.touched && !catsAtHome.valid}">
+    			<label class="control-label col-md-3"><span translate="request.catsAtHome"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="number" step="1" min="0" [formControl]="catsAtHome">
+                    <div *ngIf="catsAtHome.touched && !catsAtHome.valid">
+                    	<span class="help-block" *ngIf="catsAtHome.hasError('required')" translate="form.required"></span>
+                    	<span class="help-block" *ngIf="!catsAtHome.hasError('required') && catsAtHome.hasError('integer')" translate="form.required"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': kidsAtHome.touched && !kidsAtHome.valid}">
+    			<label class="control-label col-md-3"><span translate="request.kidsAtHome"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="number" step="1" min="0" [formControl]="kidsAtHome">
+                    <div *ngIf="kidsAtHome.touched && !kidsAtHome.valid">
+                    	<span class="help-block" *ngIf="kidsAtHome.hasError('required')" translate="form.required"></span>
+                    	<span class="help-block" *ngIf="!kidsAtHome.hasError('required') && kidsAtHome.hasError('integer')" translate="form.required"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-3"><span translate="request.comment"></span></label>
+    			<div class="col-md-9">
+    				<textarea class="form-control" [formControl]="comment" rows="3"></textarea>
+    			</div>
+    		</div>
+    	</form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetRequestForm()">
+            <span translate="button.cancel"></span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submitRequestForm()">
+           	<span *ngIf="adoptOrHost.value" translate="pet.requestAdoption"></span><span *ngIf="!adoptOrHost.value" translate="pet.requestHost"></span>
+        </button>
+    </modal-footer>
+</modal>
 <error-modal></error-modal>

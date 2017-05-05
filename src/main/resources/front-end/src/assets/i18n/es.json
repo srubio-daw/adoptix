@@ -15,7 +15,8 @@
 		"save": "Guardar",
 		"new": "Nuevo",
 		"edit": "Editar",
-		"search": "Buscar"
+		"search": "Buscar",
+		"detail": "Ver detalles"
 	},
 	"login": {
 		"mail": "Email",
@@ -73,8 +74,10 @@
 		"newVaccine": "Nueva vacuna",
 		"newMedicalTest": "Nueva prueba médica",
 		"newVetVisit": "Nueva visita veterinaria",
-		"minAge": "Edad mínima",
-		"maxAge": "Edad máxima"
+		"minAge": "Edad mínima (meses)",
+		"maxAge": "Edad máxima (meses)",
+		"requestAdoption": "Solicitar adopción",
+		"requestHost": "Solicitar acogida"
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
@@ -85,7 +88,8 @@
 		"no": "No",
 		"integer": "El valor no puede tener decimales",
 		"decimal": "El valor debe ser un número con dos decimales",
-		"all": "Todos"
+		"all": "Todos",
+		"phone": "No es un teléfono válido"
 	},
 	"error": {
 		"title": "Error",
@@ -102,5 +106,13 @@
 		"rows": "Filas por página",
 		"page": "Página",
 		"noData": "No hay datos"
+	},
+	"request": {
+		"phone": "Teléfono",
+		"comment": "Comentarios",
+		"kidsAtHome": "Niños en casa",
+		"dogsAtHome": "Perros en casa",
+		"catsAtHome": "Gatos en casa",
+		"requestSent": "Tu solicitud ha sido enviada."
 	}
 }
