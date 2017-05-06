@@ -11,6 +11,7 @@
 						<th>{{'pet.location' | translate}}</th>
 						<th>{{'pet.forAdoption' | translate}}</th>
 						<th>{{'pet.forHost' | translate}}</th>
+						<th>{{'pet.pendingRequests' | translate}}</th>
 						<th>{{'grid.actions' | translate}}</th>
 					</tr>
 				</thead>
@@ -24,6 +25,7 @@
 						<td>{{pet.locationName}}</td>
 						<td><i [class]="getCheckboxIcon(pet.forAdoption)"></i></td>
 						<td><i [class]="getCheckboxIcon(pet.forHost)"></i></td>
+						<td>{{pet.pendingRequests}}</td>
 						<td>
 							<a class="actionButton" [routerLink]="['/association/editPet/' + pet.id]"><i class="purple glyphicon glyphicon-eye-open"></i></a>
 							<a class="actionButton" (click)="deletePet(pet.id)"><i class="red glyphicon glyphicon-remove"></i></a>

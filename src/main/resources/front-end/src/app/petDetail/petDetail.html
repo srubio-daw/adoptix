@@ -193,7 +193,6 @@
 								<th><span translate="pet.vaccine"></span></th>
 								<th><span translate="pet.description"></span></th>
 								<th><span translate="pet.appliedOn"></span></th>
-								<th><span translate="grid.actions"></span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -202,10 +201,6 @@
 								<td>{{vaccine.name}}</td>
 								<td>{{vaccine.description}}</td>
 								<td>{{vaccine.appliedOn}}</td>
-								<td>
-									<a class="actionButton" (click)="editVaccine(vaccine)"><i class="orange glyphicon glyphicon-pencil"></i></a>
-									<a class="actionButton" (click)="deleteVaccine(vaccine.id)"><i class="red glyphicon glyphicon-remove"></i></a>
-								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -243,7 +238,6 @@
 								<th><span translate="pet.medicalTest"></span></th>
 								<th><span translate="pet.description"></span></th>
 								<th><span translate="pet.appliedOn"></span></th>
-								<th><span translate="grid.actions"></span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -252,10 +246,6 @@
 								<td>{{medicalTest.name}}</td>
 								<td>{{medicalTest.description}}</td>
 								<td>{{medicalTest.appliedOn}}</td>
-								<td>
-									<a class="actionButton" (click)="editMedicalTest(medicalTest)"><i class="orange glyphicon glyphicon-pencil"></i></a>
-									<a class="actionButton" (click)="deleteMedicalTest(medicalTest.id)"><i class="red glyphicon glyphicon-remove"></i></a>
-								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -292,7 +282,6 @@
 								<th><span translate="pet.description"></span></th>
 								<th><span translate="pet.visitDate"></span></th>
 								<th><span translate="pet.cost"></span></th>
-								<th><span translate="grid.actions"></span></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -301,10 +290,6 @@
 								<td>{{vetVisit.description}}</td>
 								<td>{{vetVisit.visitDate}}</td>
 								<td>{{vetVisit.cost}} €</td>
-								<td>
-									<a class="actionButton" (click)="editVetVisit(vetVisit)"><i class="orange glyphicon glyphicon-pencil"></i></a>
-									<a class="actionButton" (click)="deleteVetVisit(vetVisit.id)"><i class="red glyphicon glyphicon-remove"></i></a>
-								</td>
 							</tr>
 						</tbody>
 					</table>

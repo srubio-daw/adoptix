@@ -58,6 +58,15 @@ public class PetFilter {
 		};
 	}
 	
+	public static Specification<Pet> or(final Specification<Pet> s1, Specification<Pet> s2) {
+		return new Specification<Pet>() {
+			@Override
+			public Predicate toPredicate(Root<Pet> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+				return cb.and(cb.or(s1.toPredicate(root, query, cb), s2.toPredicate(root, query, cb)));
+			}
+		};
+	}
+	
 	public static Specification<Pet> getSpecification(final List<Specification<Pet>> sp) {
 		return new Specification<Pet>() {
 			@Override

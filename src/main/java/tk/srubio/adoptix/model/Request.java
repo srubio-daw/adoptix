@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -33,12 +35,14 @@ public class Request implements Serializable {
 	private Pet pet;
 	private boolean adoptOrHost;
 	private Date creationDate;
+	private Boolean status;
+	private String rejectComment;
 
 	public Request() {
 	}
 
 	public Request(Long id, byte catsAtHome, String comment, byte dogsAtHome, byte kidsAtHome, String phone,
-			WebUser user, Pet pet, boolean adoptOrHost, Date creationDate) {
+			WebUser user, Pet pet, boolean adoptOrHost, Date creationDate, Boolean status, String rejectComment) {
 		this.id = id;
 		this.catsAtHome = catsAtHome;
 		this.comment = comment;
@@ -49,6 +53,8 @@ public class Request implements Serializable {
 		this.pet = pet;
 		this.adoptOrHost = adoptOrHost;
 		this.creationDate = creationDate;
+		this.status = status;
+		this.rejectComment = rejectComment;
 	}
 
 	@Id
@@ -136,6 +142,7 @@ public class Request implements Serializable {
 		this.adoptOrHost = adoptOrHost;
 	}
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "creation_date", insertable = false, updatable = false)
 	@Generated(GenerationTime.INSERT)
 	public Date getCreationDate() {
@@ -144,6 +151,24 @@ public class Request implements Serializable {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	@Column(name = "status")
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	@Column(name = "reject_comment", length = 200)
+	public String getRejectComment() {
+		return rejectComment;
+	}
+
+	public void setRejectComment(String rejectComment) {
+		this.rejectComment = rejectComment;
 	}
 
 }

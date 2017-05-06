@@ -77,7 +77,11 @@
 		"minAge": "Min age (months)",
 		"maxAge": "Max age (months)",
 		"requestAdoption": "Request adoption",
-		"requestHost": "Request host"
+		"requestHost": "Request host",
+		"pendingRequests": "Pending requests",
+		"managedRequests": "Previous requests",
+		"additionalInfo": "Additional information",
+		"requests": "Host and adoption requests"
 	},
 	"form": {
 		"required": "This field is required",
@@ -108,11 +112,25 @@
 		"noData": "No data found"
 	},
 	"request": {
+		"adoption": "Adoption",
+		"host": "Host",
 		"phone": "Phone",
+		"date": "Date",
 		"comment": "Comment",
 		"kidsAtHome": "Kids at home",
 		"dogsAtHome": "Dogs at home",
 		"catsAtHome": "Cats at home",
-		"requestSent": "Your request has been sent."
+		"dogs": "Dogs",
+		"cats": "Cats",
+		"kids": "Kids",
+		"requestSent": "Your request has been sent.",
+		"type": "Tipo",
+		"accept": "Accept",
+		"reject": "Reject",
+		"rejectRequest": "Reject request",
+		"status": "Status",
+		"accepted": "Accepted",
+		"rejected": "Rejected",
+		"rejectComment": "Reject comment"
 	}
 }

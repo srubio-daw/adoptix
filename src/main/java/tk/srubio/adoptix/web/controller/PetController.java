@@ -92,6 +92,9 @@ public class PetController {
 			specifications.add(PetFilter.isTrue("kidsAffinity"));
 		}
 		
+		// Filter animals for adopt or for host
+		specifications.add(PetFilter.or(PetFilter.isTrue("forAdoption"), PetFilter.isTrue("forHost")));
+		
 		List<Order> orders = new ArrayList<Sort.Order>();
 		orders.add(new Order(Direction.DESC, "creationDate"));
 		

@@ -16,7 +16,7 @@
 				<div class="col-md-12">
 					<form class="form-horizontal" [formGroup]="petForm">
 						<div class="row">
-			        		<div class="col-md-6 col-sm-12">
+			        		<div class="col-md-6 col-xs-12">
 			        			<div class="form-group" [ngClass]="{'has-error': name.touched && !name.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.name"></span></label>
 					        		<div class="col-md-6">
@@ -25,7 +25,7 @@
 					        		</div>
 								</div>
 					        </div>
-					        <div class="col-md-6 col-sm-12">
+					        <div class="col-md-6 col-xs-12">
 			        			<div class="form-group" [ngClass]="{'has-error': breed.touched && !breed.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.breed"></span></label>
 					        		<div class="col-md-6">
@@ -36,7 +36,7 @@
 					        </div>
 			        	</div>
 						<div class="row">
-							<div class="form-group col-md-6 col-sm-12">
+							<div class="form-group col-md-6 col-xs-12">
 								<div [ngClass]="{'has-error': petType.touched && !petType.valid}">
 					        		<label class="control-label label-inline col-md-2 col-md-offset-4" ><span translate="pet.dog"></span> <input name="petType" type="radio" value="1" [formControl]="petType" [attr.disabled]="!editEnabled ? '' : null"></label>
 					        		<label class="control-label label-inline col-md-2"><span translate="pet.cat"></span> <input name="petType" type="radio" value="2" [formControl]="petType" [attr.disabled]="!editEnabled ? '' : null"></label>
@@ -47,7 +47,7 @@
 					        		</div>
 					        	</div>
 					        </div>
-					        <div class="form-group col-md-6 col-sm-12">
+					        <div class="form-group col-md-6 col-xs-12">
 					        	<div [ngClass]="{'has-error': gender.touched && !gender.valid}">
 					        		<label class="control-label label-inline col-md-2 col-md-offset-4" ><span translate="pet.male"></span> <input name="gender" type="radio" value="m" [formControl]="gender" [attr.disabled]="!editEnabled ? '' : null"></label>
 					        		<label class="control-label label-inline col-md-3"><span translate="pet.female"></span> <input name="gender" type="radio" value="f" [formControl]="gender" [attr.disabled]="!editEnabled ? '' : null"></label>
@@ -75,19 +75,19 @@
 			        	</div>
 			        	<hr>
 			        	<div class="row">
-					    	<div class="col-md-6 col-sm-12">
+					    	<div class="col-md-6 col-xs-12">
 					        	<div class="form-group" [ngClass]="{'has-error': forAdoption.touched && !forAdoption.valid}">
 					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="pet.forAdoption"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="forAdoption" [attr.disabled]="!editEnabled ? '' : null"></label>
 								</div>
 					        </div>
-					        <div class="col-md-6 col-sm-12">
+					        <div class="col-md-6 col-xs-12">
 					        	<div class="form-group" [ngClass]="{'has-error': forHost.touched && !forHost.valid}">
 					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="pet.forHost"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="forHost" [attr.disabled]="!editEnabled ? '' : null"></label>
 								</div>
 					        </div>
 					    </div>
 			        	<div class="row">
-			        		<div class="col-md-6 col-sm-12">
+			        		<div class="col-md-6 col-xs-12">
 			        			<div class="form-group" [ngClass]="{'has-error': adopter.touched && !adopter.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.adopter"></span></label>
 					        		<div class="col-md-6">
@@ -96,7 +96,7 @@
 					        		</div>
 								</div>
 					        </div>
-					        <div class="col-md-6 col-sm-12">
+					        <div class="col-md-6 col-xs-12">
 			        			<div class="form-group" [ngClass]="{'has-error': host.touched && !host.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.host"></span></label>
 					        		<div class="col-md-6">
@@ -107,7 +107,7 @@
 					        </div>
 					     </div>
 				        <div class="row">
-					        <div class="col-md-6 col-sm-12">
+					        <div class="col-md-6 col-xs-12">
 					        	<div class="form-group" [ngClass]="{'has-error': locationId.touched && !locationId.valid}">
 			        				<label class="control-label col-md-4"><span translate="pet.location"></span></label>
 			        				<div class="col-md-6">
@@ -122,7 +122,7 @@
 					    </div>
 					    <hr>
 					    <div class="row">
-					    	<div class="col-md-4 col-sm-12">
+					    	<div class="col-md-4 col-xs-12">
 					        	<div class="form-group" [ngClass]="{'has-error': dogsAffinity.touched && !dogsAffinity.valid}">
 					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="pet.dogsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="dogsAffinity" [attr.disabled]="!editEnabled ? '' : null"></label>
 					        		<div class="row">
@@ -132,7 +132,7 @@
 					        		</div>
 								</div>
 					        </div>
-					        <div class="col-md-4 col-sm-12">
+					        <div class="col-md-4 col-xs-12">
 					        	<div class="form-group" [ngClass]="{'has-error': catsAffinity.touched && !catsAffinity.valid}">
 					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="pet.catsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="catsAffinity" [attr.disabled]="!editEnabled ? '' : null"></label>
 					        		<div class="row">
@@ -142,7 +142,7 @@
 					        		</div>
 								</div>
 					        </div>
-					        <div class="col-md-4 col-sm-12">
+					        <div class="col-md-4 col-xs-12">
 					        	<div class="form-group" [ngClass]="{'has-error': kidsAffinity.touched && !kidsAffinity.valid}">
 					        		<label class="control-label label-inline col-md-6 col-md-offset-2"><span translate="pet.kidsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="kidsAffinity" [attr.disabled]="!editEnabled ? '' : null"></label>
 					        		<div class="row">
@@ -176,10 +176,137 @@
 			</div>
 		</div>
 
-
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h1><span translate="pet.requests"></span></h1>
+			</div>
+		</div>
 
 		<div class="row">
-			<div class="col-md-6 col-sm-12" *ngIf="showAdditionalInfo">
+			<div class="col-md-12" *ngIf="showAdditionalInfo">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title"><span translate="pet.pendingRequests"></span></div>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th><span translate="request.type"></span></th>
+										<th class="min-width"><span translate="request.date"></span></th>
+										<th><span translate="request.dogs"></span></th>
+										<th><span translate="request.cats"></span></th>
+										<th><span translate="request.kids"></span></th>
+										<th><span translate="request.phone"></span></th>
+										<th class="max-width"><span translate="request.comment"></span></th>
+										<th><span translate="grid.actions"></span></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngIf="pendingRequests.length == 0"><td colspan="8"><span translate="grid.noData"></span></td></tr>
+									<tr *ngFor="let request of pendingRequests">
+										<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
+										<td class="min-width">{{request.creationDate}}</td>
+										<td>{{request.dogsAtHome}}</td>
+										<td>{{request.catsAtHome}}</td>
+										<td>{{request.kidsAtHome}}</td>
+										<td>{{request.phone}}</td>
+										<td class="max-width">{{request.comment}}</td>
+										<td>
+											<a class="actionButton" (click)="reject(request)"><i class="red glyphicon glyphicon-remove"></i></a>
+											<a class="actionButton" (click)="accept(request)"><i class="green glyphicon glyphicon-ok"></i></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="row" *ngIf="pendingRequests.length != 0">
+								<div class="col-md-12">
+									<span translate="grid.rows"></span>
+									<select [(ngModel)]="pendingRequestsPagination.rows" (change)="getPendingRequests(true)">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="20">20</option>
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<span translate="grid.page"></span>
+									<select [(ngModel)]="pendingRequestsPagination.page" (change)="getPendingRequests(false)">
+										<option *ngFor="let page of pendingRequestsPagination.pages" [value]="page">{{page}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12" *ngIf="showAdditionalInfo">
+				<div class="panel panel-danger">
+					<div class="panel-heading">
+						<div class="panel-title"><span translate="pet.managedRequests"></span></div>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th><span translate="request.type"></span></th>
+										<th class="min-width"><span translate="request.date"></span></th>
+										<th><span translate="request.dogs"></span></th>
+										<th><span translate="request.cats"></span></th>
+										<th><span translate="request.kids"></span></th>
+										<th><span translate="request.phone"></span></th>
+										<th class="max-width"><span translate="request.comment"></span></th>
+										<th><span translate="request.status"></span>
+										<th class="max-width"><span translate="request.rejectComment"></span>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngIf="managedRequests.length == 0"><td colspan="7"><span translate="grid.noData"></span></td></tr>
+									<tr *ngFor="let request of managedRequests">
+										<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
+										<td class="min-width">{{request.creationDate}}</td>
+										<td>{{request.dogsAtHome}}</td>
+										<td>{{request.catsAtHome}}</td>
+										<td>{{request.kidsAtHome}}</td>
+										<td>{{request.phone}}</td>
+										<td class="max-width">{{request.comment}}</td>
+										<td>{{getStatus(request.status) | translate}}</td>
+										<td class="max-width">{{request.rejectComment}}
+									</tr>
+								</tbody>
+							</table>
+							<div class="row" *ngIf="managedRequests.length != 0">
+								<div class="col-md-12">
+									<span translate="grid.rows"></span>
+									<select [(ngModel)]="managedRequestsPagination.rows" (change)="getManagedRequests(true)">
+										<option value="5">5</option>
+										<option value="10">10</option>
+										<option value="20">20</option>
+									</select>
+									&nbsp;&nbsp;&nbsp;&nbsp;
+									<span translate="grid.page"></span>
+									<select [(ngModel)]="managedRequestsPagination.page" (change)="getManagedRequests(false)">
+										<option *ngFor="let page of managedRequestsPagination.pages" [value]="page">{{page}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h1><span translate="pet.additionalInfo"></span></h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-xs-12" *ngIf="showAdditionalInfo">
 				<div class="panel panel-success">
 					<div class="panel-heading">
 						<div class="panel-title"><span translate="pet.vaccines"></span><button class="pull-right" (click)="openModal(vaccineModal)"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="button.new"></span></button></div>
@@ -227,7 +354,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-sm-12" *ngIf="showAdditionalInfo">
+			<div class="col-md-6 col-xs-12" *ngIf="showAdditionalInfo">
 				<div class="panel panel-warning">
 					<div class="panel-heading">
 						<div class="panel-title"><span translate="pet.medicalTests"></span><button class="pull-right" (click)="openModal(medicalTestModal)"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="button.new"></span></button></div>
@@ -437,6 +564,31 @@
             <span translate="button.cancel"></span>
         </button>
         <button type="button" class="btn btn-primary" (click)="submitMedicalTestForm()">
+            <span translate="button.save"></span>
+        </button>
+    </modal-footer>
+</modal>
+
+<!-- Modal de rechazar solicitud -->
+<modal *ngIf="showAdditionalInfo" #rejectRequestModal (keyup.enter)="submitRejectRequestForm()">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title"><span translate="request.rejectRequest"></span></h4>
+    </modal-header>
+    <modal-body>
+    	<form class="form-horizontal" [formGroup]="rejectRequestForm">
+        	<div class="form-group">
+    			<label class="control-label col-md-2"><span translate="request.comment"></span></label>
+    			<div class="col-md-10">
+    				<textarea class="form-control" [formControl]="rejectRequestComment" rows="4"></textarea>
+    			</div>
+    		</div>
+    	</form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetForm(rejectRequestForm)">
+            <span translate="button.cancel"></span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submitRejectRequestForm()">
             <span translate="button.save"></span>
         </button>
     </modal-footer>

@@ -42,12 +42,32 @@ export class RequestService {
 			.catch(this.handleError);
 	}
 
-	getByUserAndPet(userMail : string, petId : number, adoptOrHost : boolean) {
+	getByUserAndPet(userMail, petId, adoptOrHost) {
 		let body = new URLSearchParams();
 		body.set("userMail", userMail);
 		body.set("petId", petId);
 		body.set("adoptOrHost", adoptOrHost);
 		return this.http.get(this.url + "/byUserAndPet", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getByPet(petId, pagination : any) {
+		let body = new URLSearchParams();
+		body.set("petId", petId);
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/pet", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getManagedByPet(petId, pagination : any) {
+		let body = new URLSearchParams();
+		body.set("petId", petId);
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/pet/managed", {search: body})
 			.map(this.extractData)
 			.catch(this.handleError);
 	}

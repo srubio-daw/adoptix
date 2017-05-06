@@ -77,7 +77,11 @@
 		"minAge": "Edad mínima (meses)",
 		"maxAge": "Edad máxima (meses)",
 		"requestAdoption": "Solicitar adopción",
-		"requestHost": "Solicitar acogida"
+		"requestHost": "Solicitar acogida",
+		"pendingRequests": "Solicitudes pendientes",
+		"managedRequests": "Solicitudes anteriores",
+		"additionalInfo": "Información adicional",
+		"requests": "Solicitudes de adopción y acogida"
 	},
 	"form": {
 		"required": "Este campo es obligatorio",
@@ -108,11 +112,25 @@
 		"noData": "No hay datos"
 	},
 	"request": {
+		"adoption": "Adopción",
+		"host": "Acogida",
 		"phone": "Teléfono",
+		"date": "Fecha",
 		"comment": "Comentarios",
 		"kidsAtHome": "Niños en casa",
 		"dogsAtHome": "Perros en casa",
 		"catsAtHome": "Gatos en casa",
-		"requestSent": "Tu solicitud ha sido enviada."
+		"dogs": "Perros",
+		"cats": "Gatos",
+		"kids": "Niños",
+		"requestSent": "Tu solicitud ha sido enviada.",
+		"type": "Tipo",
+		"accept": "Aceptar",
+		"reject": "Rechazar",
+		"rejectRequest": "Rechazar solicitud",
+		"status": "Estado",
+		"accepted": "Aceptada",
+		"rejected": "Rechazada",
+		"rejectComment": "Motivo rechazo"
 	}
 }

@@ -8,5 +8,7 @@ CREATE TABLE request (
 	kids_at_home tinyint NOT NULL DEFAULT 0,
 	adopt_or_host boolean NOT NULL,
 	comment character varying (200),
-	creation_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+	creation_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	status boolean,
+	reject_comment character varying(200)
 );

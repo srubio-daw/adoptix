@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import tk.srubio.adoptix.model.Pet;
 import tk.srubio.adoptix.model.PetRepository;
 import tk.srubio.adoptix.model.ProvinceRepository;
+import tk.srubio.adoptix.model.RequestRepository;
 import tk.srubio.adoptix.model.WebUser;
 import tk.srubio.adoptix.model.WebUserRepository;
 import tk.srubio.adoptix.web.dto.PetDTO;
@@ -28,9 +29,15 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 	private WebUserRepository webUserRepository;
 	@Autowired
 	private ProvinceRepository provinceRepository;
+	@Autowired
+	private RequestRepository requestRepository;
 
 	@Override
 	public PetDTO convertToDTO(Pet object) {
+		Long pendingRequests = 0L;
+		if (object.getId() != null) {
+			pendingRequests = requestRepository.countByPetIdAndStatusIsNull(object.getId());
+		}
 		PetDTO dto = new PetDTO(object.getId(), object.getAge(), object.getBreed(), object.getCatsAffinity(),
 				object.getDescription(), object.getDogsAffinity(), object.getForAdoption(), object.getForHost(),
 				object.getGender(), object.getKidsAffinity(), object.getName(), object.getPetType(),
@@ -39,7 +46,7 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 				object.getAdopter() != null ? object.getAdopter().getName() : null,
 				object.getHost() != null ? object.getHost().getId() : null,
 				object.getHost() != null ? object.getHost().getName() : null, object.getAssociation().getId(),
-				object.getAssociation().getMail(), object.getCreationDate());
+				object.getAssociation().getMail(), object.getCreationDate(), pendingRequests);
 		return dto;
 	}
 
@@ -129,7 +136,7 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		AdoptixResponse response = new AdoptixResponse(null, true, petsDTO, totalRecords);
 		return response;
 	}
-	
+
 	public AdoptixResponse getPets(List<Specification<Pet>> specifications, Pageable pageable) {
 		Long totalRecords = petRepository.count(PetFilter.getSpecification(specifications));
 		List<PetDTO> petsDTO = new ArrayList<>();

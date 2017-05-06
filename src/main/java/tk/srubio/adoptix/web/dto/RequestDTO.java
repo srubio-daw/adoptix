@@ -3,7 +3,6 @@ package tk.srubio.adoptix.web.dto;
 import java.util.Date;
 
 public class RequestDTO {
-	private static final long serialVersionUID = 1L;
 	private Long id;
 	private byte catsAtHome;
 	private String comment;
@@ -14,6 +13,8 @@ public class RequestDTO {
 	private Long pet;
 	private boolean adoptOrHost;
 	private Date creationDate;
+	private Boolean status;
+	private String rejectComment;
 
 	// Used for forms
 	private String userMail;
@@ -23,7 +24,7 @@ public class RequestDTO {
 	}
 
 	public RequestDTO(Long id, byte catsAtHome, String comment, byte dogsAtHome, byte kidsAtHome, String phone,
-			Long user, Long pet, boolean adoptOrHost, Date creationDate, String userMail) {
+			Long user, Long pet, boolean adoptOrHost, Date creationDate, String userMail, Boolean status, String rejectComment) {
 		this.id = id;
 		this.catsAtHome = catsAtHome;
 		this.comment = comment;
@@ -35,6 +36,8 @@ public class RequestDTO {
 		this.adoptOrHost = adoptOrHost;
 		this.creationDate = creationDate;
 		this.userMail = userMail;
+		this.status = status;
+		this.rejectComment = rejectComment;
 	}
 
 	public Long getId() {
@@ -123,6 +126,22 @@ public class RequestDTO {
 
 	public void setUserMail(String userMail) {
 		this.userMail = userMail;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getRejectComment() {
+		return rejectComment;
+	}
+
+	public void setRejectComment(String rejectComment) {
+		this.rejectComment = rejectComment;
 	}
 
 }

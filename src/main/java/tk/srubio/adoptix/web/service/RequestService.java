@@ -1,5 +1,10 @@
 package tk.srubio.adoptix.web.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +33,8 @@ public class RequestService extends DTOService<RequestDTO, Request, Long> {
 	public RequestDTO convertToDTO(Request object) {
 		RequestDTO dto = new RequestDTO(object.getId(), object.getCatsAtHome(), object.getComment(),
 				object.getDogsAtHome(), object.getKidsAtHome(), object.getPhone(), object.getUser().getId(),
-				object.getPet().getId(), object.isAdoptOrHost(), object.getCreationDate(), object.getUser().getMail());
+				object.getPet().getId(), object.isAdoptOrHost(), object.getCreationDate(), object.getUser().getMail(),
+				object.getStatus(), object.getRejectComment());
 		return dto;
 	}
 
@@ -38,7 +44,8 @@ public class RequestService extends DTOService<RequestDTO, Request, Long> {
 		Pet pet = petRepository.findOne(dtoObject.getPet());
 		Request object = new Request(dtoObject.getId(), dtoObject.getCatsAtHome(), dtoObject.getComment(),
 				dtoObject.getDogsAtHome(), dtoObject.getKidsAtHome(), dtoObject.getPhone(), user, pet,
-				dtoObject.isAdoptOrHost(), dtoObject.getCreationDate());
+				dtoObject.isAdoptOrHost(), dtoObject.getCreationDate(), dtoObject.getStatus(),
+				dtoObject.getRejectComment());
 		return object;
 	}
 
@@ -72,20 +79,21 @@ public class RequestService extends DTOService<RequestDTO, Request, Long> {
 		return null;
 	}
 
-	public AdoptixResponse getRequestsByPet(Long petId, Pageable pageable) {
-		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
-		Long count = requestRepository.countByPetId(petId);
-		if (count > 0) {
-			Page<Request> page = requestRepository.findByPetIdOrderByCreationDateDesc(petId, pageable);
-			response.setData(page.getContent());
-		}
-		response.setTotalRecords(count);
-		response.setSuccess(true);
-		return response;
-	}
-	
+	@Transactional
 	public AdoptixResponse createRequest(RequestDTO dto) {
 		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
+		// Si es una aceptación, marcar el animal como adoptado/acogido
+		if (dto.getStatus() != null && dto.getStatus()) {
+			Pet pet = petRepository.findOne(dto.getPet());
+			if (dto.isAdoptOrHost()) {
+				pet.setForAdoption(false);
+				pet.setAdopter(webUserRepository.findOne(dto.getUser()));
+			} else {
+				pet.setForHost(false);
+				pet.setHost(webUserRepository.findOne(dto.getUser()));
+			}
+			petRepository.save(pet);
+		}
 		String error = saveDTO(dto);
 		if (error == null) {
 			response.setSuccess(true);
@@ -94,12 +102,85 @@ public class RequestService extends DTOService<RequestDTO, Request, Long> {
 		}
 		return response;
 	}
-	
+
 	public AdoptixResponse getByUserAndPet(String userMail, Long petId, boolean adoptOrHost) {
 		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
 		Long count = requestRepository.countByUserMailAndPetIdAndAdoptOrHost(userMail, petId, adoptOrHost);
 		response.setSuccess(true);
 		response.setTotalRecords(count);
+		return response;
+	}
+
+	public AdoptixResponse getByPet(Long petId, Pageable pageable) {
+		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
+		Long count = requestRepository.countByPetIdAndStatusIsNull(petId);
+		List<RequestDTO> dtos = new ArrayList<>();
+		if (count > 0) {
+			Page<Request> page = requestRepository.findByPetIdAndStatusIsNullOrderByCreationDateDesc(petId, pageable);
+			for (Request r : page.getContent()) {
+				dtos.add(convertToDTO(r));
+			}
+		}
+		response.setData(dtos);
+		response.setTotalRecords(count);
+		response.setSuccess(true);
+		return response;
+	}
+
+	public AdoptixResponse getCountByPet(Long petId) {
+		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
+		Long count = requestRepository.countByPetIdAndStatusIsNull(petId);
+		response.setTotalRecords(count);
+		response.setSuccess(true);
+		return response;
+	}
+
+	public AdoptixResponse getManagedByPet(Long petId, Pageable pageable) {
+		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
+		Long count = requestRepository.countByPetIdAndStatusIsNotNull(petId);
+		List<RequestDTO> dtos = new ArrayList<>();
+		if (count > 0) {
+			Page<Request> page = requestRepository.findByPetIdAndStatusIsNotNullOrderByCreationDateDesc(petId,
+					pageable);
+			for (Request r : page.getContent()) {
+				dtos.add(convertToDTO(r));
+			}
+		}
+		response.setData(dtos);
+		response.setTotalRecords(count);
+		response.setSuccess(true);
+		return response;
+	}
+
+	public AdoptixResponse getByUser(String mail, Pageable pageable) {
+		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
+		Long count = requestRepository.countByUserMailAndStatusIsNull(mail);
+		List<RequestDTO> dtos = new ArrayList<>();
+		if (count > 0) {
+			Page<Request> page = requestRepository.findByUserMailAndStatusIsNull(mail, pageable);
+			for (Request r : page.getContent()) {
+				dtos.add(convertToDTO(r));
+			}
+		}
+		response.setData(dtos);
+		response.setTotalRecords(count);
+		response.setSuccess(true);
+		return response;
+	}
+
+	public AdoptixResponse getManagedByUser(String mail, Pageable pageable) {
+		AdoptixResponse response = new AdoptixResponse(null, false, null, null);
+		Long count = requestRepository.countByUserMailAndStatusIsNotNull(mail);
+		List<RequestDTO> dtos = new ArrayList<>();
+		if (count > 0) {
+			Page<Request> page = requestRepository.findByUserMailAndStatusIsNotNull(mail, pageable);
+			for (Request r : page.getContent()) {
+				dtos.add(convertToDTO(r));
+			}
+		}
+		response.setData(dtos);
+		response.setTotalRecords(count);
+		response.setSuccess(true);
 		return response;
 	}
 

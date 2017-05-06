@@ -10,15 +10,17 @@ import { ValidationService } from '../services/validation.service';
 import { UserService } from '../services/user.service';
 import { ProvinceService } from '../services/province.service';
 import { PetService } from '../services/pet.service';
+import { RequestService } from '../services/request.service';
 import { ErrorModalComponent } from '../modal/error-modal.component';
 
 @Component({
   templateUrl: '../newPet/newPet.html',
-  providers: [ValidationService, ProvinceService, PetService]
+  providers: [ValidationService, ProvinceService, PetService, RequestService]
 })
 export class EditPetComponent {
 	constructor(fb: FormBuilder, private validationService : ValidationService, private userService : UserService,
-		private provinceService : ProvinceService, private petService : PetService, private activatedRoute: ActivatedRoute) {
+		private provinceService : ProvinceService, private petService : PetService, private activatedRoute: ActivatedRoute,
+        private requestService : RequestService) {
 		 // Formulario registro
         this.petForm = fb.group({
             id: [null],
@@ -95,6 +97,11 @@ export class EditPetComponent {
         this.medicalTestDescription = this.medicalTestForm.controls['description'];
         this.medicalTestAppliedOn = this.medicalTestForm.controls['appliedOn'];
 
+        this.rejectRequestForm = fb.group({
+            comment: [null]
+        });
+        this.rejectRequestComment = this.rejectRequestForm.controls['comment'];
+
     }
 
     // Inicialización
@@ -107,6 +114,8 @@ export class EditPetComponent {
             this.getPetVetVisits(false);
             this.getPetVaccines(false);
             this.getPetMedicalTests(false);
+            this.getPendingRequests(false);
+            this.getManagedRequests(false);
         });
     }
 
@@ -148,6 +157,10 @@ export class EditPetComponent {
     medicalTestDescription : AbstractControl;
     medicalTestAppliedOn : AbstractControl;
 
+    rejectRequestForm : FormGroup;
+    rejectRequestComment : AbstractControl;
+    requestToReject : any = null;
+
     normalUsers : Array<any> = [];
     provinces : Array<any> = [];
 
@@ -162,6 +175,9 @@ export class EditPetComponent {
 
     @ViewChild('vetVisitModal')
     vetVisitModal : ModalComponent;
+
+    @ViewChild('rejectRequestModal')
+    rejectRequestModal : ModalComponent;
 
     // Reutilización de vista
     headingTitle : string = "pet.editPet";
@@ -191,6 +207,85 @@ export class EditPetComponent {
         totalRecords: 0,
         pages: []
     };
+    pendingRequests : any = [];
+    pendingRequestsPagination : any = {
+        page: 1,
+        rows: 5,
+        totalRecords: 0,
+        pages: []
+    };
+    managedRequests : any = [];
+    managedRequestsPagination : any = {
+        page: 1,
+        rows: 5,
+        totalRecords: 0,
+        pages: []
+    };
+
+    accept(request : any) {
+        request.status = true;
+        let result = this.requestService.save(request).subscribe(
+          result => {
+            if (!result.success) {
+              let title = null;
+              this.errorModal.open('error.title', result.message);
+            } else {
+              this.getPendingRequests(true);
+              this.getManagedRequests(true);
+              this.getPet();
+            }
+          }, 
+          error => {
+            console.log(JSON.stringify(error.json()))
+            return null;
+          }
+        );
+    } 
+
+    reject(request : any) {
+        this.requestToReject = request;
+        this.rejectRequestModal.open();
+    } 
+
+    submitRejectRequestForm() {
+        var comment = this.rejectRequestComment.value;
+        let body = this.requestToReject;
+        body.rejectComment = comment;
+        body.status = false;
+        let result = this.requestService.save(body).subscribe(
+          result => {
+            if (!result.success) {
+              let title = null;
+              this.errorModal.open('error.title', result.message);
+            } else {
+              this.getPendingRequests(true);
+              this.getManagedRequests(true);
+              this.rejectRequestModal.close();
+              this.requestToReject = null;
+            }
+          }, 
+          error => {
+            console.log(JSON.stringify(error.json()))
+            return null;
+          }
+        );
+    }
+
+    getRequestType(type : boolean) {
+        if (type) {
+            return "request.adoption";
+        } else {
+            return "request.host";
+        }
+    }
+
+    getStatus(status : boolean) {
+        if (status) {
+            return "request.accepted";
+        } else {
+            return "request.rejected";
+        }
+    }
 
     getNormalUsers() {
 		this.userService.getNormalUsers()
@@ -308,6 +403,36 @@ export class EditPetComponent {
                    this.medicalTestsPagination.pages = this.getPages(this.medicalTestsPagination);
                },
                error =>  alert(error));
+    }
+
+    getPendingRequests(rowsChange : boolean) {
+        if (rowsChange) {
+            this.pendingRequestsPagination.page = 1;
+        }
+        this.requestService.getByPet(this.petId, this.pendingRequestsPagination)
+            .subscribe(
+               result => {
+                   this.pendingRequests = result.data;
+                   this.pendingRequestsPagination.totalRecords = result.totalRecords;
+                   this.pendingRequestsPagination.pages = this.getPages(this.pendingRequestsPagination);
+               },
+               error =>  alert(error)
+        );
+    }
+
+    getManagedRequests(rowsChange : boolean) {
+        if (rowsChange) {
+            this.managedRequestsPagination.page = 1;
+        }
+        this.requestService.getManagedByPet(this.petId, this.managedRequestsPagination)
+            .subscribe(
+               result => {
+                   this.managedRequests = result.data;
+                   this.managedRequestsPagination.totalRecords = result.totalRecords;
+                   this.managedRequestsPagination.pages = this.getPages(this.managedRequestsPagination);
+               },
+               error =>  alert(error)
+        );
     }
 
     deleteVaccine(vaccineId : number) {

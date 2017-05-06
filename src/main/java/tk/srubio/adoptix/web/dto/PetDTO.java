@@ -27,13 +27,16 @@ public class PetDTO {
 	// For creation
 	private String userMail;
 
+	// For web list
+	private Long pendingRequests;
+
 	public PetDTO() {
 	}
 
 	public PetDTO(Long id, short age, String breed, boolean catsAffinity, String description, boolean dogsAffinity,
 			boolean forAdoption, boolean forHost, String gender, boolean kidsAffinity, String name, Byte petType,
 			Byte locationId, String locationName, Long adopter, String adopterName, Long host, String hostName,
-			Long association, String userMail, Date creationDate) {
+			Long association, String userMail, Date creationDate, Long pendingRequests) {
 		this.id = id;
 		this.age = age;
 		this.breed = breed;
@@ -55,6 +58,7 @@ public class PetDTO {
 		this.association = association;
 		this.userMail = userMail;
 		this.creationDate = creationDate;
+		this.pendingRequests = pendingRequests;
 	}
 
 	public Long getId() {
@@ -223,6 +227,14 @@ public class PetDTO {
 
 	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public Long getPendingRequests() {
+		return pendingRequests;
+	}
+
+	public void setPendingRequests(Long pendingRequests) {
+		this.pendingRequests = pendingRequests;
 	}
 
 }

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @ComponentScan(basePackages = "tk.srubio.adoptix")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**");
@@ -26,9 +26,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".html");
 		return resolver;
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("/");
 	}
+
 }

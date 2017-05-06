@@ -22,7 +22,7 @@ export class PetDetailComponent {
 		private provinceService : ProvinceService, private petService : PetService, 
     private activatedRoute: ActivatedRoute, private requestService : RequestService) {
       this.requestForm = fb.group({
-        userMail: [this.userService.loggedUser.name],
+        userMail: [null],
         formPet: [null],
         kidsAtHome: [0, Validators.compose([Validators.required, validationService.integer])],
         catsAtHome: [0, Validators.compose([Validators.required, validationService.integer])],
@@ -98,11 +98,13 @@ export class PetDetailComponent {
 
     adopt() {
       this.adoptOrHost.setValue(true);
+      this.userMail.setValue(this.userService.loggedUser.name);
       this.requestModal.open();
     }
 
     host() {
       this.adoptOrHost.setValue(false);
+      this.userMail.setValue(this.userService.loggedUser.name);
       this.requestModal.open();
     }
 
@@ -205,8 +207,10 @@ export class PetDetailComponent {
                result => {
                    this.pet = result.data;
                    this.formPet.setValue(this.pet.id);
-                   this.getPreviousAdoptionRequests();
-                   this.getPreviousHostRequests();
+                   if (this.userService.hasRole('usuario')) {
+                     this.getPreviousAdoptionRequests();
+                     this.getPreviousHostRequests();
+                   }
                },
                error =>  alert(error));
     }
