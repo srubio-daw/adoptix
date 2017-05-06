@@ -1,16 +1,28 @@
-<div id="menuBar" class="row">
-    <button id="homeBtn" class="btn btn-success" [routerLink]="['/home']" (click)="changeMenu('homeBtn')"><i class="glyphicon glyphicon-home"></i></button>
-    <button id="newPetBtn" class="btn btn-default" [routerLink]="['/association/newPet']" (click)="changeMenu('newPetBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="menu.newPet"></span></button>
-    <button id="myPetsBtn" class="btn btn-default" [routerLink]="['/association/myPets']" (click)="changeMenu('myPetsBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="menu.myPets"></span></button>
-     <button id="requestsBtn" class="btn btn-default" [routerLink]="['/user/requests']" (click)="changeMenu('requestsBtn')" *ngIf="userService.hasRole('usuario')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="pet.requests"></span></button>
-	<div class="pull-right">
-		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
-		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>
-        <button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<span translate="menu.account"></span>: {{userService.loggedUser.principal.username}}</button>
-        <button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><i class="glyphicon glyphicon-off"></i>&nbsp;&nbsp;<span translate="menu.logout"></span></button>
-        <span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span>
-	</div>
-</div>
+<nav id="menuBar" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+            <li><a><button id="homeBtn" class="btn btn-success" [routerLink]="['/home']" (click)="changeMenu('homeBtn')"><i class="glyphicon glyphicon-home"></i></button></a></li>
+            <li><a><button id="myPetsBtn" class="btn btn-default" [routerLink]="['/association/myPets']" (click)="changeMenu('myPetsBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="menu.myPets"></span></button></a></li>
+            <li><a><button id="requestsBtn" class="btn btn-default" [routerLink]="['/user/requests']" (click)="changeMenu('requestsBtn')" *ngIf="userService.hasRole('usuario')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="pet.requests"></span></button></a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a><button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button></a></li>
+            <li><a><button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button></a></li>
+            <li><a><button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<span translate="menu.account"></span>: {{userService.loggedUser.principal.username}}</button></a></li>
+            <li><a><span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span></a></li>
+        </ul>
+    </div>
+</nav>
 
 <!-- Modal de registro -->
 <modal #registerModal (keyup.enter)="submitRegisterForm()" (onDismiss)="resetRegisterForm()" >
