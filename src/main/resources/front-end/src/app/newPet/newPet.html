@@ -264,7 +264,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr *ngIf="managedRequests.length == 0"><td colspan="7"><span translate="grid.noData"></span></td></tr>
+									<tr *ngIf="managedRequests.length == 0"><td colspan="9"><span translate="grid.noData"></span></td></tr>
 									<tr *ngFor="let request of managedRequests">
 										<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
 										<td class="min-width">{{request.creationDate}}</td>

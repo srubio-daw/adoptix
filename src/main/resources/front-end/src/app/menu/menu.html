@@ -2,6 +2,7 @@
     <button id="homeBtn" class="btn btn-success" [routerLink]="['/home']" (click)="changeMenu('homeBtn')"><i class="glyphicon glyphicon-home"></i></button>
     <button id="newPetBtn" class="btn btn-default" [routerLink]="['/association/newPet']" (click)="changeMenu('newPetBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="menu.newPet"></span></button>
     <button id="myPetsBtn" class="btn btn-default" [routerLink]="['/association/myPets']" (click)="changeMenu('myPetsBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="menu.myPets"></span></button>
+     <button id="requestsBtn" class="btn btn-default" [routerLink]="['/user/requests']" (click)="changeMenu('requestsBtn')" *ngIf="userService.hasRole('usuario')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="pet.requests"></span></button>
 	<div class="pull-right">
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button>
 		<button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button>

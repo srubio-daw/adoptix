@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RequestRepository extends PagingAndSortingRepository<Request, Long> {
 
-	@Query(value = "SELECT count(r) FROM Request r WHERE user.mail = :mail AND pet.id = :petId AND adoptOrHost = :adoptOrHost")
+	@Query(value = "SELECT count(r) FROM Request r WHERE user.mail = :mail AND pet.id = :petId AND adoptOrHost = :adoptOrHost AND status IS NULL")
 	public Long countByUserMailAndPetIdAndAdoptOrHost(@Param(value = "mail") String mail,
 			@Param(value = "petId") Long petId, @Param(value = "adoptOrHost") boolean adoptOrHost);
 

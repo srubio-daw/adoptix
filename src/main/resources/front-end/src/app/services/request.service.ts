@@ -72,6 +72,26 @@ export class RequestService {
 			.catch(this.handleError);
 	}
 
+	getByUser(userMail, pagination : any) {
+		let body = new URLSearchParams();
+		body.set("mail", userMail);
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/user", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
+	getManagedByUser(userMail, pagination : any) {
+		let body = new URLSearchParams();
+		body.set("mail", userMail);
+		body.set('page', pagination.page);
+		body.set('rows', pagination.rows);
+		return this.http.get(this.url + "/user/managed", {search: body})
+			.map(this.extractData)
+			.catch(this.handleError);
+	}
+
 	private extractData(response : any) {
 		let body = response.json();
 		return body || [];

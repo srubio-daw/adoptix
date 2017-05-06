@@ -11,6 +11,8 @@ public class RequestDTO {
 	private String phone;
 	private Long user;
 	private Long pet;
+	private String petName;
+	private byte petType;
 	private boolean adoptOrHost;
 	private Date creationDate;
 	private Boolean status;
@@ -24,7 +26,8 @@ public class RequestDTO {
 	}
 
 	public RequestDTO(Long id, byte catsAtHome, String comment, byte dogsAtHome, byte kidsAtHome, String phone,
-			Long user, Long pet, boolean adoptOrHost, Date creationDate, String userMail, Boolean status, String rejectComment) {
+			Long user, Long pet, String petName, byte petType, boolean adoptOrHost, Date creationDate, String userMail,
+			Boolean status, String rejectComment) {
 		this.id = id;
 		this.catsAtHome = catsAtHome;
 		this.comment = comment;
@@ -33,6 +36,8 @@ public class RequestDTO {
 		this.phone = phone;
 		this.user = user;
 		this.pet = pet;
+		this.petName = petName;
+		this.petType = petType;
 		this.adoptOrHost = adoptOrHost;
 		this.creationDate = creationDate;
 		this.userMail = userMail;
@@ -142,6 +147,22 @@ public class RequestDTO {
 
 	public void setRejectComment(String rejectComment) {
 		this.rejectComment = rejectComment;
+	}
+
+	public String getPetName() {
+		return petName;
+	}
+
+	public void setPetName(String petName) {
+		this.petName = petName;
+	}
+
+	public byte getPetType() {
+		return petType;
+	}
+
+	public void setPetType(byte petType) {
+		this.petType = petType;
 	}
 
 }

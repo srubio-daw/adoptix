@@ -16,7 +16,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngIf="pets.length == 0"><td colspan="8"><span translate="grid.noData"></span></td></tr>
+					<tr *ngIf="pets.length == 0"><td colspan="9"><span translate="grid.noData"></span></td></tr>
 					<tr *ngFor="let pet of pets">
 						<td>{{getPetTypeLabel(pet.petType) | translate}}</td>
 						<td>{{pet.name}}</td>

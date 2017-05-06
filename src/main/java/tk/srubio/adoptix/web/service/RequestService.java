@@ -33,8 +33,9 @@ public class RequestService extends DTOService<RequestDTO, Request, Long> {
 	public RequestDTO convertToDTO(Request object) {
 		RequestDTO dto = new RequestDTO(object.getId(), object.getCatsAtHome(), object.getComment(),
 				object.getDogsAtHome(), object.getKidsAtHome(), object.getPhone(), object.getUser().getId(),
-				object.getPet().getId(), object.isAdoptOrHost(), object.getCreationDate(), object.getUser().getMail(),
-				object.getStatus(), object.getRejectComment());
+				object.getPet().getId(), object.getPet().getName(), object.getPet().getPetType(),
+				object.isAdoptOrHost(), object.getCreationDate(), object.getUser().getMail(), object.getStatus(),
+				object.getRejectComment());
 		return dto;
 	}
 

@@ -196,7 +196,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngIf="petVaccines.length == 0"><td colspan="4"><span translate="grid.noData"></span></td></tr>
+							<tr *ngIf="petVaccines.length == 0"><td colspan="3"><span translate="grid.noData"></span></td></tr>
 							<tr *ngFor="let vaccine of petVaccines">
 								<td>{{vaccine.name}}</td>
 								<td>{{vaccine.description}}</td>
@@ -241,7 +241,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngIf="petMedicalTests.length == 0"><td colspan="4"><span translate="grid.noData"></span></td></tr>
+							<tr *ngIf="petMedicalTests.length == 0"><td colspan="3"><span translate="grid.noData"></span></td></tr>
 							<tr *ngFor="let medicalTest of petMedicalTests">
 								<td>{{medicalTest.name}}</td>
 								<td>{{medicalTest.description}}</td>
@@ -285,7 +285,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr *ngIf="petVetVisits.length == 0"><td colspan="4"><span translate="grid.noData"></span></td></tr>
+							<tr *ngIf="petVetVisits.length == 0"><td colspan="3"><span translate="grid.noData"></span></td></tr>
 							<tr *ngFor="let vetVisit of petVetVisits">
 								<td>{{vetVisit.description}}</td>
 								<td>{{vetVisit.visitDate}}</td>
