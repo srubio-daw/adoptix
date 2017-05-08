@@ -37,7 +37,8 @@ export class EditPetComponent {
         	catsAffinity: [null],
         	forAdoption: [null],
         	forHost: [null],
-        	description: [null]
+        	description: [null],
+            image: [null]
         });
         this.id = this.petForm.controls['id'];
         this.gender = this.petForm.controls['gender'];
@@ -54,6 +55,7 @@ export class EditPetComponent {
 	    this.forAdoption = this.petForm.controls['forAdoption'];
 	    this.forHost = this.petForm.controls['forHost'];
 	    this.description = this.petForm.controls['description'];
+        this.image = this.petForm.controls['image'];
 
         // Formulario de vacunas
         this.vaccineForm = fb.group({
@@ -110,6 +112,7 @@ export class EditPetComponent {
 
         this.activatedRoute.params.subscribe((params: Params) => {
             this.petId = params['petId'];
+            this.imageUrl = this.petService.getImageUrl(this.petId);
             this.getNormalUsers();
             this.getPetVetVisits(false);
             this.getPetVaccines(false);
@@ -135,6 +138,11 @@ export class EditPetComponent {
     forAdoption : AbstractControl;
     forHost : AbstractControl;
     description : AbstractControl;
+    image : AbstractControl;
+
+    imageFile : any = null;
+    imageUrl : string = null;
+    errorFileType : boolean = false;
 
     vaccineForm : FormGroup;
     vaccineId : AbstractControl;
@@ -304,18 +312,33 @@ export class EditPetComponent {
                error =>  alert(error));
 	}
 
+    isValidFile(type : string) {
+        if (type.split("/")[0] != "image") {
+            return false;
+        }
+        return true;
+    }
+
+    onChangeImage(event) {
+        this.imageFile = event.srcElement.files[0];
+        this.errorFileType = !this.isValidFile(this.imageFile.type);
+    }
+
 	savePet() {
-		if (!this.petForm.valid) {
+		if (!this.petForm.valid || (!this.showAdditionalInfo && (this.imageFile == null || !this.isValidFile(this.imageFile.type)))) {
 			// Mark fields as dirty and return
 			this.validationService.markFormAsTouched(this.petForm);
 		} else {
 			let pet : Object = this.petForm.value;
-			let result = this.petService.save(pet, this.userService.loggedUser['name']).subscribe(
+			let result = this.petService.save(pet, this.userService.loggedUser['name'], this.imageFile).subscribe(
 				result => {
 					if (!result.success) {
 						this.errorModal.open('error.title', result.message);
 					} else {
                         this.editEnabled = false;
+                        this.imageFile = null;
+                        this.image.setValue("");
+                        this.imageUrl = this.petService.getImageUrl(this.petId) + '?random=' + Math.random();
 					}
 				}, 
 				error => {

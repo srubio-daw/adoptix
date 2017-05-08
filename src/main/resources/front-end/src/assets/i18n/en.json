@@ -41,6 +41,7 @@
 		"changePassword": "Change password"
 	},
 	"pet": {
+		"image": "Image",
 		"name": "Name",
 		"gender": "Gender",
 		"male": "Male",
@@ -93,7 +94,8 @@
 		"integer": "Decimals are not allowed",
 		"decimal": "Only numbers with two decimals are allowed",
 		"all": "All",
-		"phone": "This is not a valid phone number"
+		"phone": "This is not a valid phone number",
+		"imageType": "The file is not an image"
 	},
 	"error": {
 		"title": "Error",

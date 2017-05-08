@@ -60,7 +60,7 @@
 </div>
 <div *ngFor="let pet of pets" class="row">
 	<div class="panel panel-info">
-		<div class="panel-heading">
+		<div class="panel-heading visible-md visible-lg">
 			<div class="row">
 				<div class="col-md-2"><strong>{{pet.name}}</strong></div>
 				<div class="col-md-1">
@@ -72,12 +72,74 @@
 				<div class="col-md-1 pull-right">{{pet.locationName}}</div>
 			</div>
 		</div>
+		<div class="panel-heading hidden-md hidden-lg">
+			<div class="row">
+				<div class="col-xs-2"><strong>{{pet.name}}</strong></div>
+				<div class="col-xs-3">
+					{{getPetTypeLabel(pet.petType) | translate}}
+					&nbsp;&nbsp;
+					<i [class]="getGenderIcon(pet.gender)" aria-hidden="true"></i>
+				</div>
+				<div class="col-xs-5">
+					<button class="button-panel-header" [routerLink]="['/pet/' + pet.id]"><span translate="button.detail"></span></button>
+				</div>
+				<div class="col-xs-2"><span>{{pet.locationName}}</span></div>
+			</div>
+		</div>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-md-2">
+				<div class="col-md-2 col-xs-12 text-center little-image">
+					<img class="img-responsive" [src]="petService.getImageUrl(pet.id)">
 				</div>
 				<div class="col-md-6">
-					<div class="row">
+					<!-- MOVILES -->
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.breed">: </span></strong>
+							{{pet.breed}}
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.age">: </span></strong>
+							{{pet.age}}
+						</div>
+					</div>
+					<hr class="hidden-md hidden-lg">
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.forAdoption">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.forAdoption)"></i>
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.dogsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.dogsAffinity)"></i>
+						</div>
+					</div>
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.forHost">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.forHost)"></i>
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.catsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.catsAffinity)"></i>
+						</div>
+					</div>
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6">
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.kidsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.kidsAffinity)"></i>
+						</div>
+					</div>
+					<hr class="hidden-md hidden-lg">
+					<!-- PANTALLAS -->
+					<div class="row visible-md visible-lg">
 						<div class="col-md-4 text-right">
 							<strong><span translate="pet.forAdoption">: </span></strong>
 							&nbsp;&nbsp;
@@ -93,7 +155,7 @@
 							{{pet.breed}}
 						</div>
 					</div>
-					<div class="row">
+					<div class="row visible-md visible-lg">
 						<div class="col-md-4 text-right">
 							<strong><span translate="pet.forHost">: </span></strong>
 							&nbsp;&nbsp;
@@ -109,7 +171,7 @@
 							{{pet.age}}
 						</div>
 					</div>
-					<div class="row">
+					<div class="row visible-md visible-lg">
 						<div class="col-md-4 text-right">
 						</div>
 						<div class="col-md-4 text-right">
@@ -121,7 +183,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4 col-xs-12">
 					<div class="row">
 						<div class="col-md-12">
 							<strong><span translate="pet.description"></span>: </strong>

@@ -19,10 +19,18 @@ export class PetService {
 
 	constructor (private http: Http) {}
 
-	save(pet : Object, mail : string) {
+	getImageUrl(petId : number) {
+		return this.url + "/" + petId + "/image";
+	}
+
+	save(pet : Object, mail : string, imageFile : any) {
 		pet['userMail'] = mail;
-		let body = JSON.stringify(pet);
-		return this.http.post(this.url + "/save", body, this.options)
+		let formData = new FormData();
+		formData.append('file', imageFile);
+		formData.append('pet', new Blob([JSON.stringify(pet)], {
+			type: "application/json"
+		}));
+		return this.http.post(this.url + "/save", formData)
 			.map(this.extractData);
 	}
 

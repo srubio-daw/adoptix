@@ -13,6 +13,7 @@
         <ul class="nav navbar-nav">
             <li><a><button id="homeBtn" class="btn btn-success" [routerLink]="['/home']" (click)="changeMenu('homeBtn')"><i class="glyphicon glyphicon-home"></i></button></a></li>
             <li><a><button id="myPetsBtn" class="btn btn-default" [routerLink]="['/association/myPets']" (click)="changeMenu('myPetsBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="menu.myPets"></span></button></a></li>
+            <li><a><button id="newPetBtn" class="btn btn-default" [routerLink]="['/association/newPet']" (click)="changeMenu('newPetBtn')" *ngIf="userService.hasRole('asociacion')"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;<span translate="menu.newPet"></span></button></a></li>
             <li><a><button id="requestsBtn" class="btn btn-default" [routerLink]="['/user/requests']" (click)="changeMenu('requestsBtn')" *ngIf="userService.hasRole('usuario')"><i class="glyphicon glyphicon-list"></i>&nbsp;&nbsp;<span translate="pet.requests"></span></button></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

@@ -8,6 +8,40 @@ html, body {
 	background-color: #C1BDB9;
 }
 
+/* Evitar imágenes muy grandes*/
+div.little-image, div.little-image img {
+    max-height: 150px;
+}
+
+@media(min-width:767px) {
+	div.little-image, div.little-image img {
+	    max-height: 300px;
+	}
+}
+
+div.big-image, div.big-image img {
+    max-height: 300px;
+    margin-bottom: 10px;
+}
+
+@media(min-width:767px) {
+	div.big-image, div.big-image img {
+	    max-height: 400px;
+	}
+}
+
+/* Margen en la foto, solo móviles */
+@media(max-width:766px) {
+	div.little-image {
+	    margin-bottom: 10px;
+	}
+}
+
+/* Centrar imágen */
+div.little-image img, div.big-image img {
+	margin: 0 auto;
+}
+
 /* Tamaño máximo de columna */
 th.min-width, td.min-width {
 	min-width: 100px;

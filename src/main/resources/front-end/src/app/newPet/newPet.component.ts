@@ -31,7 +31,8 @@ export class NewPetComponent {
         	catsAffinity: [null],
         	forAdoption: [null],
         	forHost: [null],
-        	description: [null]
+        	description: [null],
+            image: [null]
         });
 	    this.name = this.petForm.controls['name'];
         this.gender = this.petForm.controls['gender'];
@@ -47,6 +48,7 @@ export class NewPetComponent {
 	    this.forAdoption = this.petForm.controls['forAdoption'];
 	    this.forHost = this.petForm.controls['forHost'];
 	    this.description = this.petForm.controls['description'];
+        this.image = this.petForm.controls['image'];
     }
 
     // Inicialización
@@ -70,9 +72,12 @@ export class NewPetComponent {
     forAdoption : AbstractControl;
     forHost : AbstractControl;
     description : AbstractControl;
+    image : AbstractControl;
 
     normalUsers : Array<any> = [];
     provinces : Array<any> = [];
+    imageFile : any = null;
+    errorFileType : boolean = false;
 
     @ViewChild(ErrorModalComponent)
 	errorModal : ErrorModalComponent;
@@ -96,13 +101,22 @@ export class NewPetComponent {
                error =>  alert(error));
 	}
 
+    onChangeImage(event) {
+        this.imageFile = event.srcElement.files[0];
+        this.errorFileType = !this.isValidFile(this.imageFile.type);
+    }
+
 	savePet() {
-		if (!this.petForm.valid) {
+		if (!this.petForm.valid || this.imageFile == null || !this.isValidFile(this.imageFile.type)) {
 			// Mark fields as dirty and return
 			this.validationService.markFormAsTouched(this.petForm);
+            if (!this.isValidFile(this.imageFile.type)) {
+                this.errorFileType = true;
+            }
 		} else {
+            this.errorFileType = false;
 			let pet : Object = this.petForm.value;
-			let result = this.petService.save(pet, this.userService.loggedUser['name']).subscribe(
+			let result = this.petService.save(pet, this.userService.loggedUser['name'], this.imageFile).subscribe(
 				result => {
 					if (!result.success) {
 						this.errorModal.open('error.title', result.message);
@@ -119,6 +133,13 @@ export class NewPetComponent {
 			);
 		}
 	}
+
+    isValidFile(type : string) {
+        if (type.split("/")[0] != "image") {
+            return false;
+        }
+        return true;
+    }
 
 	resetPetForm() {
 		this.petForm.reset();

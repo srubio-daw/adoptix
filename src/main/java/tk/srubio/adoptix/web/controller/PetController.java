@@ -1,7 +1,16 @@
 package tk.srubio.adoptix.web.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -17,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import tk.srubio.adoptix.model.Pet;
 import tk.srubio.adoptix.web.dto.PetDTO;
@@ -47,9 +58,13 @@ public class PetController {
 	@Autowired
 	private VetTestService vetTestService;
 
+	@Autowired
+	private String imagesFolder;
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public @ResponseBody ResponseEntity<AdoptixResponse> save(@RequestBody PetDTO petForm) {
-		return new ResponseEntity<>(petService.save(petForm), HttpStatus.OK);
+	public @ResponseBody ResponseEntity<AdoptixResponse> save(@RequestPart("pet") PetDTO pet,
+			@RequestPart(required = false, name = "file") MultipartFile file) {
+		return new ResponseEntity<>(petService.save(pet, file), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/myPets", method = RequestMethod.GET)
@@ -65,7 +80,7 @@ public class PetController {
 			@RequestParam(required = false) Byte location, @RequestParam(required = false) Boolean dogsAffinity,
 			@RequestParam(required = false) Boolean catsAffinity,
 			@RequestParam(required = false) Boolean kidsAffinity) {
-		List<Specification<Pet>> specifications = new  ArrayList<>();
+		List<Specification<Pet>> specifications = new ArrayList<>();
 		// Filters
 		if (petType != null) {
 			specifications.add(PetFilter.equal("petType", petType));
@@ -91,14 +106,15 @@ public class PetController {
 		if (kidsAffinity != null) {
 			specifications.add(PetFilter.isTrue("kidsAffinity"));
 		}
-		
+
 		// Filter animals for adopt or for host
 		specifications.add(PetFilter.or(PetFilter.isTrue("forAdoption"), PetFilter.isTrue("forHost")));
-		
+
 		List<Order> orders = new ArrayList<Sort.Order>();
 		orders.add(new Order(Direction.DESC, "creationDate"));
-		
-		return new ResponseEntity<>(petService.getPets(specifications, new PageRequest(page - 1, rows, new Sort(orders))), HttpStatus.OK);
+
+		return new ResponseEntity<>(
+				petService.getPets(specifications, new PageRequest(page - 1, rows, new Sort(orders))), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/{petId}", method = RequestMethod.GET)
@@ -166,5 +182,30 @@ public class PetController {
 	public @ResponseBody ResponseEntity<AdoptixResponse> saveVetVisit(@PathVariable(name = "petId") Long petId,
 			@RequestBody VetVisitDTO vetVisitForm) {
 		return new ResponseEntity<>(vetVisitService.save(petId, vetVisitForm), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{petId}/image", method = RequestMethod.GET)
+	public void getImage(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable(name = "petId") Long petId) {
+		// Path to this pet's images folder
+		String petFolder = imagesFolder + "/" + petId;
+		try {
+			// Get first image in that folder
+			for (Path path : Files.newDirectoryStream(Paths.get(petFolder))) {
+				if (ImageIO.read(path.toFile()) != null) {
+					String extension = path.getFileName().toString().split("\\.")[path.getFileName().toString().split("\\.").length -1 ];
+					response.setContentType("image/" + extension);
+					OutputStream out;
+					out = response.getOutputStream();
+					Files.copy(path, out);
+					out.flush();
+					out.close();
+					return;
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

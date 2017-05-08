@@ -1,14 +1,25 @@
 package tk.srubio.adoptix.web.service;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.transaction.Transactional;
+
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.web.multipart.MultipartFile;
 
 import tk.srubio.adoptix.model.Pet;
 import tk.srubio.adoptix.model.PetRepository;
@@ -31,6 +42,8 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 	private ProvinceRepository provinceRepository;
 	@Autowired
 	private RequestRepository requestRepository;
+	@Autowired
+	private String imagesFolder;
 
 	@Override
 	public PetDTO convertToDTO(Pet object) {
@@ -109,14 +122,40 @@ public class PetService extends DTOService<PetDTO, Pet, Long> {
 		}
 	}
 
-	public AdoptixResponse save(PetDTO dto) {
+	@Transactional
+	public AdoptixResponse save(PetDTO dto, MultipartFile file) {
 		AdoptixResponse response = new AdoptixResponse();
 		WebUser association = webUserRepository.findOneByMailWithRoles(dto.getUserMail());
 		dto.setAssociation(association.getId());
 		String result = saveDTO(dto);
 		if (result.startsWith("SAVED: ")) {
+			Long petId = Long.valueOf(result.split("SAVED: ")[1]);
+			// Save image in folder
+			if (file != null) {
+				String folderPath = imagesFolder + "/" + petId;
+				String filePath = folderPath + "/" + file.getOriginalFilename();
+				try {
+					// Check if folder exists to remove it
+					if (Files.isDirectory(Paths.get(folderPath))) {
+						FileUtils.deleteDirectory(new File(folderPath));
+					}
+					// Create directory
+					Files.createDirectory(Paths.get(folderPath));
+					// Save image
+					File imageFile = new File(filePath);
+					file.transferTo(imageFile);
+					BufferedImage image = ImageIO.read(imageFile);
+					ImageIO.write(image, filePath.split("\\.")[filePath.split("\\.").length - 1], imageFile);
+					
+				} catch (IOException e) {
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+					response.setSuccess(false);
+					response.setMessage(e.getMessage());
+					return response;
+				}
+			}
 			response.setSuccess(true);
-			response.setData(Long.valueOf(result.split("SAVED: ")[1]));
+			response.setData(petId);
 		} else {
 			response.setSuccess(false);
 			response.setMessage(result);

@@ -41,6 +41,7 @@
 		"changePassword": "Cambiar contraseña"
 	},
 	"pet": {
+		"image": "Imagen",
 		"name": "Nombre",
 		"gender": "Género",
 		"male": "Macho",
@@ -93,7 +94,8 @@
 		"integer": "El valor no puede tener decimales",
 		"decimal": "El valor debe ser un número con dos decimales",
 		"all": "Todos",
-		"phone": "No es un teléfono válido"
+		"phone": "No es un teléfono válido",
+		"imageType": "El fichero no es una imagen"
 	},
 	"error": {
 		"title": "Error",

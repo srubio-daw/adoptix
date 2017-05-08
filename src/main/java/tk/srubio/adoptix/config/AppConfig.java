@@ -87,5 +87,10 @@ public class AppConfig {
 		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return txManager;
 	}
+	
+	@Bean
+	public String imagesFolder() {
+		return env.getProperty("images.folder");
+	}
 
 }
