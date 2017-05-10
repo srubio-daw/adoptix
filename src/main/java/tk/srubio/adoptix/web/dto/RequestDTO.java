@@ -21,13 +21,16 @@ public class RequestDTO {
 	// Used for forms
 	private String userMail;
 
+	// Used for visualization
+	private String userName;
+
 	public RequestDTO() {
 
 	}
 
 	public RequestDTO(Long id, byte catsAtHome, String comment, byte dogsAtHome, byte kidsAtHome, String phone,
 			Long user, Long pet, String petName, byte petType, boolean adoptOrHost, Date creationDate, String userMail,
-			Boolean status, String rejectComment) {
+			Boolean status, String rejectComment, String userName) {
 		this.id = id;
 		this.catsAtHome = catsAtHome;
 		this.comment = comment;
@@ -43,6 +46,7 @@ public class RequestDTO {
 		this.userMail = userMail;
 		this.status = status;
 		this.rejectComment = rejectComment;
+		this.userName = userName;
 	}
 
 	public Long getId() {
@@ -163,6 +167,14 @@ public class RequestDTO {
 
 	public void setPetType(byte petType) {
 		this.petType = petType;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

@@ -20,6 +20,7 @@
             <li><a><button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="loginModal.open()"><span translate="menu.login"></span></button></a></li>
             <li><a><button class="btn btn-default" *ngIf="userService.loggedUser == null" (click)="registerModal.open()"><span translate="menu.createUser"></span></button></a></li>
             <li><a><button id="myAccountBtn" class="btn btn-default" *ngIf="userService.loggedUser != null" [routerLink]="['/myAccount']" (click)="changeMenu('myAccountBtn')"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<span translate="menu.account"></span>: {{userService.loggedUser.principal.username}}</button></a></li>
+            <li><a><button class="btn btn-default" *ngIf="userService.loggedUser != null" (click)="logout()"><i class="glyphicon glyphicon-off"></i>&nbsp;&nbsp;<span translate="menu.logout"></span></button></a></li>
             <li><a><span class="lang-lg" lang="en" (click)="changeLanguage('en')"></span>&nbsp;&nbsp;&nbsp;<span class="lang-lg" lang="es" (click)="changeLanguage('es')"></span></a></li>
         </ul>
     </div>
@@ -28,7 +29,7 @@
 <!-- Modal de registro -->
 <modal #registerModal (keyup.enter)="submitRegisterForm()" (onDismiss)="resetRegisterForm()" >
     <modal-header [show-close]="true">
-        <h4 class="modal-title"><span translate="menu.login"></span></h4>
+        <h4 class="modal-title"><span translate="menu.createUser"></span></h4>
     </modal-header>
     <modal-body>
     	<form class="form-horizontal" [formGroup]="registerForm">

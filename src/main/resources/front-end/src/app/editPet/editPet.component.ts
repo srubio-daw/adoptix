@@ -192,6 +192,8 @@ export class EditPetComponent {
     showAdditionalInfo : boolean = true;
     editEnabled : boolean = false;
 
+    modalTitle : string = null;
+
     petId : number = null;
     pet : any = {};
     petVaccines : any = [];
@@ -501,6 +503,7 @@ export class EditPetComponent {
     }
 
     editVaccine(vaccine : any) {
+        this.modalTitle = "pet.editVaccine";
         this.vaccineId.setValue(vaccine.id);
         this.vaccinePetId.setValue(vaccine.petId);
         this.vaccineName.setValue(vaccine.name);
@@ -510,6 +513,7 @@ export class EditPetComponent {
     }
 
     editVetVisit(vetVisit : any) {
+        this.modalTitle = "pet.editVetVisit";
         this.vetVisitId.setValue(vetVisit.id);
         this.vetVisitPetId.setValue(vetVisit.petId);
         this.vetVisitCost.setValue(vetVisit.cost);
@@ -519,6 +523,7 @@ export class EditPetComponent {
     }
 
     editMedicalTest(medicalTest : any) {
+        this.modalTitle = "pet.editMedicalTest";
         this.medicalTestId.setValue(medicalTest.id);
         this.medicalTestPetId.setValue(medicalTest.petId);
         this.medicalTestName.setValue(medicalTest.name);
@@ -542,6 +547,13 @@ export class EditPetComponent {
       }
 
     openModal(modal : ModalComponent) {
+        if (modal == this.vaccineModal) {
+            this.modalTitle = "pet.newVaccine";
+        } else if (modal == this.medicalTestModal) {
+            this.modalTitle = "pet.newMedicalTest";
+        } else {
+            this.modalTitle = "pet.newVetVisit";
+        }
         modal.open();
     }
 

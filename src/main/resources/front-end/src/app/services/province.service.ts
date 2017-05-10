@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ProvinceService {
-	private getUrl : string = environment.apiUrl + "/provinces";
+	private getUrl : string = environment.apiUrl + "provinces";
 
 	constructor (private http: Http) {}
 

@@ -11,15 +11,15 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class UserService {
-	url : string = environment.apiUrl + "/user";
+	url : string = environment.apiUrl + "user";
 	headers : Headers =  new Headers({ 'Content-Type': 'application/json' });
 	formHeaders : Headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 	options : RequestOptions = new RequestOptions({ headers: this.headers });
 	formOptions : RequestOptions = new RequestOptions({ headers: this.formHeaders });
 
 	// Testing
-	loggedUser : any = {"authorities":[{"authority":"asociacion"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"patitas@gmail.com","authorities":[{"authority":"asociacion"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"patitas@gmail.com"};
-	//loggedUser : Object = null;
+	//loggedUser : any = {"authorities":[{"authority":"asociacion"}],"details":null,"authenticated":true,"principal":{"password":null,"username":"patitas@gmail.com","authorities":[{"authority":"asociacion"}],"accountNonExpired":true,"accountNonLocked":true,"credentialsNonExpired":true,"enabled":true},"credentials":null,"name":"patitas@gmail.com"};
+	loggedUser : any = null;
 
 	constructor (private http: Http) {}
 

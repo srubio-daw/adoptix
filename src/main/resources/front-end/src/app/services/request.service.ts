@@ -11,7 +11,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable()
 export class RequestService {
-	url : string = environment.apiUrl + "/request";
+	url : string = environment.apiUrl + "request";
 	headers : Headers =  new Headers({ 'Content-Type': 'application/json' });
 	formHeaders : Headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 	options : RequestOptions = new RequestOptions({ headers: this.headers });

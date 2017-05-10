@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   apiUrl: './',
-  i18nPath: '/adoptix'
+  i18nPath: '/adoptix/'
 };

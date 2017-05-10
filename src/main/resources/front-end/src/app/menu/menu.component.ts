@@ -77,6 +77,9 @@ export class MenuComponent {
     	// Active current menu
     	$('#menuBar button').removeClass('btn-success');
     	$('#menuBar button').addClass('btn-default');
+    	if (currentRoute == null || currentRoute == "") {
+    		currentRoute = "home";
+    	}
     	$('#' + currentRoute + "Btn").addClass('btn-success');
     }
 

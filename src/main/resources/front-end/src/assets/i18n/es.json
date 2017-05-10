@@ -75,6 +75,9 @@
 		"newVaccine": "Nueva vacuna",
 		"newMedicalTest": "Nueva prueba médica",
 		"newVetVisit": "Nueva visita veterinaria",
+		"editVaccine": "Editar vacuna",
+		"editMedicalTest": "Editar prueba médica",
+		"editVetVisit": "Editar visita veterinaria",
 		"minAge": "Edad mínima (meses)",
 		"maxAge": "Edad máxima (meses)",
 		"requestAdoption": "Solicitar adopción",
@@ -133,6 +136,7 @@
 		"status": "Estado",
 		"accepted": "Aceptada",
 		"rejected": "Rechazada",
-		"rejectComment": "Motivo rechazo"
+		"rejectComment": "Motivo rechazo",
+		"user": "Usuario"
 	}
 }

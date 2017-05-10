@@ -35,7 +35,7 @@ public class RequestService extends DTOService<RequestDTO, Request, Long> {
 				object.getDogsAtHome(), object.getKidsAtHome(), object.getPhone(), object.getUser().getId(),
 				object.getPet().getId(), object.getPet().getName(), object.getPet().getPetType(),
 				object.isAdoptOrHost(), object.getCreationDate(), object.getUser().getMail(), object.getStatus(),
-				object.getRejectComment());
+				object.getRejectComment(), object.getUser().getName());
 		return dto;
 	}
 

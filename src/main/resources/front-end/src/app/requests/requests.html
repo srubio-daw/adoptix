@@ -23,7 +23,7 @@
 						<tbody>
 							<tr *ngIf="pendingRequests.length == 0"><td colspan="9"><span translate="grid.noData"></span></td></tr>
 							<tr *ngFor="let request of pendingRequests">
-								<td>{{request.petName}}</td>
+								<td><a [routerLink]="['/pet/' + request.pet]">{{request.petName}}</a></td>
 								<td>{{getPetTypeLabel(request.petType) | translate}}</td>
 								<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
 								<td class="min-width">{{request.creationDate}}</td>

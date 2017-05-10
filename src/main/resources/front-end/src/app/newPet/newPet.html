@@ -210,6 +210,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
+										<th><span translate="request.user"></span></th>
 										<th><span translate="request.type"></span></th>
 										<th class="min-width"><span translate="request.date"></span></th>
 										<th><span translate="request.dogs"></span></th>
@@ -221,8 +222,9 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr *ngIf="pendingRequests.length == 0"><td colspan="8"><span translate="grid.noData"></span></td></tr>
+									<tr *ngIf="pendingRequests.length == 0"><td colspan="9"><span translate="grid.noData"></span></td></tr>
 									<tr *ngFor="let request of pendingRequests">
+										<td>{{request.userName}}</td>
 										<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
 										<td class="min-width">{{request.creationDate}}</td>
 										<td>{{request.dogsAtHome}}</td>
@@ -269,6 +271,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
+										<th><span translate="request.user"></span></th>
 										<th><span translate="request.type"></span></th>
 										<th class="min-width"><span translate="request.date"></span></th>
 										<th><span translate="request.dogs"></span></th>
@@ -281,8 +284,9 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr *ngIf="managedRequests.length == 0"><td colspan="9"><span translate="grid.noData"></span></td></tr>
+									<tr *ngIf="managedRequests.length == 0"><td colspan="10"><span translate="grid.noData"></span></td></tr>
 									<tr *ngFor="let request of managedRequests">
+										<td>{{request.userName}}</td>
 										<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
 										<td class="min-width">{{request.creationDate}}</td>
 										<td>{{request.dogsAtHome}}</td>
@@ -471,9 +475,9 @@
 
 
 <!-- Modal de vacunas -->
-<modal *ngIf="showAdditionalInfo" #vaccineModal (keyup.enter)="submitVaccineForm()" >
+<modal *ngIf="showAdditionalInfo" #vaccineModal (keyup.enter)="submitVaccineForm()" (onDismiss)="resetForm(vaccineForm)">
     <modal-header [show-close]="true">
-        <h4 class="modal-title"><span translate="pet.newVaccine"></span></h4>
+        <h4 class="modal-title">{{modalTitle | translate}}</h4>
     </modal-header>
     <modal-body>
     	<form class="form-horizontal" [formGroup]="vaccineForm">
@@ -509,9 +513,9 @@
     </modal-footer>
 </modal>
 <!-- Modal de visitas veterinarias -->
-<modal *ngIf="showAdditionalInfo" #vetVisitModal (keyup.enter)="submitVetVisitForm()" >
+<modal *ngIf="showAdditionalInfo" #vetVisitModal (keyup.enter)="submitVetVisitForm()" (onDismiss)="resetForm(vetVisitForm)">
     <modal-header [show-close]="true">
-        <h4 class="modal-title"><span translate="pet.newVetVisit"></span></h4>
+        <h4 class="modal-title">{{modalTitle | translate}}</h4>
     </modal-header>
     <modal-body>
     	<form class="form-horizontal" [formGroup]="vetVisitForm">
@@ -548,9 +552,9 @@
     </modal-footer>
 </modal>
 <!-- Modal de pruebas médicas -->
-<modal *ngIf="showAdditionalInfo" #medicalTestModal (keyup.enter)="submitMedicalTestForm()">
+<modal *ngIf="showAdditionalInfo" #medicalTestModal (keyup.enter)="submitMedicalTestForm()" (onDismiss)="resetForm(medicalTestForm)">
     <modal-header [show-close]="true">
-        <h4 class="modal-title"><span translate="pet.newMedicalTest"></span></h4>
+        <h4 class="modal-title">{{modalTitle | translate}}</h4>
     </modal-header>
     <modal-body>
     	<form class="form-horizontal" [formGroup]="medicalTestForm">
@@ -587,7 +591,7 @@
 </modal>
 
 <!-- Modal de rechazar solicitud -->
-<modal *ngIf="showAdditionalInfo" #rejectRequestModal (keyup.enter)="submitRejectRequestForm()">
+<modal *ngIf="showAdditionalInfo" #rejectRequestModal (keyup.enter)="submitRejectRequestForm()" (onDismiss)="resetForm(rejectRequestForm)">
     <modal-header [show-close]="true">
         <h4 class="modal-title"><span translate="request.rejectRequest"></span></h4>
     </modal-header>

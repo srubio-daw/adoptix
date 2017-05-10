@@ -75,6 +75,9 @@
 		"newVaccine": "New vaccine",
 		"newMedicalTest": "New medical test",
 		"newVetVisit": "New vet visit",
+		"editVaccine": "Edit vaccine",
+		"editMedicalTest": "Edit medical test",
+		"editVetVisit": "Edit vet visit",
 		"minAge": "Min age (months)",
 		"maxAge": "Max age (months)",
 		"requestAdoption": "Request adoption",
@@ -133,6 +136,7 @@
 		"status": "Status",
 		"accepted": "Accepted",
 		"rejected": "Rejected",
-		"rejectComment": "Reject comment"
+		"rejectComment": "Reject comment",
+		"user": "User"
 	}
 }
