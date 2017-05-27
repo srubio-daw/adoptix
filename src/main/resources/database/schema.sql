@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS request;
 DROP TABLE IF EXISTS vet_visit;
 DROP TABLE IF EXISTS vet_test;
@@ -94,4 +95,10 @@ CREATE TABLE request (
 	creation_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	status boolean,
 	reject_comment character varying(200)
+);
+
+CREATE TABLE favorite (
+	user_id bigint NOT NULL,
+	pet_id bigint NOT NULL,
+	CONSTRAINT favorite_pk PRIMARY KEY (user_id, pet_id)
 );
