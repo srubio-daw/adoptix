@@ -1,0 +1,384 @@
+<div class="row">
+	<div class="col-md-12 text-center">
+		<h1>{{'menu.petDetail' | translate}}</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6 col-xs-12 big-image">
+		<img class="img-responsive" [src]="petService.getImageUrl(pet.id)">
+	</div>
+	<div class="col-md-6 col-xs-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading clearfix">
+				<div class="panel-title text-center">
+					<span translate="pet.generalInfo"></span>
+				</div>
+			</div>
+			<div class="panel-body row">
+				<div class="col-md-12">
+					<div class="row visible-md visible-lg">
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.name"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{pet.name}}
+						</div>
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.breed"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{pet.breed}}
+						</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.name"></span>: </strong>{{pet.name}}
+			        	</div>
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.breed"></span>: </strong>{{pet.breed}}
+			        	</div>
+		        	</div>
+		        	<div class="row visible-md visible-lg">
+		        		<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.type"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{getPetTypeLabel(pet.petType) | translate}}
+						</div>
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.gender"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{getGenderLabel(pet.gender) | translate}}
+						</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.type"></span>: </strong>{{getPetTypeLabel(pet.petType) | translate}}
+			        	</div>
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.gender"></span>: </strong>{{getGenderLabel(pet.gender) | translate}}
+			        	</div>
+		        	</div>
+		        	<div class="row visible-md visible-lg">
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.age"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{pet.age}}
+						</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.age"></span>: </strong>{{pet.age}}
+						</div>
+		        	</div>
+		        	<hr>
+			        <div class="row visible-md visible-lg">
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.adopter"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{getAdopterName(pet.adopterName) | translate}}
+						</div>
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.host"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{getHostName(pet.hostName) | translate}}
+						</div>
+					</div>
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.adopter"></span>: </strong>{{getAdopterName(pet.adopterName) | translate}}
+			        	</div>
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.host"></span>: </strong>{{getHostName(pet.hostName) | translate}}
+			        	</div>
+					</div>
+					<div class="row visible-md visible-lg">
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.forAdoption"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		<i [class]="getCheckboxIcon(pet.forAdoption)"></i>
+						</div>
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.forHost"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		<i [class]="getCheckboxIcon(pet.forHost)"></i>
+						</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.forAdoption"></span>: </strong><i [class]="getCheckboxIcon(pet.forAdoption)"></i>
+						</div>
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.forHost"></span>: </strong><i [class]="getCheckboxIcon(pet.forHost)"></i>
+						</div>
+		        	</div>
+		        	<div class="row visible-md visible-lg">
+						<div class="col-md-6 text-center" *ngIf="pet.forAdoption && allowedToAdopt">
+			        		<button class="btn btn-default margin-top" (click)="adopt()"><span translate="pet.requestAdoption"></span></button>
+			        	</div>
+			        	<div class="col-md-6 text-center" *ngIf="pet.forHost && allowedToHost">
+			        		<button class="btn btn-default margin-top" (click)="host()"><span translate="pet.requestHost"></span></button>
+			        	</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-md-6 text-center" *ngIf="pet.forAdoption && allowedToAdopt">
+			        		<button class="btn btn-default margin-top" (click)="adopt()"><span translate="pet.requestAdoption"></span></button>
+			        	</div>
+			        	<div class="col-md-6 text-center" *ngIf="pet.forHost && allowedToHost">
+			        		<button class="btn btn-default margin-top" (click)="host()"><span translate="pet.requestHost"></span></button>
+			        	</div>
+		        	</div>
+		        	<hr>
+					<div class="row visible-md visible-lg">
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.dogsAffinity"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		<i [class]="getCheckboxIcon(pet.dogsAffinity)"></i>
+						</div>
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.catsAffinity"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		<i [class]="getCheckboxIcon(pet.catsAffinity)"></i>
+						</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.dogsAffinity"></span>: </strong><i [class]="getCheckboxIcon(pet.dogsAffinity)"></i>
+						</div>
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.catsAffinity"></span>: </strong><i [class]="getCheckboxIcon(pet.catsAffinity)"></i>
+						</div>
+		        	</div>
+		        	<div class="row visible-md visible-lg">
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.kidsAffinity"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		<i [class]="getCheckboxIcon(pet.kidsAffinity)"></i>
+						</div>
+						<div class="col-md-3 text-right">
+			        		<strong><span translate="pet.location"></span>: </strong>
+			        	</div>
+			        	<div class="col-md-3">
+			        		{{pet.locationName}}
+						</div>
+		        	</div>
+		        	<div class="row hidden-md hidden-lg">
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.kidsAffinity"></span>: </strong><i [class]="getCheckboxIcon(pet.kidsAffinity)"></i>
+						</div>
+						<div class="col-xs-5 col-xs-offset-1">
+			        		<strong><span translate="pet.location"></span>: </strong>{{pet.locationName}}
+						</div>
+		        	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6 col-xs-12">
+		<div class="panel panel-success">
+			<div class="panel-heading text-center">
+				<div class="panel-title"><span translate="pet.vaccines"></span></div>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span translate="pet.vaccine"></span></th>
+								<th><span translate="pet.description"></span></th>
+								<th><span translate="pet.appliedOn"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="petVaccines.length == 0"><td colspan="3"><span translate="grid.noData"></span></td></tr>
+							<tr *ngFor="let vaccine of petVaccines">
+								<td>{{vaccine.name}}</td>
+								<td>{{vaccine.description}}</td>
+								<td>{{vaccine.appliedOn}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row" *ngIf="petVaccines.length != 0">
+						<div class="col-md-12">
+							<span translate="grid.rows"></span>
+							<select [(ngModel)]="vaccinesPagination.rows" (change)="getPetVaccines(true)">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<span translate="grid.page"></span>
+							<select [(ngModel)]="vaccinesPagination.page" (change)="getPetVaccines(false)">
+								<option *ngFor="let page of vaccinesPagination.pages" [value]="page">{{page}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6 col-xs-12">
+		<div class="panel panel-warning">
+			<div class="panel-heading text-center">
+				<div class="panel-title"><span translate="pet.medicalTests"></span></div>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span translate="pet.medicalTest"></span></th>
+								<th><span translate="pet.description"></span></th>
+								<th><span translate="pet.appliedOn"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="petMedicalTests.length == 0"><td colspan="3"><span translate="grid.noData"></span></td></tr>
+							<tr *ngFor="let medicalTest of petMedicalTests">
+								<td>{{medicalTest.name}}</td>
+								<td>{{medicalTest.description}}</td>
+								<td>{{medicalTest.appliedOn}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row" *ngIf="petMedicalTests.length != 0">
+						<div class="col-md-12">
+							<span translate="grid.rows"></span>
+							<select [(ngModel)]="medicalTestsPagination.rows" (change)="getPetMedicalTests(true)">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<span translate="grid.page"></span>
+							<select [(ngModel)]="medicalTestsPagination.page" (change)="getPetMedicalTests(false)">
+								<option *ngFor="let page of medicalTestsPagination.pages" [value]="page">{{page}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="panel panel-danger">
+			<div class="panel-heading text-center">
+				<div class="panel-title"><span translate="pet.vetVisits"></span></div>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span translate="pet.description"></span></th>
+								<th><span translate="pet.visitDate"></span></th>
+								<th><span translate="pet.cost"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="petVetVisits.length == 0"><td colspan="3"><span translate="grid.noData"></span></td></tr>
+							<tr *ngFor="let vetVisit of petVetVisits">
+								<td>{{vetVisit.description}}</td>
+								<td>{{vetVisit.visitDate}}</td>
+								<td>{{vetVisit.cost}} €</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row" *ngIf="petVetVisits.length != 0">
+						<div class="col-md-12">
+							<span translate="grid.rows"></span>
+							<select [(ngModel)]="vetVisitsPagination.rows" (change)="getPetVetVisits(true)">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<span translate="grid.page"></span>
+							<select [(ngModel)]="vetVisitsPagination.page" (change)="getPetVetVisits(false)">
+								<option *ngFor="let page of vetVisitsPagination.pages" [value]="page">{{page}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal de petición -->
+<modal #requestModal (keyup.enter)="submitRequestForm()" >
+    <modal-header [show-close]="true">
+        <h4 class="modal-title"><span *ngIf="adoptOrHost.value" translate="pet.requestAdoption"></span><span *ngIf="!adoptOrHost.value" translate="pet.requestHost"></span></h4>
+    </modal-header>
+    <modal-body>
+    	<form class="form-horizontal" [formGroup]="requestForm">
+        	<div class="form-group" [ngClass]="{'has-error': phone.touched && !phone.valid}">
+    			<label class="control-label col-md-3"><span translate="request.phone"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="text" [formControl]="phone">
+                    <div *ngIf="phone.touched && !phone.valid">
+                        <span class="help-block" *ngIf="phone.hasError('required')" translate="form.required"></span>
+                        <span class="help-block" *ngIf="!phone.hasError('required') && phone.hasError('phone')" translate="form.phone"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': dogsAtHome.touched && !dogsAtHome.valid}">
+    			<label class="control-label col-md-3"><span translate="request.dogsAtHome"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="number" step="1" min="0" [formControl]="dogsAtHome">
+                    <div *ngIf="dogsAtHome.touched && !dogsAtHome.valid">
+                    	<span class="help-block" *ngIf="dogsAtHome.hasError('required')" translate="form.required"></span>
+                    	<span class="help-block" *ngIf="!dogsAtHome.hasError('required') && dogsAtHome.hasError('integer')" translate="form.required"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': catsAtHome.touched && !catsAtHome.valid}">
+    			<label class="control-label col-md-3"><span translate="request.catsAtHome"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="number" step="1" min="0" [formControl]="catsAtHome">
+                    <div *ngIf="catsAtHome.touched && !catsAtHome.valid">
+                    	<span class="help-block" *ngIf="catsAtHome.hasError('required')" translate="form.required"></span>
+                    	<span class="help-block" *ngIf="!catsAtHome.hasError('required') && catsAtHome.hasError('integer')" translate="form.required"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group" [ngClass]="{'has-error': kidsAtHome.touched && !kidsAtHome.valid}">
+    			<label class="control-label col-md-3"><span translate="request.kidsAtHome"></span></label>
+    			<div class="col-md-9">
+    				<input class="form-control" type="number" step="1" min="0" [formControl]="kidsAtHome">
+                    <div *ngIf="kidsAtHome.touched && !kidsAtHome.valid">
+                    	<span class="help-block" *ngIf="kidsAtHome.hasError('required')" translate="form.required"></span>
+                    	<span class="help-block" *ngIf="!kidsAtHome.hasError('required') && kidsAtHome.hasError('integer')" translate="form.required"></span>
+                    </div>
+    			</div>
+    		</div>
+    		<div class="form-group">
+    			<label class="control-label col-md-3"><span translate="request.comment"></span></label>
+    			<div class="col-md-9">
+    				<textarea class="form-control" [formControl]="comment" rows="3"></textarea>
+    			</div>
+    		</div>
+    	</form>
+    </modal-body>
+    <modal-footer [show-default-buttons]="false">
+    	<button type="button" class="btn btn-default" data-dismiss="modal" (click)="resetRequestForm()">
+            <span translate="button.cancel"></span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="submitRequestForm()">
+           	<span *ngIf="adoptOrHost.value" translate="pet.requestAdoption"></span><span *ngIf="!adoptOrHost.value" translate="pet.requestHost"></span>
+        </button>
+    </modal-footer>
+</modal>
+<error-modal></error-modal>

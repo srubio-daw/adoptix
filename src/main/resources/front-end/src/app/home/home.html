@@ -1,0 +1,216 @@
+<div class="row">
+	<div class="panel panel-primary">
+		<div class="panel-heading text-center">
+			<div class="panel-title"><span translate="menu.search"></span></div>
+		</div>
+		<div class="panel-body">
+			<form class="form-inline" [formGroup]="searchForm">
+				<div>
+					<div class="form-group col-md-1">
+						<div><label><span translate="pet.type"></span></label></div>
+		        		<select [formControl]="petType" class="form-control">
+		        			<option value="-1"><span translate="form.all"></span></option>
+		        			<option value="1"><span translate="pet.dog"></span></option>
+		        			<option value="2"><span translate="pet.cat"></span></option>
+		        		</select>
+					</div>
+					<div class="form-group col-md-1">
+						<div><label><span translate="pet.gender"></span></label></div>
+		        		<select [formControl]="gender" class="form-control">
+		        			<option value="-1"><span translate="form.all"></span></option>
+		        			<option value="m"><span translate="pet.male"></span></option>
+		        			<option value="f"><span translate="pet.female"></span></option>
+		        		</select>
+					</div>
+					<div class="form-group col-md-2">
+						<div><label><span translate="pet.location"></span></label></div>
+						<select class="form-control" [formControl]="location">
+	                        <option value="-1"><span translate="form.all"></span></option>
+	    					<option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
+	    				</select>
+					</div>
+					<div class="form-group col-md-2" [ngClass]="{'has-error': minAge.touched && !minAge.valid}">
+						<div><label><span translate="pet.minAge"></span></label></div>
+		        		<input class="form-control" type="number" [formControl]="minAge" step="1" min="0">
+		        		<span class="help-block" *ngIf="minAge.touched && minAge.hasError('integer')" translate="form.integer"></span>
+					</div>
+					<div class="form-group col-md-2" [ngClass]="{'has-error': maxAge.touched && !maxAge.valid}">
+						<div><label><span translate="pet.maxAge"></span></label></div>
+		        		<input class="form-control" type="number" [formControl]="maxAge" step="1" min="0">
+		        		<span class="help-block" *ngIf="maxAge.touched && maxAge.hasError('integer')" translate="form.integer"></span>
+					</div>
+					<div class="form-group col-md-2 text-right">
+						<div><label class="control-label label-inline"><span translate="pet.dogsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="dogsAffinity"></label></div>
+						<div><label class="control-label label-inline"><span translate="pet.catsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="catsAffinity"></label></div>
+						<div><label class="control-label label-inline"><span translate="pet.kidsAffinity"></span>&nbsp;&nbsp;&nbsp;<input type="checkbox" [formControl]="kidsAffinity"></label></div>
+					</div>
+					<div class="col-md-2 text-center">
+						<div>&nbsp;</div>
+						<button class="btn btn-default" [disabled]="!searchForm.valid" (click)="getPets()"><i class="glyphicon glyphicon-search"></i>&nbsp;&nbsp;<span translate="button.search"></span></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div *ngIf="pets.length == 0">
+	<div class="row"><div class="col-md-12 text-center">
+	<span translate="grid.noData"></span>
+	</div></div>
+</div>
+<div *ngFor="let pet of pets" class="row">
+	<div class="panel panel-info">
+		<div class="panel-heading visible-md visible-lg">
+			<div class="row">
+				<div class="col-md-2"><strong>{{pet.name}}</strong></div>
+				<div class="col-md-1">
+					{{getPetTypeLabel(pet.petType) | translate}}
+					&nbsp;&nbsp;
+					<i [class]="getGenderIcon(pet.gender)" aria-hidden="true"></i>
+				</div>
+				<button class="pull-right button-panel-header" [routerLink]="['/pet/' + pet.id]"><span translate="button.detail"></span></button>
+				<div class="col-md-1 pull-right">{{pet.locationName}}</div>
+			</div>
+		</div>
+		<div class="panel-heading hidden-md hidden-lg">
+			<div class="row">
+				<div class="col-xs-2"><strong>{{pet.name}}</strong></div>
+				<div class="col-xs-3">
+					{{getPetTypeLabel(pet.petType) | translate}}
+					&nbsp;&nbsp;
+					<i [class]="getGenderIcon(pet.gender)" aria-hidden="true"></i>
+				</div>
+				<div class="col-xs-5">
+					<button class="button-panel-header" [routerLink]="['/pet/' + pet.id]"><span translate="button.detail"></span></button>
+				</div>
+				<div class="col-xs-2"><span>{{pet.locationName}}</span></div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-2 col-xs-12 text-center little-image">
+					<img class="img-responsive" [src]="petService.getImageUrl(pet.id)">
+				</div>
+				<div class="col-md-6">
+					<!-- MOVILES -->
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.breed">: </span></strong>
+							{{pet.breed}}
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.age">: </span></strong>
+							{{pet.age}}
+						</div>
+					</div>
+					<hr class="hidden-md hidden-lg">
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.forAdoption">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.forAdoption)"></i>
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.dogsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.dogsAffinity)"></i>
+						</div>
+					</div>
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.forHost">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.forHost)"></i>
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.catsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.catsAffinity)"></i>
+						</div>
+					</div>
+					<div class="row hidden-md hidden-lg">
+						<div class="col-xs-6">
+						</div>
+						<div class="col-xs-6 text-right">
+							<strong><span translate="pet.kidsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.kidsAffinity)"></i>
+						</div>
+					</div>
+					<hr class="hidden-md hidden-lg">
+					<!-- PANTALLAS -->
+					<div class="row visible-md visible-lg">
+						<div class="col-md-4 text-right">
+							<strong><span translate="pet.forAdoption">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.forAdoption)"></i>
+						</div>
+						<div class="col-md-4 text-right">
+							<strong><span translate="pet.dogsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.dogsAffinity)"></i>
+						</div>
+						<div class="col-md-4">
+							<strong><span translate="pet.breed">: </span></strong>
+							{{pet.breed}}
+						</div>
+					</div>
+					<div class="row visible-md visible-lg">
+						<div class="col-md-4 text-right">
+							<strong><span translate="pet.forHost">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.forHost)"></i>
+						</div>
+						<div class="col-md-4 text-right">
+							<strong><span translate="pet.catsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.catsAffinity)"></i>
+						</div>
+						<div class="col-md-4">
+							<strong><span translate="pet.age">: </span></strong>
+							{{pet.age}}
+						</div>
+					</div>
+					<div class="row visible-md visible-lg">
+						<div class="col-md-4 text-right">
+						</div>
+						<div class="col-md-4 text-right">
+							<strong><span translate="pet.kidsAffinity">: </span></strong>
+							&nbsp;&nbsp;
+							<i [class]="getCheckboxIcon(pet.kidsAffinity)"></i>
+						</div>
+						<div class="col-md-4 text-right">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-xs-12">
+					<div class="row">
+						<div class="col-md-12">
+							<strong><span translate="pet.description"></span>: </strong>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							{{pet.description}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row" *ngIf="pets.length != 0">
+	<div class="col-md-12">
+		<span translate="grid.rows"></span>
+		<select [(ngModel)]="pagination.rows" (change)="refreshTable(true)">
+			<option value="20">20</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<span translate="grid.page"></span>
+		<select [(ngModel)]="pagination.page" (change)="refreshTable(false)">
+			<option *ngFor="let page of pagination.pages" [value]="page">{{page}}</option>
+		</select>
+	</div>
+</div>

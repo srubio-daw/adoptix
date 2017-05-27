@@ -1,0 +1,119 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title"><span translate="pet.pendingRequests"></span></div>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span translate="pet.name"></span></th>
+								<th><span translate="pet.type"></span></th>
+								<th><span translate="request.type"></span></th>
+								<th class="min-width"><span translate="request.date"></span></th>
+								<th><span translate="request.dogs"></span></th>
+								<th><span translate="request.cats"></span></th>
+								<th><span translate="request.kids"></span></th>
+								<th><span translate="request.phone"></span></th>
+								<th class="max-width"><span translate="request.comment"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="pendingRequests.length == 0"><td colspan="9"><span translate="grid.noData"></span></td></tr>
+							<tr *ngFor="let request of pendingRequests">
+								<td><a [routerLink]="['/pet/' + request.pet]">{{request.petName}}</a></td>
+								<td>{{getPetTypeLabel(request.petType) | translate}}</td>
+								<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
+								<td class="min-width">{{request.creationDate}}</td>
+								<td>{{request.dogsAtHome}}</td>
+								<td>{{request.catsAtHome}}</td>
+								<td>{{request.kidsAtHome}}</td>
+								<td>{{request.phone}}</td>
+								<td class="max-width">{{request.comment}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row" *ngIf="pendingRequests.length != 0">
+						<div class="col-md-12">
+							<span translate="grid.rows"></span>
+							<select [(ngModel)]="pendingRequestsPagination.rows" (change)="getPendingRequests(true)">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<span translate="grid.page"></span>
+							<select [(ngModel)]="pendingRequestsPagination.page" (change)="getPendingRequests(false)">
+								<option *ngFor="let page of pendingRequestsPagination.pages" [value]="page">{{page}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<div class="panel-title"><span translate="pet.managedRequests"></span></div>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span translate="pet.name"></span></th>
+								<th><span translate="pet.type"></span></th>
+								<th><span translate="request.type"></span></th>
+								<th class="min-width"><span translate="request.date"></span></th>
+								<th><span translate="request.dogs"></span></th>
+								<th><span translate="request.cats"></span></th>
+								<th><span translate="request.kids"></span></th>
+								<th><span translate="request.phone"></span></th>
+								<th class="max-width"><span translate="request.comment"></span></th>
+								<th><span translate="request.status"></span>
+								<th class="max-width"><span translate="request.rejectComment"></span>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngIf="managedRequests.length == 0"><td colspan="11"><span translate="grid.noData"></span></td></tr>
+							<tr *ngFor="let request of managedRequests">
+								<td>{{request.petName}}</td>
+								<td>{{getPetTypeLabel(request.petType) | translate}}</td>
+								<td>{{getRequestType(request.adoptOrHost) | translate}}</td>
+								<td class="min-width">{{request.creationDate}}</td>
+								<td>{{request.dogsAtHome}}</td>
+								<td>{{request.catsAtHome}}</td>
+								<td>{{request.kidsAtHome}}</td>
+								<td>{{request.phone}}</td>
+								<td class="max-width">{{request.comment}}</td>
+								<td>{{getStatus(request.status) | translate}}</td>
+								<td class="max-width">{{request.rejectComment}}
+							</tr>
+						</tbody>
+					</table>
+					<div class="row" *ngIf="managedRequests.length != 0">
+						<div class="col-md-12">
+							<span translate="grid.rows"></span>
+							<select [(ngModel)]="managedRequestsPagination.rows" (change)="getManagedRequests(true)">
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="20">20</option>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<span translate="grid.page"></span>
+							<select [(ngModel)]="managedRequestsPagination.page" (change)="getManagedRequests(false)">
+								<option *ngFor="let page of managedRequestsPagination.pages" [value]="page">{{page}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

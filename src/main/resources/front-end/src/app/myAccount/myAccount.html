@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center"><span translate="myAccount.myData"></span></h1>
+        <form class="form-horizontal" [formGroup]="registerForm">
+            <div class="row" *ngIf="dataChangeSuccess">
+                <div class="col-md-12 text-center">
+                    <label class="control-label has-success">
+                        <span class="help-block" translate="myAccount.dataChanged"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="row" *ngIf="duplicated != null">
+                <div class="col-md-12 text-center">
+                    <label class="control-label has-error">
+                         <span class="help-block" *ngIf="duplicated != null" [translate]="duplicated"></span>
+                    </label>
+                </div>
+            </div>
+        	<div class="form-group" [ngClass]="{'has-error': association.touched && !association.valid}">
+        		<label class="control-label col-md-5 text-right"><span translate="register.association"></span></label>
+        		<label class="control-label label-inline col-md-2"><span translate="form.yes"></span> <input type="radio" value="true" [formControl]="association" (focus)="clearDataMessage()"></label>
+        		<label class="control-label label-inline col-md-2"><span translate="form.no"></span> <input type="radio" value="false" [formControl]="association" (focus)="clearDataMessage()"></label>
+        		<div class="row">
+        			<div class="col-md-7 col-md-offset-4">
+        				<span class="help-block" *ngIf="association.touched && !association.valid" translate="form.required"></span>
+        			</div>
+        		</div>
+        	</div>
+        	<div class="form-group" [ngClass]="{'has-error': name.touched && !name.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="register.name"></span></label>
+        		<div class="col-md-6">
+        			<input class="form-control" type="text" [formControl]="name" (focus)="clearDataMessage()">
+        			<span class="help-block" *ngIf="name.touched && !name.valid" translate="form.required"></span>
+        		</div>
+        	</div>
+        	<div class="form-group" *ngIf="association.value=='false'" [ngClass]="{'has-error': surname.touched && !surname.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="register.surname"></span></label>
+        		<div class="col-md-6">
+        			<input class="form-control" type="text" [formControl]="surname" (focus)="clearDataMessage()">
+        			<span class="help-block" *ngIf="surname.touched && !surname.valid" translate="form.required"></span>
+        		</div>
+        	</div>
+        	<div class="form-group" *ngIf="association.value=='true'" [ngClass]="{'has-error': nif.touched && !nif.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="register.id"></span></label>
+        		<div class="col-md-6">
+        			<input class="form-control" type="text" [formControl]="nif" (focus)="clearDataMessage()">
+        			<span class="help-block" *ngIf="nif.touched && !nif.valid" translate="form.required"></span>
+        		</div>
+        	</div>
+        	<div class="form-group" [ngClass]="{'has-error': address.touched && !address.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="register.address"></span></label>
+        		<div class="col-md-6">
+        			<input class="form-control" type="text" [formControl]="address" (focus)="clearDataMessage()">
+        			<span class="help-block" *ngIf="address.touched && !address.valid" translate="form.required"></span>
+        		</div>
+        	</div>
+        	<div class="form-group" [ngClass]="{'has-error': province.touched && !province.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="register.province"></span></label>
+        		<div class="col-md-6">
+        			<select class="form-control" [formControl]="province" placeholder="Selecciona una provincia" (focus)="clearDataMessage()">
+                        <option value="0">{{'register.selectProvince' | translate}}</option>
+        				<option *ngFor="let province of provinces" [value]="province.id">{{province.name}}</option>
+        			</select>
+        			<span class="help-block" *ngIf="province.touched && !province.valid" translate="form.required"></span>
+        		</div>
+        	</div>
+        	<div class="form-group" [ngClass]="{'has-error': username.touched && !username.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="register.username"></span></label>
+        		<div class="col-md-6">
+        			<input class="form-control" type="text" [formControl]="username" (focus)="clearDataMessage()">
+        			<span class="help-block" *ngIf="username.touched && !username.valid" translate="form.required"></span>
+        		</div>
+        	</div>
+        	<div class="form-group" [ngClass]="{'has-error': registerMail.touched && !registerMail.valid}">
+        		<label class="control-label col-md-2 col-md-offset-2"><span translate="login.mail"></span></label>
+        		<div class="col-md-6">
+        			<input class="form-control" type="mail" [formControl]="registerMail" readonly>
+        		</div>
+        	</div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5 text-center">
+                    <button class="btn btn-primary" (click)="saveChanges()"><span translate="button.save"></span></button>
+                    <button class="btn btn-danger" (click)="clearDataForm()"><span translate="button.cancel"></span></button>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2><span translate="myAccount.changePassword"></span></h2>
+                </div>
+            </div>
+            <div [formGroup]="passwords">
+                <div class="row" *ngIf="passwordChangeSuccess">
+                    <div class="col-md-12 text-center">
+                        <label class="control-label has-success">
+                            <span class="help-block" translate="myAccount.passwordChanged"></span>
+                        </label>
+                    </div>
+                </div>
+        		<div class="form-group" [ngClass]="{'has-error': registerPass.touched && !registerPass.valid}">
+        			<label class="control-label col-md-2 col-md-offset-2"><span translate="login.password"></span></label>
+        			<div class="col-md-6">
+        				<input class="form-control" type="password" [formControl]="registerPass" (focus)="clearPasswordMessage()">
+        				<span class="help-block" *ngIf="registerPass.touched && !registerPass.valid" translate="form.required"></span>
+        			</div>
+        		</div>
+        		<div class="form-group" [ngClass]="{'has-error': passRepeat.touched && (!passRepeat.valid || passwords.hasError('matchingPasswords'))}">
+        			<label class="control-label col-md-2 col-md-offset-2"><span translate="register.passwordRepeat"></span></label>
+        			<div class="col-md-6">
+        				<input class="form-control" type="password" [formControl]="passRepeat" (focus)="clearPasswordMessage()">
+                        <div *ngIf="passRepeat.touched">
+                            <span class="help-block" *ngIf="passRepeat.hasError('required')" translate="form.required"></span>
+                            <span class="help-block" *ngIf="!passRepeat.hasError('required') && passwords.hasError('matchingPasswords')" translate="form.repeatPassword"></span>
+                        </div>
+        			</div>
+        		</div>
+            </div>
+            <div class="row">
+                <div class="col-md-2 col-md-offset-5 text-center">
+                    <button class="btn btn-primary" (click)="savePassword()"><span translate="button.save"></span></button>
+                    <button class="btn btn-danger" (click)="clearPasswordForm()"><span translate="button.cancel"></span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<error-modal></error-modal>

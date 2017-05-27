@@ -1,0 +1,8 @@
+target/
+.classpath
+.project
+.settings/
+**/.DS_Store
+src/main/resources/front-end/lib/
+src/main/resources/front-end/bin/
+src/main/resources/front-end/node/
