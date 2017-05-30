@@ -142,7 +142,13 @@ header {
 /* Header para pantallas grandes (con margen) */
 @media(min-width:767px) {
 	header {
-		margin: 2% 5% 0 5%;
+		margin: 2% 2% 0 2%;
+	}
+	.margin-extra {
+		margin-right: 5px;
+	}
+	.margin-extra-button {
+		margin-right: 15px;
 	}
 }
 @media(max-width:766px) {
@@ -162,7 +168,7 @@ menu {
 /* Menu para pantallas grandes (con margen) */
 @media(min-width:767px) {
 	menu {
-		margin: 0 5% 0 5%;
+		margin: 0 2% 0 2%;
 	}
 }
 
@@ -195,7 +201,7 @@ section {
 /* Content para pantallas grandes (con margen) */
 @media(min-width:767px) {
 	section {
-		margin: 0 5% 2% 5%;
+		margin: 0 2% 2% 2%;
 	}
 }
 
@@ -206,7 +212,7 @@ footer {
 	color: white;
 	text-align: center;
 	padding: 5px 20px;
-	margin: 2% 5% 0 5%;
+	margin: 2% 2% 0 2%;
 }
 
 /* NAVBAR */
